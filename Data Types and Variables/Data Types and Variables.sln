@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Elevator", "04_Elevator\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Special Numbers", "05_Special Numbers\05_Special Numbers.csproj", "{C2614BB6-132C-4847-A65B-50849B68A601}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_Triples of Latin Letters", "06_Triples of Latin Letters\06_Triples of Latin Letters.csproj", "{061CCD53-EAB4-429A-99D7-FB71507D1289}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C2614BB6-132C-4847-A65B-50849B68A601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2614BB6-132C-4847-A65B-50849B68A601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2614BB6-132C-4847-A65B-50849B68A601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{061CCD53-EAB4-429A-99D7-FB71507D1289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{061CCD53-EAB4-429A-99D7-FB71507D1289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{061CCD53-EAB4-429A-99D7-FB71507D1289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{061CCD53-EAB4-429A-99D7-FB71507D1289}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

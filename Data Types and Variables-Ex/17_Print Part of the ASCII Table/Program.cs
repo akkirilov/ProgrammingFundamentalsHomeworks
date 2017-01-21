@@ -15,8 +15,9 @@ namespace _17_Print_Part_of_the_ASCII_Table
 
             for (int i = start; i <= end; i++)
             {
-                Console.Write((char)i);
+                Console.Write((char)i + " ");
             }
+            Console.WriteLine();
         }
     }
 }

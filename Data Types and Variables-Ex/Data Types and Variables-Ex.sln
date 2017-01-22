@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17_Print Part of the ASCII 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18_Different Integers Size", "18_Different Integers Size\18_Different Integers Size.csproj", "{894B00E7-550E-4596-98E6-ADF5AD2D1E69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19_Thea the Photographer", "19_Thea the Photographer\19_Thea the Photographer.csproj", "{63FF8B63-FD14-4C08-9CD6-D8EA7CCCFD57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{894B00E7-550E-4596-98E6-ADF5AD2D1E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{894B00E7-550E-4596-98E6-ADF5AD2D1E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{894B00E7-550E-4596-98E6-ADF5AD2D1E69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FF8B63-FD14-4C08-9CD6-D8EA7CCCFD57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FF8B63-FD14-4C08-9CD6-D8EA7CCCFD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FF8B63-FD14-4C08-9CD6-D8EA7CCCFD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FF8B63-FD14-4C08-9CD6-D8EA7CCCFD57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

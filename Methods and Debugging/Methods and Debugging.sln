@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Draw a Filled Square", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Calculate Triangle Area", "05_Calculate Triangle Area\05_Calculate Triangle Area.csproj", "{8C71EFCB-DB29-4C45-9739-95C074801DCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_Math Power", "06_Math Power\06_Math Power.csproj", "{49BEDEFA-E4FC-4FF0-AB8D-4BACDF8AA12F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8C71EFCB-DB29-4C45-9739-95C074801DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C71EFCB-DB29-4C45-9739-95C074801DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C71EFCB-DB29-4C45-9739-95C074801DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49BEDEFA-E4FC-4FF0-AB8D-4BACDF8AA12F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BEDEFA-E4FC-4FF0-AB8D-4BACDF8AA12F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BEDEFA-E4FC-4FF0-AB8D-4BACDF8AA12F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BEDEFA-E4FC-4FF0-AB8D-4BACDF8AA12F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Blank Receipt", "01_Blank Receipt\01_Blank Receipt.csproj", "{CBC83564-3AC0-4DB5-B073-76255F6D66A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Sign of Integer Number", "02_Sign of Integer Number\02_Sign of Integer Number.csproj", "{1C69EF9C-6EBA-49D1-A71B-262B83331FC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBC83564-3AC0-4DB5-B073-76255F6D66A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC83564-3AC0-4DB5-B073-76255F6D66A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC83564-3AC0-4DB5-B073-76255F6D66A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC83564-3AC0-4DB5-B073-76255F6D66A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C69EF9C-6EBA-49D1-A71B-262B83331FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C69EF9C-6EBA-49D1-A71B-262B83331FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C69EF9C-6EBA-49D1-A71B-262B83331FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C69EF9C-6EBA-49D1-A71B-262B83331FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

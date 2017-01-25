@@ -23,16 +23,27 @@ namespace _11_Geometry_Calculator
                 case "circle":
                     area = GetCircleArea();
                     break;
+                case "rectangle":
+                    area = GetRectangleArea();
+                    break;
+            }
 
-            } //, square, rectangle and circle
             Console.WriteLine("{0:f2}", area);
+        }
+
+        private static double GetRectangleArea()
+        {
+            double width = double.Parse(Console.ReadLine());
+            double length = double.Parse(Console.ReadLine());
+
+            return (width * length);
         }
 
         private static double GetCircleArea()
         {
             double radius = double.Parse(Console.ReadLine());
 
-            return (radius * radius);
+            return (radius * radius * Math.PI);
         }
 
         private static double GetSquareArea()

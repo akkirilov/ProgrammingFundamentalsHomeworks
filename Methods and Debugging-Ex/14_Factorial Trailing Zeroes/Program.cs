@@ -23,6 +23,7 @@ namespace _14_Factorial_Trailing_Zeroes
             if (!factorialDigits.Contains("0"))
             {
                 Console.WriteLine(0);
+                return;
             }
             for (int i = 1; i < factorialDigits.Length; i++)
             {
@@ -31,10 +32,6 @@ namespace _14_Factorial_Trailing_Zeroes
                     if (factorialDigits[i] == '0')
                     {
                         zerosLength++;
-                    }
-                    else
-                    {
-                        zerosLength = 1;
                     }
                 }
                 if (zerosLength > bestZerosLength && (i == factorialDigits.Length - 1 || factorialDigits[i + 1] != '0'))

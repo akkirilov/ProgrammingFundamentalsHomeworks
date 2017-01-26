@@ -52,7 +52,6 @@ namespace _16_Instruction_Set___Debugging
                 }
                 opCode = Console.ReadLine();
                 Console.WriteLine(result);
-
             }
         }
     }

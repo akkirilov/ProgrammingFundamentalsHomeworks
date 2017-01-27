@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16_Instruction Set - Debugg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17_Be Positive - Debugging", "17_Be Positive - Debugging\17_Be Positive - Debugging.csproj", "{CFF68E12-2C60-4990-9AF9-8F0AB54CB99A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "18_Sequence of Commands - debugging", "18_Sequence of Commands - debugging\18_Sequence of Commands - debugging.csproj", "{7C6AC601-132C-436B-9424-1351CFE11914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{CFF68E12-2C60-4990-9AF9-8F0AB54CB99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFF68E12-2C60-4990-9AF9-8F0AB54CB99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFF68E12-2C60-4990-9AF9-8F0AB54CB99A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C6AC601-132C-436B-9424-1351CFE11914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C6AC601-132C-436B-9424-1351CFE11914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C6AC601-132C-436B-9424-1351CFE11914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C6AC601-132C-436B-9424-1351CFE11914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,6 +18,7 @@ namespace _16_Instruction_Set___Debugging
                 {
                     break;
                 }
+
                 string[] codeArgs = opCode.Split(' ').ToArray();
 
                 long result = 0;
@@ -50,6 +51,7 @@ namespace _16_Instruction_Set___Debugging
                             break;
                         }
                 }
+
                 opCode = Console.ReadLine();
                 Console.WriteLine(result);
             }

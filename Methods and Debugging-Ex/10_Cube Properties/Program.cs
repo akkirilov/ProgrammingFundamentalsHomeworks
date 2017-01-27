@@ -18,38 +18,38 @@ namespace _10_Cube_Properties
             switch (operation)
             {
                 case "face":
-                    result = PrintFace(side);
+                    result = CountFace(side);
                     break;
                 case "space":
-                    result = PrintSpace(side);
+                    result = CountSpace(side);
                     break;
                 case "volume":
-                    result = PrintVolume(side);
+                    result = CountVolume(side);
                     break;
                 case "area":
-                    result = PrintArea(side);
+                    result = CountArea(side);
                     break;
             }
 
             Console.WriteLine("{0:f2}", result);
         }
 
-        private static double PrintArea(double side)
+        private static double CountArea(double side)
         {
             return (6 * Math.Pow(side, 2));
         }
 
-        private static double PrintVolume(double side)
+        private static double CountVolume(double side)
         {
             return Math.Pow(side, 3);
         }
 
-        private static double PrintSpace(double side)
+        private static double CountSpace(double side)
         {
             return Math.Sqrt(3 * Math.Pow(side, 2));
         }
 
-        private static double PrintFace(double side)
+        private static double CountFace(double side)
         {
             return Math.Sqrt( 2 * Math.Pow(side, 2));
         }

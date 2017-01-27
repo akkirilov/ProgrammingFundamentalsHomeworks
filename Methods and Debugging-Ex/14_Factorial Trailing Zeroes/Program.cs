@@ -20,11 +20,13 @@ namespace _14_Factorial_Trailing_Zeroes
             string factorialDigits = factorial.ToString();
             int zerosLength = 1;
             int bestZerosLength = 1;
+
             if (!factorialDigits.Contains("0"))
             {
                 Console.WriteLine(0);
                 return;
             }
+
             for (int i = 1; i < factorialDigits.Length; i++)
             {
                 if (factorialDigits[i - 1] == '0')

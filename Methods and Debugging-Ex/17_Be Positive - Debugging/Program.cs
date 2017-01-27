@@ -24,18 +24,14 @@ namespace _17_Be_Positive___Debugging
                         numbers.Add(num);
                     }
                 }
-
+                List<int> newNumberList = new List<int>();
                 bool found = false;
                 for (int j = 0; j < numbers.Count; j++)
                 {
                     int currentNum = numbers[j];
                     if (currentNum >= 0)
                     {
-                        if (found)
-                        {
-                            Console.Write(" ");
-                        }
-                        Console.Write(currentNum);
+                        newNumberList.Add(currentNum);
                         found = true;
                         continue;
                     }
@@ -44,11 +40,7 @@ namespace _17_Be_Positive___Debugging
                         currentNum += numbers[j + 1];
                         if (currentNum >= 0)
                         {
-                            if (found)
-                            {
-                                Console.Write(" ");
-                            }
-                            Console.Write(currentNum);
+                            newNumberList.Add(currentNum);
                             found = true;
                             j++;
                             continue;
@@ -63,7 +55,10 @@ namespace _17_Be_Positive___Debugging
                 {
                     Console.WriteLine("(empty)");
                 }
-                Console.WriteLine();
+                else
+                {
+                    Console.WriteLine(String.Join(" ", newNumberList));
+                }
             }
         }
     }

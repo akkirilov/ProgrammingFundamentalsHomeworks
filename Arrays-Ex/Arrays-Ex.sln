@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Common End", "01_Common End\01_Common End.csproj", "{3219133F-E89C-457E-8232-46B0E8AF541A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Rotate and Sum", "02_Rotate and Sum\02_Rotate and Sum.csproj", "{D0215E35-2082-403A-9BF6-614737DF8645}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_Fold and Sum", "3_Fold and Sum\3_Fold and Sum.csproj", "{6981C788-E908-43A3-96BE-F9D7973ED4A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3219133F-E89C-457E-8232-46B0E8AF541A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3219133F-E89C-457E-8232-46B0E8AF541A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3219133F-E89C-457E-8232-46B0E8AF541A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0215E35-2082-403A-9BF6-614737DF8645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0215E35-2082-403A-9BF6-614737DF8645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0215E35-2082-403A-9BF6-614737DF8645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0215E35-2082-403A-9BF6-614737DF8645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6981C788-E908-43A3-96BE-F9D7973ED4A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6981C788-E908-43A3-96BE-F9D7973ED4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6981C788-E908-43A3-96BE-F9D7973ED4A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6981C788-E908-43A3-96BE-F9D7973ED4A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

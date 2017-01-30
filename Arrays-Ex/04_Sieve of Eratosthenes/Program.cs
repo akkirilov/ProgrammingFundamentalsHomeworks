@@ -18,16 +18,15 @@ namespace _04_Sieve_of_Eratosthenes
                 isPrimes[i] = true;
             }
 
-            for (int m = 2; m < isPrimes.Length; m++)
+            for (int p = 2; p < isPrimes.Length; p++)
             {
-                if (isPrimes[m] == true)
+                if (isPrimes[p] == true)
                 {
-                    for (int i = m; i < isPrimes.Length; i++)
+                    for (int i = p; i < isPrimes.Length; i++)
                     {
-                        if (i + m < isPrimes.Length)
+                        if (i * p < isPrimes.Length)
                         {
-                            isPrimes[i + m] = false;
-                            i += m - 1;
+                            isPrimes[i * p] = false;
                         }
                     }
                 }

@@ -29,7 +29,7 @@ namespace _11_Equal_Sums
                     sumRight+= array[j];
                 }
 
-                if (sumLeft == sumRight)
+                if (SumPartOfArray(array, 0, separator) == sumRight)
                 {
                     Console.WriteLine(separator);
                     return;
@@ -39,6 +39,14 @@ namespace _11_Equal_Sums
                 sumRight = 0;
             }
             Console.WriteLine("no");
+        }
+
+        private static int SumPartOfArray(int[] array, int startIndex, int endIndex)
+        {
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                sumLeft += array[i];
+            }
         }
     }
 }

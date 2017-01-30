@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09_Index of Letters", "09_I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10_Pairs by Difference", "10_Pairs by Difference\10_Pairs by Difference.csproj", "{26530EB9-E7E3-4B62-AD6F-622C9BACAA4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11_Equal Sums", "11_Equal Sums\11_Equal Sums.csproj", "{8F6E3F98-5CA3-4143-AC6A-65CDDB30395D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{26530EB9-E7E3-4B62-AD6F-622C9BACAA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26530EB9-E7E3-4B62-AD6F-622C9BACAA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26530EB9-E7E3-4B62-AD6F-622C9BACAA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F6E3F98-5CA3-4143-AC6A-65CDDB30395D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F6E3F98-5CA3-4143-AC6A-65CDDB30395D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F6E3F98-5CA3-4143-AC6A-65CDDB30395D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F6E3F98-5CA3-4143-AC6A-65CDDB30395D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

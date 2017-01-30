@@ -17,14 +17,14 @@ namespace _05_Compare_Char_Arrays
             {
                 if (firstArray[i] < secondArray[i])
                 {
-                    Console.WriteLine(String.Join(" ", firstArray));
-                    Console.WriteLine(String.Join(" ", secondArray));
+                    Console.WriteLine(String.Join("", firstArray));
+                    Console.WriteLine(String.Join("", secondArray));
                     return;
                 }
                 else if (firstArray[i] > secondArray[i])
                 {
-                    Console.WriteLine(String.Join(" ", secondArray));
-                    Console.WriteLine(String.Join(" ", firstArray));
+                    Console.WriteLine(String.Join("", secondArray));
+                    Console.WriteLine(String.Join("", firstArray));
                     return;
                 }
 
@@ -32,13 +32,13 @@ namespace _05_Compare_Char_Arrays
                 {
                     if (firstArray.Length < secondArray.Length)
                     {
-                        Console.WriteLine(String.Join(" ", firstArray));
-                        Console.WriteLine(String.Join(" ", secondArray));
+                        Console.WriteLine(String.Join("", firstArray));
+                        Console.WriteLine(String.Join("", secondArray));
                     }
                     else
                     {
-                        Console.WriteLine(String.Join(" ", secondArray));
-                        Console.WriteLine(String.Join(" ", firstArray));
+                        Console.WriteLine(String.Join("", secondArray));
+                        Console.WriteLine(String.Join("", firstArray));
                     }
                 }
             }

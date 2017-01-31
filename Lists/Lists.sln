@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_Sum Adjacent Equal Numbe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Split by Word Casing", "04_Split by Word Casing\04_Split by Word Casing.csproj", "{373F4153-B506-4CF9-9C6B-A76C881F055B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Sort Numbers", "05_Sort Numbers\05_Sort Numbers.csproj", "{DDC24F34-FC95-43D9-A88C-A74B6E467C18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{373F4153-B506-4CF9-9C6B-A76C881F055B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{373F4153-B506-4CF9-9C6B-A76C881F055B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{373F4153-B506-4CF9-9C6B-A76C881F055B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDC24F34-FC95-43D9-A88C-A74B6E467C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC24F34-FC95-43D9-A88C-A74B6E467C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC24F34-FC95-43D9-A88C-A74B6E467C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC24F34-FC95-43D9-A88C-A74B6E467C18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

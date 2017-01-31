@@ -8,8 +8,6 @@ namespace _04_Split_by_Word_Casing
 {
     class Program
     {
-        private static int length;
-
         static void Main(string[] args)
         {
             List<string> words = Console.ReadLine().Split(new char[] { ',', ';', ':', '.', '!', '(', ')', '"', '\'', '\\', '/', '[', ']', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();

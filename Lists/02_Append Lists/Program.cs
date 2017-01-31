@@ -10,8 +10,7 @@ namespace _02_Append_Lists
     {
         static void Main(string[] args)
         {
-            List<List<int>> numbers = Console.ReadLine().Split('|').Select(x => x.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(y => int.Parse(y)).ToList()).Reverse().ToList();
-
+            List<List<int>> numbers = Console.ReadLine().Split('|').Select(x => x.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList()).Reverse().ToList();
             numbers.ForEach(x => x.ForEach(y => Console.Write(y + " ")));
         }
     }

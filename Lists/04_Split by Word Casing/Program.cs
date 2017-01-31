@@ -25,7 +25,7 @@ namespace _04_Split_by_Word_Casing
                 bool isMixed = false;
                 for (int w = 0; w < words[i].Length; w++)
                 {
-                    if ((words[i][w] >= '0' && words[i][w] <= '9') || (words[i][w] >= '!' && words[i][w] <= '@'))
+                    if (words[i][w] >= '!' && words[i][w] <= '@')
                     {
                         isLower = false;
                         isUpper = false;

@@ -14,7 +14,6 @@ namespace _01_Max_Sequence_of_Equal_Elements
 
             List<int> seq = new List<int>();
             List<int> bestSeq = new List<int>();
-            
             seq.Add(numbers[0]);
 
             for (int i = 1; i < numbers.Count; i++)
@@ -33,11 +32,13 @@ namespace _01_Max_Sequence_of_Equal_Elements
                     seq.Add(numbers[i]);
                 }
             }
+
             if (seq.Count > bestSeq.Count)
             {
                 bestSeq = seq.ToList();
             }
             bestSeq.ForEach(x => Console.Write(x + " "));
+            Console.WriteLine();
         }
     }
 }

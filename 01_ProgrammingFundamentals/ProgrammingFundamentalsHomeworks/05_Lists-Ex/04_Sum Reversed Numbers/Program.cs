@@ -17,7 +17,6 @@ namespace _04_Sum_Reversed_Numbers
             {
                 char[] temp = input[i].ToCharArray();
                 Array.Reverse(temp);
-                //string reversed = ;
                 result += int.Parse(string.Format(String.Join("", temp)));
             }
             Console.WriteLine(result);

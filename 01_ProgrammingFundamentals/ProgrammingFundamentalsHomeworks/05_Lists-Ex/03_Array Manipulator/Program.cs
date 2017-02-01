@@ -9,6 +9,7 @@ namespace _03_Array_Manipulator
     class Program
     {
         public static List<int> sequence = new List<int>();
+
         static void Main(string[] args)
         {
             sequence = Console.ReadLine().Split().Select(int.Parse).ToList();
@@ -18,17 +19,23 @@ namespace _03_Array_Manipulator
             {
                 switch (input[0])
                 {
-                    case "add": AddNumber(input);
+                    case "add":
+                        AddNumber(input);
                         break;
-                    case "addMany": AddManyNumbers(input);
+                    case "addMany":
+                        AddManyNumbers(input);
                         break;
-                    case "remove": RemoveNumbers(input);
+                    case "remove":
+                        RemoveNumbers(input);
                         break;
-                    case "sumPairs": SumPairsOfTheArray(input);
+                    case "sumPairs":
+                        SumPairsOfTheSequence(input);
                         break;
-                    case "shift": ShiftNumbersOfTheArray(input);
+                    case "shift":
+                        ShiftNumbersOfTheSequence(input);
                         break;
-                    case "contains": IsArrayContainsNumber(input);
+                    case "contains":
+                        IsSequenceContainsNumber(input);
                         break;
                 }
                 
@@ -60,23 +67,27 @@ namespace _03_Array_Manipulator
             sequence.RemoveAt(int.Parse(input[1]));
         }
 
-        private static void SumPairsOfTheArray(string[] input)
+        private static void SumPairsOfTheSequence(string[] input)
         {
             List<int> temp = new List<int>();
+
             for (int i = 0; i < (sequence.Count % 2 == 0 ? sequence.Count - 1 : sequence.Count - 2); i += 2)
             {
                 temp.Add(sequence[i] + sequence[i + 1]);
             }
+
             if (sequence.Count % 2 != 0)
             {
                 temp.Add(sequence[sequence.Count - 1]);
             }
+
             sequence = temp.ToList();
         }
 
-        private static void ShiftNumbersOfTheArray(string[] input)
+        private static void ShiftNumbersOfTheSequence(string[] input)
         {
             int index = int.Parse(input[1]);
+
             for (int i = 0; i < index % sequence.Count; i++)
             {
                 sequence.Add(sequence[0]);
@@ -84,9 +95,10 @@ namespace _03_Array_Manipulator
             }
         }
 
-        private static void IsArrayContainsNumber(string[] input)
+        private static void IsSequenceContainsNumber(string[] input)
         {
             int checkedNumber = int.Parse(input[1]);
+
             for (int i = 0; i < sequence.Count; i++)
             {
                 if (sequence[i] == checkedNumber)
@@ -95,6 +107,7 @@ namespace _03_Array_Manipulator
                     return;
                 }
             }
+
             Console.WriteLine("-1");
         }
     }

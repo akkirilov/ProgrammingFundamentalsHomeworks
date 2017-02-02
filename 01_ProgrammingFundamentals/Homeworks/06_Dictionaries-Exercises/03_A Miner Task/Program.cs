@@ -10,7 +10,7 @@ namespace _03_A_Miner_Task
     {
         static void Main(string[] args)
         {
-            Dictionary<string, decimal> minerBook = new Dictionary<string, decimal>();
+            Dictionary<string, int> minerBook = new Dictionary<string, int>();
 
             string resource = Console.ReadLine();
             if (resource == "stop")
@@ -24,11 +24,11 @@ namespace _03_A_Miner_Task
             {
                 if (minerBook.ContainsKey(resource))
                 {
-                    minerBook[resource] += decimal.Parse(quantity);
+                    minerBook[resource] += int.Parse(quantity);
                 }
                 else
                 {
-                    minerBook.Add(resource, decimal.Parse(quantity));
+                    minerBook.Add(resource, int.Parse(quantity));
                 }
 
                 resource = Console.ReadLine();
@@ -43,7 +43,7 @@ namespace _03_A_Miner_Task
             PrintMinerBook(minerBook);
         }
 
-        private static void PrintMinerBook(Dictionary<string, decimal> minerBook)
+        private static void PrintMinerBook(Dictionary<string, int> minerBook)
         {
             foreach (var item in minerBook)
             {

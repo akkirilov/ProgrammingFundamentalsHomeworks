@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_Array Manipulator", "03_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Sum Reversed Numbers", "04_Sum Reversed Numbers\04_Sum Reversed Numbers.csproj", "{FE84EF9B-C42C-4941-875E-476CF87C0DBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Bomb Numbers", "05_Bomb Numbers\05_Bomb Numbers.csproj", "{940B76C1-9E79-4BE1-9944-D8D171144362}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FE84EF9B-C42C-4941-875E-476CF87C0DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE84EF9B-C42C-4941-875E-476CF87C0DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE84EF9B-C42C-4941-875E-476CF87C0DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{940B76C1-9E79-4BE1-9944-D8D171144362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940B76C1-9E79-4BE1-9944-D8D171144362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940B76C1-9E79-4BE1-9944-D8D171144362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940B76C1-9E79-4BE1-9944-D8D171144362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

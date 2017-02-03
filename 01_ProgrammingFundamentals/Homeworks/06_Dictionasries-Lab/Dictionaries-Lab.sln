@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Largest 3 Numbers", "04_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Short Words Sorted", "05_Short Words Sorted\05_Short Words Sorted.csproj", "{FEC51FA1-8D26-4EEB-955A-21B228B52C4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_Fold and Sum", "06_Fold and Sum\06_Fold and Sum.csproj", "{0A4E77BC-4D6D-48B1-B5C2-E9ED16DF2FC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FEC51FA1-8D26-4EEB-955A-21B228B52C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEC51FA1-8D26-4EEB-955A-21B228B52C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEC51FA1-8D26-4EEB-955A-21B228B52C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A4E77BC-4D6D-48B1-B5C2-E9ED16DF2FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A4E77BC-4D6D-48B1-B5C2-E9ED16DF2FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A4E77BC-4D6D-48B1-B5C2-E9ED16DF2FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A4E77BC-4D6D-48B1-B5C2-E9ED16DF2FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

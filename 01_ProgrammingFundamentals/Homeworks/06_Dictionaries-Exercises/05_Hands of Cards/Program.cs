@@ -8,8 +8,6 @@ namespace _05_Hands_of_Cards
 {
     class Program
     {
-        public static Dictionary<string, string> playersPoints = new Dictionary<string, string>();
-
         static void Main(string[] args)
         {
             Dictionary<string, string> playersCards = new Dictionary<string, string>();

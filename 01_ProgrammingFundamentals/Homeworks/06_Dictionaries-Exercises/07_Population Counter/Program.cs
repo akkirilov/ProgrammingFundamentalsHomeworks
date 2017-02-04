@@ -10,49 +10,43 @@ namespace _07_Population_Counter
     {
         static void Main(string[] args)
         {
-            SortedDictionary<string, Dictionary<string, int>> populationBook = new SortedDictionary<string, Dictionary<string, int>>();
+            Dictionary<string, Dictionary<string, long>> citiesPopulation = new Dictionary <string, Dictionary<string, long>>();
+            Dictionary<string, long> countriesPopulation = new Dictionary<string, long>();
 
             string input = Console.ReadLine();
 
-            while (input != "end")
+            while (input != "report")
             {
-                List<string> inputEll = input.Split().ToList();
+                List<string> inputEll = input.Split('|').ToList();
 
-                string ipAddress = inputEll[0].Substring(3);
-                string city = inputEll[2].Substring(5);
+                string country = inputEll[1];
+                string city = inputEll[0];
+                long population = long.Parse(inputEll[2]);
 
-                if (populationBook.ContainsKey(city))
+                if (citiesPopulation.ContainsKey(country))
                 {
-                    if (populationBook[city].ContainsKey(ipAddress))
-                    {
-                        populationBook[city][ipAddress]++;
-                    }
-                    else
-                    {
-                        populationBook[city][ipAddress] = 1;
-                    }
+                    citiesPopulation[country][city] = population;
+                    countriesPopulation[country] += population;
                 }
                 else
                 {
-                    Dictionary<string, int> temp = new Dictionary<string, int>();
-                    temp[ipAddress] = 1;
-                    populationBook[city] = temp;
+                    Dictionary<string, long> tempCity = new Dictionary<string, long>();
+                    tempCity[city] = population;
+                    citiesPopulation[country] = tempCity;
+                    countriesPopulation[country] = population;
                 }
 
                 input = Console.ReadLine();
             }
 
-            foreach (var user in populationBook)
+            foreach (var country in countriesPopulation.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
             {
-                Console.WriteLine(user.Key + ":");
+                Console.WriteLine($"{country.Key} (total population: {country.Value})");
 
-                List<string> userIP = new List<string>();
-                foreach (var ip in user.Value)
+                foreach (var city in citiesPopulation[country.Key].OrderByDescending(x => x.Value).ThenBy(x => x.Key))
                 {
-                    userIP.Add(String.Format($"{ip.Key} => {ip.Value}"));
+                    Console.WriteLine($"=>{city.Key}: {city.Value}");
                 }
-
-                Console.WriteLine("{0}.", String.Join(", ", userIP));
             }
         }
     }

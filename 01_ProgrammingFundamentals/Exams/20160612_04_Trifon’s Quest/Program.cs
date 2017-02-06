@@ -10,64 +10,85 @@ namespace _20160612_04_Trifon_s_Quest
     {
         static void Main(string[] args)
         {
-            int health = int.Parse(Console.ReadLine());
+            long health = long.Parse(Console.ReadLine());
+
             int[] coordinates = Console.ReadLine().Split().Select(int.Parse).ToArray();
 
-            int[,] map = new int[coordinates[0], coordinates[1]];
-            int col = 0;
-            int turn = 1;
-            while (true)
+            char[,] map = InicializeArray(coordinates[0], coordinates[1]);
+
+            int turnsCount = 0;
+            for (int col = 0; col < coordinates[1]; col++)
             {
-                char[] input = Console.ReadLine().ToUpper().ToCharArray();
                 if (col % 2 == 0)
                 {
-                    for (int i = 0; i < input.Length; i++)
+                    for (int row = 0; row < coordinates[0]; row++)
                     {
-                        switch (input[i])
+                        switch (map[row, col])
                         {
                             case 'F':
-                                health /= turn;
-                                turn++;
-                                break;
-                            case 'H':
-                                health += (health / turn);
-                                turn++;
-                                break;
-                                case 'E':
-                                turn++;
-                                break;
-                            case 'T':
-                                if (input.Length - i - 1 >=2 )
+                                health -= (turnsCount / 2);
+                                if (health <= 0)
                                 {
-                                    i += 2;
-                                    turn += 2;
+                                    Console.WriteLine($"Died at: [{row}, {col}]");
+                                    return;
                                 }
                                 break;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = input.Length - 1; i >= 0; i--)
-                    {
-                        switch (input[i])
-                        {
-                            case 'F':
-                                break;
                             case 'H':
+                                health += (turnsCount / 3);
                                 break;
                             case 'T':
-                                break;
-                            case 'E':
+                                turnsCount += 2;
                                 break;
                         }
+                        turnsCount++;
                     }
                 }
-                
-
-                col++;
+                if (col % 2 == 1)
+                {
+                    for (int row = coordinates[0] - 1; row >= 0; row--)
+                    {
+                        switch (map[row, col])
+                        {
+                            case 'F':
+                                health -= (turnsCount / 2);
+                                if (health <= 0)
+                                {
+                                    Console.WriteLine($"Died at: [{row}, {col}]");
+                                    return;
+                                }
+                                break;
+                            case 'H':
+                                health += (turnsCount / 3);
+                                break;
+                            case 'T':
+                                turnsCount += 2;
+                                break;
+                        }
+                        turnsCount++;
+                    }
+                }
             }
 
+            Console.WriteLine("Quest completed!");
+            Console.WriteLine($"Health: {health}");
+            Console.WriteLine($"Turns: {turnsCount}");
+        }
+
+        private static char[,] InicializeArray(int row, int col)
+        {
+            char[,] temp = new char[row, col];
+
+            for (int i = 0; i < row; i++)
+            {
+                char[] input = Console.ReadLine().ToUpper().ToCharArray();
+
+                for (int j = 0; j < col; j++)
+                {
+                    temp[i, j] = input[j];
+                }
+            }
+
+            return temp;
         }
     }
 }

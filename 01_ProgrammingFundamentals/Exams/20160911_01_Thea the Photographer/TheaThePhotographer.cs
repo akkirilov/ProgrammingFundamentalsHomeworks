@@ -13,7 +13,7 @@ namespace _20160911_01_Thea_the_Photographer
 
             long seconds = (long)(filterTime + uploadTime);
             TimeSpan totalTime = new TimeSpan(seconds * 10000000);
-            Console.WriteLine("{0:d\\:hh\\:mm\\:ss}", totalTime);
+            Console.WriteLine(totalTime.ToString("d\\:hh\\:mm\\:ss"));
         }
     }
-}
+} 

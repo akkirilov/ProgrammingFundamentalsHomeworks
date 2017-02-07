@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160612_04_Trifon’s Ques
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160911_01_Thea the Photographer", "20160911_01_Thea the Photographer\20160911_01_Thea the Photographer.csproj", "{040F24BB-6658-4FAC-A2F4-20099C029CE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160911_02_Trophon the Grumpy Cat", "20160911_02_Trophon the Grumpy Cat\20160911_02_Trophon the Grumpy Cat.csproj", "{53472DA2-26FB-49B7-9BAD-881C3676923A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{040F24BB-6658-4FAC-A2F4-20099C029CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{040F24BB-6658-4FAC-A2F4-20099C029CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{040F24BB-6658-4FAC-A2F4-20099C029CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53472DA2-26FB-49B7-9BAD-881C3676923A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53472DA2-26FB-49B7-9BAD-881C3676923A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53472DA2-26FB-49B7-9BAD-881C3676923A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53472DA2-26FB-49B7-9BAD-881C3676923A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

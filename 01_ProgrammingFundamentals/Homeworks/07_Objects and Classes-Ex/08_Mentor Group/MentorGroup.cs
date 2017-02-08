@@ -15,29 +15,30 @@ namespace _08_Mentor_Group
             while (input != "end of dates")
             {
                 string[] inputEll = input.Split().ToArray();
-                string name = inputEll[0];
+
+                List<DateTime> currentAttend = new List<DateTime>();
 
                 if (inputEll.Length > 1)
                 {
-                    List<DateTime> currentAttend = inputEll[1].Split(',')
+                    currentAttend = inputEll[1].Split(',')
                         .Select(x => DateTime.ParseExact(x, "dd\\/MM\\/yyyy", CultureInfo.InvariantCulture))
                         .ToList();
+                }
 
-                    if (students.ContainsKey(name))
+                if (students.ContainsKey(inputEll[0]))
+                {
+                    students[inputEll[0]].Attendency.AddRange(currentAttend);
+                }
+                else
+                {
+                    Student currentStudent = new Student
                     {
-                        students[name].Attendency.AddRange(currentAttend);
-                    }
-                    else
-                    {
-                        Student currentStudent = new Student
-                        {
-                            Name = name,
-                            Attendency = currentAttend,
-                            Comments = new List<string>()
-                        };
+                        Name = inputEll[0],
+                        Attendency = currentAttend,
+                        Comments = new List<string>()
+                    };
 
-                        students[name] = currentStudent;
-                    }
+                    students[inputEll[0]] = currentStudent;
                 }
 
                 input = Console.ReadLine();
@@ -48,12 +49,9 @@ namespace _08_Mentor_Group
             {
                 string[] inputEll = input.Split('-').ToArray();
 
-                string name = inputEll[0];
-                string comment = inputEll[1];
-
-                if (students.ContainsKey(name))
+                if (students.ContainsKey(inputEll[0]))
                 {
-                    students[name].Comments.Add(comment);
+                    students[inputEll[0]].Comments.Add(inputEll[1]);
                 }
 
                 input = Console.ReadLine();

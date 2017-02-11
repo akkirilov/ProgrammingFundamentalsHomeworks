@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161001_03_Rage Quit", "20
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161001_04_Files", "20161001_04_Files\20161001_04_Files.csproj", "{CC435952-7DFE-4F05-85E0-552C4F948C96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_01_SweetDesert", "20161002_01_SweetDesert\20161002_01_SweetDesert.csproj", "{DD29EDE3-FB6C-44DC-A645-2C61149EC4BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_02_Array Manipulator", "20161002_02_Array Manipulator\20161002_02_Array Manipulator.csproj", "{95386AE0-4E0F-4482-9844-FE8A55E8144B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +133,14 @@ Global
 		{CC435952-7DFE-4F05-85E0-552C4F948C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC435952-7DFE-4F05-85E0-552C4F948C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC435952-7DFE-4F05-85E0-552C4F948C96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD29EDE3-FB6C-44DC-A645-2C61149EC4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD29EDE3-FB6C-44DC-A645-2C61149EC4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD29EDE3-FB6C-44DC-A645-2C61149EC4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD29EDE3-FB6C-44DC-A645-2C61149EC4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_01_SweetDesert", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_02_Array Manipulator", "20161002_02_Array Manipulator\20161002_02_Array Manipulator.csproj", "{95386AE0-4E0F-4482-9844-FE8A55E8144B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_03_Football League", "20161002_03_Football League\20161002_03_Football League.csproj", "{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95386AE0-4E0F-4482-9844-FE8A55E8144B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

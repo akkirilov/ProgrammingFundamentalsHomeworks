@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace _20161001_03_Rage_Quit
 {
@@ -14,21 +13,21 @@ namespace _20161001_03_Rage_Quit
             string input = Console.ReadLine().ToUpper();
 
             string pattern = @"(.+?)(\d+)";
-            MatchCollection allSusStrings = new Regex(pattern).Matches(input);
+            MatchCollection allSubStrings = new Regex(pattern).Matches(input);
 
-            StringBuilder text = new StringBuilder();
-            foreach (Match subString in allSusStrings)
+            StringBuilder rageText = new StringBuilder();
+            foreach (Match subString in allSubStrings)
             {
                 for (int i = 0; i < int.Parse(subString.Groups[2].ToString()); i++)
                 {
-                    text.Append(subString.Groups[1].ToString()); 
+                    rageText.Append(subString.Groups[1].ToString()); 
                 }
             }
 
-            List<char> justToCount = text.ToString().Distinct().ToList();
+            List<char> uniqueSymbols = rageText.ToString().Distinct().ToList();
 
-            Console.WriteLine($"Unique symbols used: {justToCount.Count}");
-            Console.WriteLine(text.ToString());
+            Console.WriteLine($"Unique symbols used: {uniqueSymbols.Count}");
+            Console.WriteLine(rageText.ToString());
         }
     }
 }

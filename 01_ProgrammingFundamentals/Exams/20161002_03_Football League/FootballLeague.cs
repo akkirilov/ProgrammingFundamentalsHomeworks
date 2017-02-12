@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace _20161002_03_Football_League
 {
 
-    class Program
+    class FootballLeague
     {
         static void Main()
         {

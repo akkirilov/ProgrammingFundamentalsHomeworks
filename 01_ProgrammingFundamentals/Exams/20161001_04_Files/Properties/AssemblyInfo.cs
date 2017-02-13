@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("20161001_03_Rage Quit")]
+[assembly: AssemblyTitle("20161001_04_Files")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("20161001_03_Rage Quit")]
+[assembly: AssemblyProduct("20161001_04_Files")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a722a5c5-6307-4fdd-83c2-ddf829b99fea")]
+[assembly: Guid("cc435952-7dfe-4f05-85e0-552c4f948c96")]
 
 // Version information for an assembly consists of the following four values:
 //

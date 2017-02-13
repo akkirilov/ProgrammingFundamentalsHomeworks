@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _20160601_02_Array_Modifier
 {
-    class Program
+    class ArrayModifier
     {
         static void Main(string[] args)
         {

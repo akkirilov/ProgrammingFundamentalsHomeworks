@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6CAD2C75-CA37-43B7-9841-C6D36BA474C3}</ProjectGuid>
+    <ProjectGuid>{A722A5C5-6307-4FDD-83C2-DDF829B99FEA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>_20161001_03_Rage_Quit</RootNamespace>

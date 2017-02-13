@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _20160601_01_Sweet_Dessert
 {
-    class Program
+    class SweetDessert
     {
         static void Main(string[] args)
         {

@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_02_Array Manipulat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_03_Football League", "20161002_03_Football League\20161002_03_Football League.csproj", "{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20161002_04_CubicMessages", "20161002_04_CubicMessages\20161002_04_CubicMessages.csproj", "{3A05A54A-3918-4A95-B8F6-0876C9188A7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CCA3619-4F3F-4CD3-A41D-41AEFEA81DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A05A54A-3918-4A95-B8F6-0876C9188A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A05A54A-3918-4A95-B8F6-0876C9188A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A05A54A-3918-4A95-B8F6-0876C9188A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A05A54A-3918-4A95-B8F6-0876C9188A7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

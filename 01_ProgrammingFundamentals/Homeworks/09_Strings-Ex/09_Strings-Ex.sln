@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_Unicode Characters", "03
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Character Multiplier", "04_Character Multiplier\04_Character Multiplier.csproj", "{0E7F9117-320D-4819-9CE2-79A0BFBD6CBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Magic Exchangeable Words", "05_Magic Exchangeable Words\05_Magic Exchangeable Words.csproj", "{6B6D34C9-C646-4DE0-A3B8-38BF11B83A5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0E7F9117-320D-4819-9CE2-79A0BFBD6CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E7F9117-320D-4819-9CE2-79A0BFBD6CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E7F9117-320D-4819-9CE2-79A0BFBD6CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B6D34C9-C646-4DE0-A3B8-38BF11B83A5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B6D34C9-C646-4DE0-A3B8-38BF11B83A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B6D34C9-C646-4DE0-A3B8-38BF11B83A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B6D34C9-C646-4DE0-A3B8-38BF11B83A5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

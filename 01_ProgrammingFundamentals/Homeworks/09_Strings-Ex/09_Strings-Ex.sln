@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Convert from base-10 to 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Convert from base-N to base-10", "02_Convert from base-N to base-10\02_Convert from base-N to base-10.csproj", "{029001F3-26C9-4548-A218-2F1D293353F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_Unicode Characters", "03_Unicode Characters\03_Unicode Characters.csproj", "{B8291799-E2D6-47C9-9B1E-52C34F5FC3B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{029001F3-26C9-4548-A218-2F1D293353F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{029001F3-26C9-4548-A218-2F1D293353F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{029001F3-26C9-4548-A218-2F1D293353F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8291799-E2D6-47C9-9B1E-52C34F5FC3B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8291799-E2D6-47C9-9B1E-52C34F5FC3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8291799-E2D6-47C9-9B1E-52C34F5FC3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8291799-E2D6-47C9-9B1E-52C34F5FC3B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

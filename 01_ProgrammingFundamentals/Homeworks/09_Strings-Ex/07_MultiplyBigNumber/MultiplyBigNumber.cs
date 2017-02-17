@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace _07_MultiplyBigNumber
 {
-    class Program
+    public class MultiplyBigNumber
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             List<char> firstNumber = Console.ReadLine().TrimStart('0').ToCharArray().ToList();
             List<char> secondNumber = Console.ReadLine().TrimStart('0').ToCharArray().ToList();
@@ -80,7 +79,7 @@ namespace _07_MultiplyBigNumber
            return result.ToString();
         }
 
-        private static void InsertZeros(List<char> chars, int diff)
+        public static void InsertZeros(List<char> chars, int diff)
         {
             for (int i = 0; i < diff; i++)
             {

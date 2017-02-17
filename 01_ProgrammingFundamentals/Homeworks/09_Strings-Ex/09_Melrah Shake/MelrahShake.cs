@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _09_Melrah_Shake
 {
@@ -12,9 +8,17 @@ namespace _09_Melrah_Shake
         {
             string input = Console.ReadLine();
             string pattern = Console.ReadLine();
+
+            if (String.IsNullOrEmpty(pattern))
+            {
+                Console.WriteLine("No shake.");
+                Console.WriteLine(input);
+                return;
+            }
+
             int shakeCount = 0;
 
-            while (input.Contains(pattern) && !String.IsNullOrEmpty(pattern))
+            while (input.Contains(pattern))
             {
                 int firstIndex = -1;
                 int lastIndex = -1;
@@ -57,7 +61,6 @@ namespace _09_Melrah_Shake
             {
                 Console.WriteLine("No shake.");
             }
-
             Console.WriteLine(input);
         }
     }

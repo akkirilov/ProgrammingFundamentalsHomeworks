@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_MultiplyBigNumber", "07_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08_Letters Change Numbers", "08_Letters Change Numbers\08_Letters Change Numbers.csproj", "{30CA0E08-681E-4CE9-AC45-48FA7DFD18AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09_Melrah Shake", "09_Melrah Shake\09_Melrah Shake.csproj", "{B922AFEF-3AC5-4D28-A35F-9DF24BBAEE39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{30CA0E08-681E-4CE9-AC45-48FA7DFD18AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30CA0E08-681E-4CE9-AC45-48FA7DFD18AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30CA0E08-681E-4CE9-AC45-48FA7DFD18AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B922AFEF-3AC5-4D28-A35F-9DF24BBAEE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B922AFEF-3AC5-4D28-A35F-9DF24BBAEE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B922AFEF-3AC5-4D28-A35F-9DF24BBAEE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B922AFEF-3AC5-4D28-A35F-9DF24BBAEE39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

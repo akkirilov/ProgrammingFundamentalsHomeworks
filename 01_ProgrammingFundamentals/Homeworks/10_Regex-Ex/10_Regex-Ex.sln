@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Extract Sentences By Key
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_Valid Usernames", "03_Valid Usernames\03_Valid Usernames.csproj", "{FD8DBC82-F946-43E3-BCD7-028F73DF44ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_Query Mess", "04_Query Mess\04_Query Mess.csproj", "{54654BB1-AC73-4760-A9CD-9BBAF46F1A2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FD8DBC82-F946-43E3-BCD7-028F73DF44ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD8DBC82-F946-43E3-BCD7-028F73DF44ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8DBC82-F946-43E3-BCD7-028F73DF44ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54654BB1-AC73-4760-A9CD-9BBAF46F1A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54654BB1-AC73-4760-A9CD-9BBAF46F1A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54654BB1-AC73-4760-A9CD-9BBAF46F1A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54654BB1-AC73-4760-A9CD-9BBAF46F1A2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

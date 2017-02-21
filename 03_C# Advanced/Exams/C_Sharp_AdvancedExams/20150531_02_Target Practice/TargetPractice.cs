@@ -43,7 +43,7 @@ namespace _20150531_02_Target_Practice
                 {
                     if (matrix[r, c].Equals(' '))
                     {
-                        GettUpper(matrix, r, c);
+                        GetUpperChar(matrix, r, c);
                     }
                 }
             }
@@ -58,7 +58,7 @@ namespace _20150531_02_Target_Practice
             }
         }
 
-        public static void GettUpper(char[,] matrix, int r, int c)
+        public static void GetUpperChar(char[,] matrix, int r, int c)
         {
             for (int row = r - 1; row >= 0 ; row--)
             {

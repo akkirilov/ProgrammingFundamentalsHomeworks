@@ -26,7 +26,6 @@ namespace _03_Endurance_Rally
                     else
                     {
                         driverFuel -= trackPoints[t];
-
                         if (driverFuel <= 0)
                         {
                             Console.WriteLine($"{drivers[d]} - reached {t}");

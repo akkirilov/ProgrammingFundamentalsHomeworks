@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150531_04_Olympics Are Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_01_Bunker Buster", "20150619_01_Bunker Buster\20150619_01_Bunker Buster.csproj", "{79F95D39-EE82-4EFD-9519-C03E0D5013FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_02_Array Slider", "20150619_02_Array Slider\20150619_02_Array Slider.csproj", "{F97EC883-4603-4A34-9735-979525FBBE4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F97EC883-4603-4A34-9735-979525FBBE4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F97EC883-4603-4A34-9735-979525FBBE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F97EC883-4603-4A34-9735-979525FBBE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F97EC883-4603-4A34-9735-979525FBBE4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

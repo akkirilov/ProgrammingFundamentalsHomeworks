@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150531_03_TextTransformer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150531_04_Olympics Are Coming", "20150531_04_Olympics Are Coming\20150531_04_Olympics Are Coming.csproj", "{2B576FCA-29CD-4F2D-A617-BF99DFE2406B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_01_Bunker Buster", "20150619_01_Bunker Buster\20150619_01_Bunker Buster.csproj", "{79F95D39-EE82-4EFD-9519-C03E0D5013FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2B576FCA-29CD-4F2D-A617-BF99DFE2406B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B576FCA-29CD-4F2D-A617-BF99DFE2406B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B576FCA-29CD-4F2D-A617-BF99DFE2406B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F95D39-EE82-4EFD-9519-C03E0D5013FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_02_Array Slider", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_03_Rage Quit", "20150619_03_Rage Quit\20150619_03_Rage Quit.csproj", "{968A0B42-CB15-42E9-8523-8C31B8CA6380}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_Population Counter", "20150619_Population Counter\20150619_Population Counter.csproj", "{8CA29A74-5CD2-49A1-B9C1-F208B75669D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20150619_04_Population Counter", "20150619_04_Population Counter\20150619_04_Population Counter.csproj", "{8CA29A74-5CD2-49A1-B9C1-F208B75669D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

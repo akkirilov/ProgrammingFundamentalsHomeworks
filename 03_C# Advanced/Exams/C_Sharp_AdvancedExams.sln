@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20151011_02_Radioactive Bun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20151011_03_Shmoogle Counter", "20151011_03_Shmoogle Counter\20151011_03_Shmoogle Counter.csproj", "{159D3B77-3922-4221-BF9E-C4871709287C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20151011_04_Srabsko Unleashed", "20151011_04_Srabsko Unleashed\20151011_04_Srabsko Unleashed.csproj", "{B714F1FC-FC06-470E-AC0C-42FB84348A59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{159D3B77-3922-4221-BF9E-C4871709287C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159D3B77-3922-4221-BF9E-C4871709287C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159D3B77-3922-4221-BF9E-C4871709287C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B714F1FC-FC06-470E-AC0C-42FB84348A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B714F1FC-FC06-470E-AC0C-42FB84348A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B714F1FC-FC06-470E-AC0C-42FB84348A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B714F1FC-FC06-470E-AC0C-42FB84348A59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

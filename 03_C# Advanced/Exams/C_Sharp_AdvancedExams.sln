@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20151011_04_Srabsko Unleash
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160228_01_Collect Resources", "20160228_01_Collect Resources\20160228_01_Collect Resources.csproj", "{DD44D5E8-AD22-4225-BF8D-CE4F97B0E2AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160228_02_Parking System", "20160228_02_Parking System\20160228_02_Parking System.csproj", "{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{DD44D5E8-AD22-4225-BF8D-CE4F97B0E2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD44D5E8-AD22-4225-BF8D-CE4F97B0E2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD44D5E8-AD22-4225-BF8D-CE4F97B0E2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

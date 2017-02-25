@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160228_01_Collect Resourc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160228_02_Parking System", "20160228_02_Parking System\20160228_02_Parking System.csproj", "{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20160228_03_Softuni Numerals", "20160228_03_Softuni Numerals\20160228_03_Softuni Numerals.csproj", "{2C970824-02E3-406A-AF9A-495F67ECBCDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFF32EE7-1290-462B-9933-4BFEF9DD6E9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C970824-02E3-406A-AF9A-495F67ECBCDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C970824-02E3-406A-AF9A-495F67ECBCDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C970824-02E3-406A-AF9A-495F67ECBCDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C970824-02E3-406A-AF9A-495F67ECBCDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

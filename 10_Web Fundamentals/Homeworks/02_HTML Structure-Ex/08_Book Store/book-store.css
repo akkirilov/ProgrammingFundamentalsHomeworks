@@ -1,0 +1,14 @@
+table, thead, tbody, tfoot, tr, th, td{
+    border: 1px solid #c6c7cc;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: center;
+    padding: 7px;
+}
+
+tr, td{
+    text-align: left;
+    padding: 7px;
+}

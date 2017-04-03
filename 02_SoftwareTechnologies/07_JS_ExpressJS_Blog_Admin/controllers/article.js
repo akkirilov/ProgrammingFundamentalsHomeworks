@@ -36,17 +36,36 @@ module.exports = {
 
     detailsGet: (req, res) => {
         let id = req.params.id;
+        Article.findById(id).populate('author').then(article => {
+            req.user.isInRole('Admin').then(isAdmin => {
+                if(!isAdmin && !req.user.isAuthor(article)){
+                    res.redirect('article/details', {article: article, isAuthorizedUser: false});
+                    return;
+                }
 
-        Article.findById(id).then(article => {
-            res.render('article/details', article);
-        })
+                res.render('article/details', {article: article, isAuthorizedUser: true});
+            });
+        });
     },
 
     editGet: (req, res) => {
         let id = req.params.id;
+        if (!req.isAuthenticated()){
+            let returnUrl = `/article/edit/${id}`;
+            req.session.returnUrl = returnUrl;
+            res.redirect('/user/login');
+            return;
+        }
+
         Article.findById(id).then(article => {
-            res.render('article/edit', article);
-        })
+            req.user.isInRole('Admin').then(isAdmin => {
+                if(!isAdmin && !req.user.isAuthor(article)){
+                    res.redirect('/');
+                    return;
+                }
+                res.render('article/edit', article);
+            });
+        });
     },
 
     editPost: (req, res) => {
@@ -62,49 +81,75 @@ module.exports = {
         }
 
         if(errorMsg) {
-            editArgs.error=errorMsg;
-            //res.status(301).redirect(`/article/details/${id}`);
-            res.redirect(`/article/details/${id}`);
+            editArgs.error = errorMsg;
+            res.render(`article/details`, editArgs);
             return;
         }
 
-        Article.update({_id:id}, {$set: {title: editArgs.title, content: editArgs.content}}).then(article => {
-            res.redirect(`/article/details/${id}`);
+        Article.findById(id).then(article => {
+            req.user.isInRole('Admin').then(isAdmin => {
+                if(!isAdmin && !req.user.isAuthor(article)){
+                    res.redirect('/');
+                    return;
+                }
+                Article.update({_id:id}, {$set: {title: editArgs.title, content: editArgs.content}}).then(article => {
+                    res.redirect(`/article/details/${id}`);
+                });
+            });
         });
     },
 
     deleteGet: (req, res) => {
-        if(!req.user) {
-            res.redirect(`/`);
+        let id = req.params.id;
+        if (!req.isAuthenticated()){
+            let returnUrl = `/article/delete/${id}`;
+            req.session.returnUrl = returnUrl;
+            res.redirect('/user/login');
             return;
         }
 
-        let id = req.params.id;
         Article.findById(id).then(article => {
-            res.render(`article/delete`, article);
-        })
+            req.user.isInRole('Admin').then(isAdmin => {
+                if(!isAdmin && !req.user.isAuthor(article)){
+                    res.redirect('/');
+                    return;
+                }
+                res.render('article/delete', article);
+            });
+        });
     },
 
     deletePost: (req, res) => {
         let id = req.params.id;
         let deleteArgs = req.body;
         if(!req.isAuthenticated()) {
-            res.redirect(`/article/details/${id}`, {error: errorMsg});
+            let errorMsg = 'Login first!';
+            deleteArgs.error = errorMsg;
+            res.render(`article/details`, deleteArgs );
+            return;
         }
-
-        Article.findOneAndRemove({_id:id}).populate('author').then(article => {
-            let author = article.author;
-            let index = author.articles.indexOf(article.id);
-
-            if(index < 0){
-                let errorMsg = 'Article was not found for that user!';
-                res.render('article/delete', {error: errorMsg});
-            } else {
-                author.articles.splice(index, 1);
-                author.save().then((user) => {
+        Article.findById(id).then(article => {
+            req.user.isInRole('Admin').then(isAdmin => {
+                if(!isAdmin && !req.user.isAuthor(article)){
                     res.redirect('/');
+                    return;
+                }
+
+                Article.findOneAndRemove({_id:id}).populate('author').then(article => {
+                    let author = article.author;
+                    let index = author.articles.indexOf(article.id);
+
+                    if(index < 0){
+                        let errorMsg = 'Article was not found for that user!';
+                        res.render('article/delete', {error: errorMsg});
+                    } else {
+                        author.articles.splice(index, 1);
+                        author.save().then((user) => {
+                            res.redirect('/');
+                        });
+                    }
                 });
-            }
+            });
         });
     }
 };

@@ -1,9 +1,11 @@
 <div class="container body-content span=8 offset=2">
     <div class="well">
+        <div>
+            <h3>{{error}}</h3>
+        </div>
         <form class="form-horizontal" method="POST" action="/article/edit/{{id}}">
             <fieldset>
                 <legend>Edit Article</legend>
-
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="articleTitle">Article Title</label>
                     <div class="col-sm-4 ">

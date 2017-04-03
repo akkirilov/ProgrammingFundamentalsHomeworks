@@ -1,8 +1,11 @@
 <div class="container body-content">
+    <div>
+        <h3>{{error}}</h3>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <article>
-                {{error}}
+
                 <header>
                     <h2>{{title}}</h2>
                 </header>
@@ -16,8 +19,10 @@
                 </small>
                 <footer>
                     <div class="pull-right">
+                        {{#if isAuthorizedUser}}
                         <a class="btn btn-success btn-xs" href="/article/edit/{{id}}">Edit &raquo;</a>
                         <a class="btn btn-danger btn-xs" href="/article/delete/{{id}}">Delete &raquo;</a>
+                        {{/if}}
                         <a class="btn btn-default btn-xs" href="/">Back &raquo;</a>
                     </div>
                 </footer>

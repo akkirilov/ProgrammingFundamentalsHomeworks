@@ -42,8 +42,6 @@ module.exports = {
                     let {_id} = user;
                     role.users.push(_id);
                     role.save();
-                    console.log(_id);
-                    console.log(role);
                     req.logIn(user, err => {
                         if (err) {
                             registerArgs.error = err.message;
@@ -59,13 +57,12 @@ module.exports = {
     },
 
     loginGet: (req, res) => {
-        res.render('user/login')
+        res.render('user/login');
     },
 
     loginPost: (req, res) => {
         let loginArgs = req.body;
         let res12 = User.findOne({email:loginArgs.email}).then(user => {
-            console.log(user)
             if (!user || !user.authenticate(loginArgs.password)) {
                 let errorMsg = 'Either username or password is invalid!';
                 loginArgs.error = errorMsg;
@@ -79,7 +76,12 @@ module.exports = {
                     res.redirect('user/login', {error: err.message});
                     return;
                 }
-                res.redirect('/');
+                let returnUrl ='/';
+                if(req.session.returnUrl){
+                    returnUrl = req.session.returnUrl;
+                    delete req.session.returnUrl;
+                }
+                res.redirect(returnUrl);
             })
         });
         console.log(res12);

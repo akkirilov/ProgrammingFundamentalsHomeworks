@@ -37,13 +37,20 @@ module.exports = {
     detailsGet: (req, res) => {
         let id = req.params.id;
         Article.findById(id).populate('author').then(article => {
+            let isAuthorizedUser = false;
+            if(!req.user){
+                res.render('article/details', {article: article, isAuthorizedUser});
+                return;
+            }
+
             req.user.isInRole('Admin').then(isAdmin => {
-                if(!isAdmin && !req.user.isAuthor(article)){
-                    res.redirect('article/details', {article: article, isAuthorizedUser: false});
+                if(isAdmin || req.user.isAuthor(article)){
+                    isAuthorizedUser = true;
+                    res.render('article/details', {article: article, isAuthorizedUser});
                     return;
                 }
 
-                res.render('article/details', {article: article, isAuthorizedUser: true});
+                res.render('article/details', {article: article, isAuthorizedUser});
             });
         });
     },

@@ -62,7 +62,7 @@ module.exports = {
 
     loginPost: (req, res) => {
         let loginArgs = req.body;
-        let res12 = User.findOne({email:loginArgs.email}).then(user => {
+        User.findOne({email:loginArgs.email}).then(user => {
             if (!user || !user.authenticate(loginArgs.password)) {
                 let errorMsg = 'Either username or password is invalid!';
                 loginArgs.error = errorMsg;
@@ -84,7 +84,6 @@ module.exports = {
                 res.redirect(returnUrl);
             })
         });
-        console.log(res12);
     },
 
     logout: (req, res) => {

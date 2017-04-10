@@ -28,7 +28,7 @@ public class Main {
             else {
                 students.put(month, new TreeMap<String, Integer>()
                 {{
-                    put(tokens[1],distance);
+                    put(tokens[1], distance);
                 }});
             }
         }
@@ -37,11 +37,11 @@ public class Main {
             String result = "";
             result += String.format("%d: ", month.getKey());
 
-            for(Map.Entry<String, Integer> name : month.getValue().entrySet()){
+            for (Map.Entry<String, Integer> name : month.getValue().entrySet()) {
                 result += String.format("%s(%d), ", name.getKey(), name.getValue());
             }
 
-            System.out.println(result.substring(0, result.length()-2));
+            System.out.println(result.substring(0, result.length() - 2));
         }
     }
 }

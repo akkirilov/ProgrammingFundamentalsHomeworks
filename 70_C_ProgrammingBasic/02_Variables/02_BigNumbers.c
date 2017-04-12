@@ -3,7 +3,7 @@
 
 int main() {
 
-    long long int num1 = 1234567891045454545;
+    long int num1 = 1234567891045454545;
     int num2 = 123456911;
     int num3 = 5656;
     long double num4 = 5.3251515111515151545451;

@@ -5,16 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "mainCategories")
+public class MainCategory {
     private Integer id;
     private String categoryName;
     private Set<User> users;
-    private Set<News> news;
 
-    public Category() {
+    public MainCategory() {
         this.users = new HashSet<>();
-        this.news = new HashSet<>();
     }
 
     @Id
@@ -36,22 +34,12 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "mainCategories")
     public Set<User> getUsers() {
         return users;
     }
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "news_categories")
-    public Set<News> getNews() {
-        return news;
-    }
-
-    public void setNews(Set<News> news) {
-        this.news = news;
     }
 }

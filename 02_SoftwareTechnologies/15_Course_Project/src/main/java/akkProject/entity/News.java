@@ -2,28 +2,18 @@ package akkProject.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "news")
+@Table(name = "News")
 public class News {
     private Integer id;
     private String title;
     private String content;
     private LocalDate date;
     private User newsUserId;
-    private Set<Category> categories;
-
-    public News(String title, String content) {
-        this.title = title;
-        this.content = content;
-
-        this.date = LocalDate.now();
-    }
 
     public News() {
-        this.categories = new HashSet<>();
+        this.date = LocalDate.now();
     }
 
     @Id
@@ -63,7 +53,7 @@ public class News {
         this.date = date;
     }
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(nullable = false, name = "newsUserId")
     public User getNewsUserId() {
         return newsUserId;
@@ -71,14 +61,5 @@ public class News {
 
     public void setNewsUserId(User newsUserId) {
         this.newsUserId = newsUserId;
-    }
-
-    @ManyToMany(mappedBy = "news")
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
     }
 }

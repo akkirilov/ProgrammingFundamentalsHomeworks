@@ -13,9 +13,11 @@ public class User {
     private String type;
     private String email;
     private ContactDetails contactDetails;
-    private Set<Category> categories;
+    private Set<MainCategory> mainCategories;
     private Set<News> news;
     private Set<Role> roles;
+    private Set<Training> trainings;
+    private Set<Add> adds;
     private String summary;
     private String logoUrl;
     private String password;
@@ -30,9 +32,11 @@ public class User {
         this.password = password;
 
         this.date = LocalDate.now();
-        this.categories = new HashSet<>();
+        this.mainCategories = new HashSet<>();
         this.news = new HashSet<>();
         this.roles = new HashSet<>();
+        this.trainings = new HashSet<>();
+        this.adds = new HashSet<>();
     }
 
     @Id
@@ -83,12 +87,12 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_categories")
-    public Set<Category> getCategories() {
-        return categories;
+    public Set<MainCategory> getMainCategories() {
+        return mainCategories;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setMainCategories(Set<MainCategory> mainCategories) {
+        this.mainCategories = mainCategories;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -101,13 +105,34 @@ public class User {
         this.roles = roles;
     }
 
-    @OneToMany(mappedBy = "newsUserId")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_news")
     public Set<News> getNews() {
         return news;
     }
 
     public void setNews(Set<News> news) {
         this.news = news;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_trainings")
+    public Set<Training> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(Set<Training> trainings) {
+        this.trainings = trainings;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_adds")
+    public Set<Add> getAdds() {
+        return adds;
+    }
+
+    public void setAdds(Set<Add> adds) {
+        this.adds = adds;
     }
 
     @Column(columnDefinition = "text", name = "summary")

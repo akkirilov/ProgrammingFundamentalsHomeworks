@@ -4,5 +4,5 @@ import akkProject.entity.Add;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AddRepository extends JpaRepository<Add, Integer>{
-    Add findByUserId(Integer id);
+    Add findByAddUserId(Integer id);
 }

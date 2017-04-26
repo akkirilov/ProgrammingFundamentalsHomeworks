@@ -4,5 +4,5 @@ import akkProject.entity.ContactDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ContactDetailsRepository extends JpaRepository<ContactDetails, Integer> {
-    ContactDetails findByUserId(Integer id);
+    ContactDetails findByDetailsUserId(Integer id);
 }

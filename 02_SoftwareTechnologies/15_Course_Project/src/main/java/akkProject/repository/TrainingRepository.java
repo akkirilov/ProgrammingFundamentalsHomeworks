@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Created by Basel on 26.4.2017 г..
  */
 public interface TrainingRepository extends JpaRepository<Training, Integer> {
-    Training findByUserId(Integer id);
+    Training findByTrainingUserId(Integer id);
 }

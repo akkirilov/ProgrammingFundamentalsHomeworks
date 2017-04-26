@@ -43,7 +43,15 @@ namespace Blog.Controllers
 
         }
 
+        //GET: Article/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         //POST: Article/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Article article)
         {
             if (ModelState.IsValid)

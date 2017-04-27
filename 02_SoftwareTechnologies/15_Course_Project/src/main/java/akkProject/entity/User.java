@@ -75,7 +75,8 @@ public class User {
         this.email = email;
     }
 
-    @OneToOne(mappedBy = "detailsUserId")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_contacts")
     public ContactDetails getContactDetails() {
         return contactDetails;
     }

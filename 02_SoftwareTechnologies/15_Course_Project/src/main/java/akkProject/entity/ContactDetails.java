@@ -27,7 +27,7 @@ public class ContactDetails {
     }
 
     @OneToOne
-    @JoinColumn(nullable = false, unique = true, name = "detailsUserId")
+    @JoinColumn(nullable = false, name = "contactDetailsUserId")
     public User getDetailsUserId() {
         return detailsUserId;
     }

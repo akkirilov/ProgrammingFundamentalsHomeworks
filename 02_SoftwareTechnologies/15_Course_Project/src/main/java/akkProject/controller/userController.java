@@ -1,9 +1,11 @@
 package akkProject.controller;
 
 import akkProject.bindingModel.UserBindingModel;
+import akkProject.entity.ContactDetails;
 import akkProject.entity.MainCategory;
 import akkProject.entity.Role;
 import akkProject.entity.User;
+import akkProject.repository.ContactDetailsRepository;
 import akkProject.repository.MainCategoryRepository;
 import akkProject.repository.RoleRepository;
 import akkProject.repository.UserRepository;
@@ -36,9 +38,11 @@ public class userController {
     private RoleRepository roleRepository;
     @Autowired
     private MainCategoryRepository mainCategoryRepository;
+    @Autowired
+    private ContactDetailsRepository contactDetailsRepository;
 
     @GetMapping("/register")
-    public String registerGet (Model model){
+    public String registerGet(Model model) {
         List<MainCategory> mainCategories = mainCategoryRepository.findAll();
 
         model.addAttribute("mainCategories", mainCategories);
@@ -48,8 +52,8 @@ public class userController {
     }
 
     @PostMapping("/register")
-    public String registerPost(UserBindingModel userBindingModel){
-        if(!userBindingModel.getPassword().equals(userBindingModel.getConfirmPassword())){
+    public String registerPost(UserBindingModel userBindingModel, @RequestParam("mainCategories[]") String[] mainCategories) {
+        if (!userBindingModel.getPassword().equals(userBindingModel.getConfirmPassword())) {
             return "redirect:/register";
         }
 
@@ -65,7 +69,7 @@ public class userController {
         user.addRole(role);
         String dataBaseImagePath = null;
 
-        if(isImageAllowed(userBindingModel.getLogo())){
+        if (isImageAllowed(userBindingModel.getLogo())) {
             String fileName = userBindingModel.getEmail() + ".jpg";
 
             String logoSavePath = System.getProperty("user.dir")
@@ -76,18 +80,16 @@ public class userController {
                 userBindingModel.getLogo().transferTo(imageFile);
                 dataBaseImagePath = "/images/logo/" + fileName;
                 user.setLogoUrl(dataBaseImagePath);
-            }
-            catch (IOException ex){
+            } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         }
 
-        for (String categoryId : userBindingModel.getMainCategories()) {
+        for (String categoryId : mainCategories) {
             user.addMainCategory(mainCategoryRepository.findOne(Integer.parseInt(categoryId)));
             System.out.println(categoryId);
         }
         user.setType(userBindingModel.getType());
-
 
         this.userRepository.saveAndFlush(user);
 
@@ -95,16 +97,16 @@ public class userController {
     }
 
     @GetMapping("/login")
-    public String loginGet(Model model){
+    public String loginGet(Model model) {
         model.addAttribute("view", "user/login");
         return "base-layout";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response){
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if(auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
@@ -113,11 +115,17 @@ public class userController {
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public String profileGet(Model model){
+    public String profileGet(Model model) {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = this.userRepository.findByEmail(principal.getUsername());
 
+        ContactDetails contactDetails = user.getContactDetails();
+        if (contactDetails == null) {
+            contactDetails = new ContactDetails();
+        }
+
+        model.addAttribute("contactDetails", contactDetails);
         model.addAttribute("user", user);
         model.addAttribute("view", "user/profile");
 

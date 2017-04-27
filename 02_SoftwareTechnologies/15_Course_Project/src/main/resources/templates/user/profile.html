@@ -1,11 +1,49 @@
 <main>
-    <div class="container body-container">
-        <div class="row">
+    <div class="container body-content span=8 offset=2">
+        <div class="well row">
             <div id="main" class="col-sm-9">
-                <div>
-                    <span th:text="${user.email}"></span>
-                    <br/>
-                    <span th:text="${user.fullName}"></span>
+                <div class="form-group row">
+                    <div class="col-sm-7">
+                        <div>
+                            <img src="${user.logoUrl}" style="height: 30px"/>
+                        </div>
+                        <div>
+                            <h2 th:text="${user.name}"></h2>
+                            <h4 th:text="${user.type}" ></h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">Email: </div>
+                            <div th:text="${user.email}" class="col-sm-4"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">Phone: </div>
+                            <div th:text="${contactDetails.phone}" class="col-sm-4"></div>
+                        </div>
+                        <div>
+                            <span>Fax: </span>
+                            <span th:text="${contactDetails.fax}" class="col-sm-offset-2"></span>
+                        </div>
+                        <div>
+                            <span>Web: </span>
+                            <span th:text="${contactDetails.web}" class="col-sm-offset-2"></span>
+                        </div>
+                        <div>
+                            <span>Country: </span>
+                            <span th:text="${contactDetails.country}" class="col-sm-offset-2"></span>
+                        </div>
+                        <div>
+                            <span>City: </span>
+                            <span th:text="${contactDetails.city}" class="col-sm-offset-2"></span>
+                        </div>
+                        <div>
+                            <span>Address: </span>
+                            <span th:text="${contactDetails.address}" class="col-sm-offset-2"></span>
+                        </div>
+                        <div>
+                            <span>Summary: </span>
+                            <span th:text="${user.summary}" class="col-sm-offset-2"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

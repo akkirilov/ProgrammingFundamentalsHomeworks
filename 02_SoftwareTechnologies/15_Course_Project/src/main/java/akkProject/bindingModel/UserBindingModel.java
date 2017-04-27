@@ -22,8 +22,8 @@ public class UserBindingModel {
 
     private String summary;
 
-    @NotNull
-    private String[] mainCategories;
+//    @NotNull
+//    private String[] mainCategories;
 
     @NotNull
     private String type;
@@ -82,14 +82,5 @@ public class UserBindingModel {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String[] getMainCategories() {
-
-        return mainCategories;
-    }
-
-    public void setMainCategories(String[] mainCategories) {
-        this.mainCategories = mainCategories;
     }
 }

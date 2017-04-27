@@ -94,6 +94,10 @@ public class User {
         this.mainCategories = mainCategories;
     }
 
+    public void addMainCategory(MainCategory mainCategory) {
+        this.mainCategories.add(mainCategory);
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles")
     public Set<Role> getRoles() {
@@ -102,6 +106,10 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -114,6 +122,10 @@ public class User {
         this.news = news;
     }
 
+    public void addNews(News news) {
+        this.news.add(news);
+    }
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_trainings")
     public Set<Training> getTrainings() {
@@ -122,6 +134,10 @@ public class User {
 
     public void setTrainings(Set<Training> trainings) {
         this.trainings = trainings;
+    }
+
+    public void addTraining(Training training) {
+        this.trainings.add(training);
     }
 
     @OneToMany(fetch = FetchType.EAGER)

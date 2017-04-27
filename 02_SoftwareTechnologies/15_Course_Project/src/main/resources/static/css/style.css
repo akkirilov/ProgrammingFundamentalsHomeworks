@@ -14,10 +14,7 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 body {
-    background-image: url(../images/background_1.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
+  background: url(../images/background/background_1.jpg) no-repeat fixed center;
 }
 
 /* Set padding to keep content from hitting the edges */

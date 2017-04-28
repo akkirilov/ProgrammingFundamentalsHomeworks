@@ -46,7 +46,7 @@ public class Add {
         this.title = title;
     }
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", columnDefinition = "text", nullable = false)
     public String getContent() {
         return content;
     }

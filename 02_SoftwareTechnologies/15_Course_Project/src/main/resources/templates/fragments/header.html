@@ -13,6 +13,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
+                        <a th:href="@{/companies}">
+                            COMPANIES
+                        </a>
+                    </li>
+                    <li>
                         <a th:href="@{/news}">
                             NEWS
                         </a>
@@ -28,7 +33,7 @@
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a th:href="@{/profile}">
+                        <a th:href="@{/myProfile}">
                             PROFILE
                         </a>
                     </li>

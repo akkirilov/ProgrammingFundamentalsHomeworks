@@ -6,26 +6,19 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class UserBindingModel {
-    @NotNull
+
     private String email;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String password;
 
-    @NotNull
     private String confirmPassword;
 
     private MultipartFile logo;
 
     private String summary;
 
-//    @NotNull
-//    private String[] mainCategories;
-
-    @NotNull
     private String type;
 
     public String getEmail() {

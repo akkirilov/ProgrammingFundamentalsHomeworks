@@ -16,6 +16,14 @@ public class News {
         this.date = LocalDate.now();
     }
 
+    public News(String title, String content, User newsUserId) {
+        this.title = title;
+        this.content = content;
+        this.newsUserId = newsUserId;
+
+        this.date = LocalDate.now();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
@@ -35,7 +43,7 @@ public class News {
         this.title = title;
     }
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", columnDefinition = "text", nullable = false)
     public String getContent() {
         return content;
     }
@@ -44,7 +52,7 @@ public class News {
         this.content = content;
     }
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     public LocalDate getDate() {
         return date;
     }
@@ -61,5 +69,14 @@ public class News {
 
     public void setNewsUserId(User newsUserId) {
         this.newsUserId = newsUserId;
+    }
+
+    @Transient
+    public String getSummary(){
+        if(this.getContent().length() > 50){
+            return this.getContent().substring(0, 49) + "...";
+        }
+
+        return this.getContent();
     }
 }

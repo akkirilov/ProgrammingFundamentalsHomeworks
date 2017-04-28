@@ -3,6 +3,7 @@ package akkProject.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -127,6 +128,10 @@ public class User {
         this.news.add(news);
     }
 
+    public void removeNews(News news) {
+        this.news.remove(news);
+    }
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_trainings")
     public Set<Training> getTrainings() {
@@ -141,6 +146,10 @@ public class User {
         this.trainings.add(training);
     }
 
+    public void removeTraining(Training training) {
+        this.trainings.remove(training);
+    }
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_adds")
     public Set<Add> getAdds() {
@@ -149,6 +158,14 @@ public class User {
 
     public void setAdds(Set<Add> adds) {
         this.adds = adds;
+    }
+
+    public void addAdd(Add add) {
+        this.adds.add(add);
+    }
+
+    public void removeAdd(Add add) {
+        this.adds.remove(add);
     }
 
     @Column(columnDefinition = "text", name = "summary")
@@ -185,5 +202,38 @@ public class User {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public boolean isSelectType(String property){
+       return this.type.equals(property);
+    }
+
+    @Transient
+    public Boolean isAdmin(){
+        return this.getRoles().stream().anyMatch(r -> r.getRoleName().equals("ROLE_ADMIN"));
+    }
+
+    @Transient
+    public Boolean isNewsAuthor(News news){
+        return Objects.equals(this.getId(), news.getNewsUserId().getId());
+    }
+
+    @Transient
+    public Boolean isTrainingAuthor(Training training){
+        return Objects.equals(this.getId(), training.getTrainingUserId().getId());
+    }
+
+    @Transient
+    public Boolean isAddAuthor(Add add){
+        return Objects.equals(this.getId(), add.getAddUserId().getId());
+    }
+
+    @Transient
+    public boolean isEmptyOrNullProperty(String property) {
+        if (property == null || property.equals("")) {
+            return false;
+        }
+
+        return true;
     }
 }

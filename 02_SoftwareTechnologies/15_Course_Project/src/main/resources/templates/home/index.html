@@ -1,11 +1,66 @@
 <main>
-    <body>
-        <div class="container body-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>WELCOME</h2>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                <h2>NEWS</h2>
+                <th:block th:each="news : ${newsList}">
+                     <header>
+                         <h3 th:text="${news.title}"></h3>
+                     </header>
+                     <p th:text="${news.summary}"></p>
+                     <small class="author" th:text="${news.newsUserId.name}"></small>
+                     <footer>
+                         <div class="pull-right">
+                             <a class="btn btn-default btn-xs"
+                                th:href="@{/news/{id}(id=${news.id})}">Read more &raquo;</a>
+                         </div>
+                     </footer>
+                    <br />
+                    <br />
+                </th:block>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="well">
+                <h2>TRAININGS</h2>
+                <th:block th:each="training : ${trainingsList}">
+                    <header>
+                        <h3 th:text="${training.title}"></h3>
+                    </header>
+                    <p th:text="${training.summary}"></p>
+                    <small class="author" th:text="${training.trainingUserId.name}"></small>
+                    <footer>
+                        <div class="pull-right">
+                            <a class="btn btn-default btn-xs"
+                               th:href="@{/training/{id}(id=${training.id})}">Read more &raquo;</a>
+                        </div>
+                    </footer>
+                    <br />
+                    <br />
+                </th:block>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                <h2>ADDS</h2>
+                <th:block th:each="add : ${addsList}">
+                    <header>
+                        <h3 th:text="${add.title}"></h3>
+                    </header>
+                    <p th:text="${add.summary}"></p>
+                    <small class="author" th:text="${add.addUserId.name}"></small>
+                    <footer>
+                        <div class="pull-right">
+                            <a class="btn btn-default btn-xs"
+                               th:href="@{/add/{id}(id=${add.id})}">Read more &raquo;</a>
+                        </div>
+                    </footer>
+                    <br />
+                    <br />
+                </th:block>
+            </div>
+            </div>
         </div>
-    </body>
+    </div>
 </main>

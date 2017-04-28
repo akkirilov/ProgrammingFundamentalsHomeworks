@@ -16,6 +16,15 @@ public class ContactDetails {
 
     public ContactDetails() {    }
 
+    public ContactDetails(String phone, String fax, String web, String country, String city, String address) {
+        this.phone = phone;
+        this.fax = fax;
+        this.web = web;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
@@ -27,7 +36,7 @@ public class ContactDetails {
     }
 
     @OneToOne
-    @JoinColumn(nullable = false, name = "contactDetailsUserId")
+    @JoinColumn(name = "contactDetailsUserId")
     public User getDetailsUserId() {
         return detailsUserId;
     }
@@ -90,4 +99,11 @@ public class ContactDetails {
         this.address = address;
     }
 
+    public boolean isEmptyOrNullProperty(String property) {
+        if (property == null || property.equals("")) {
+            return false;
+        }
+
+        return true;
+    }
 }

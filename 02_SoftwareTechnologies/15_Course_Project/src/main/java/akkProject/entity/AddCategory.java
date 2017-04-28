@@ -43,4 +43,12 @@ public class AddCategory {
     public void setAdds(Set<Add> adds) {
         this.adds = adds;
     }
+
+    public void addAdd(Add add) {
+        this.adds.add(add);
+    }
+
+    public void removeAdd(Add add) {
+        this.adds.remove(add);
+    }
 }

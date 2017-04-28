@@ -22,6 +22,14 @@ public class Training {
         this.dateAdd = LocalDate.now();
     }
 
+    public Training(String title, String content, User trainingUserId) {
+        this.title = title;
+        this.content = content;
+        this.trainingUserId = trainingUserId;
+
+        this.dateAdd = LocalDate.now();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
@@ -51,7 +59,7 @@ public class Training {
         this.title = title;
     }
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", columnDefinition = "text", nullable = false)
     public String getContent() {
         return content;
     }
@@ -78,7 +86,7 @@ public class Training {
         this.dateAdd = dateAdd;
     }
 
-    @Column(name = "dateStart", nullable = false)
+    @Column(name = "dateStart")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -87,7 +95,7 @@ public class Training {
         this.startDate = startDate;
     }
 
-    @Column(name = "dateEnd", nullable = false)
+    @Column(name = "dateEnd")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -104,5 +112,14 @@ public class Training {
 
     public void setTrainingCategory(TrainingCategory trainingCategory) {
         this.trainingCategory = trainingCategory;
+    }
+
+    @Transient
+    public String getSummary(){
+        if(this.getContent().length() > 50){
+            return this.getContent().substring(0, 49) + "...";
+        }
+
+        return this.getContent();
     }
 }

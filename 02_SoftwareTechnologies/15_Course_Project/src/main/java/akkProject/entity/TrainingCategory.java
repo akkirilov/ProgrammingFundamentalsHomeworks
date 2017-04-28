@@ -43,4 +43,12 @@ public class TrainingCategory {
     public void setTrainings(Set<Training> trainings) {
         this.trainings = trainings;
     }
+
+    public void addTrainings(Training training) {
+        this.trainings.add(training);
+    }
+
+    public void removeTraining(Training training) {
+        this.trainings.remove(training);
+    }
 }

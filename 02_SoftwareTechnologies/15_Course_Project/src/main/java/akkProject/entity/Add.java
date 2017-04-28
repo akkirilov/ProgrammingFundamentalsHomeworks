@@ -19,6 +19,14 @@ public class Add {
         this.dateAdd = LocalDate.now();
     }
 
+    public Add(String title, String content, User addUserId) {
+        this.title = title;
+        this.content = content;
+        this.addUserId = addUserId;
+
+        this.dateAdd = LocalDate.now();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
@@ -74,5 +82,14 @@ public class Add {
 
     public void setAddCategory(AddCategory addCategory) {
         this.addCategory = addCategory;
+    }
+
+    @Transient
+    public String getSummary(){
+        if(this.getContent().length() > 50){
+            return this.getContent().substring(0, 49) + "...";
+        }
+
+        return this.getContent();
     }
 }

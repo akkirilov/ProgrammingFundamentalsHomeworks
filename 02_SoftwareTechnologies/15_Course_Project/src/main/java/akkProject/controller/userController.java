@@ -48,7 +48,7 @@ public class userController {
 
     @PostMapping("/register")
     public String registerPost(UserBindingModel userBindingModel, @RequestParam("mainCategories[]") String[] mainCategories) {
-        if (!userBindingModel.getPassword().equals(userBindingModel.getConfirmPassword())) {
+        if (!userBindingModel.getPassword().equals(userBindingModel.getConfirmPassword()) || mainCategories.length < 1) {
             return "redirect:/register";
         }
 
@@ -204,6 +204,11 @@ public class userController {
         if (!this.userRepository.exists(id)){
             return "redirect:/";
         }
+
+        if (mainCategories.length < 1) {
+            return "redirect:/profile/edit/" + id;
+        }
+
         User user = this.userRepository.findOne(id);
 
         user.setSummary(userBindingModel.getSummary());

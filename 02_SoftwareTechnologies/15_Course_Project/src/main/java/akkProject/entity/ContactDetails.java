@@ -45,6 +45,10 @@ public class ContactDetails {
         this.detailsUserId = detailsUserId;
     }
 
+    public void removeDetailsUserId(User detailsUserId) {
+        this.detailsUserId = null;
+    }
+
     @Column(name = "phone")
     public String getPhone() {
         return phone;

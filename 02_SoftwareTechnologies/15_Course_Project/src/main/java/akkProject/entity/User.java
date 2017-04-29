@@ -100,6 +100,10 @@ public class User {
         this.mainCategories.add(mainCategory);
     }
 
+    public void removeMainCategory(MainCategory mainCategory) {
+        this.mainCategories.remove(mainCategory);
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles")
     public Set<Role> getRoles() {
@@ -112,6 +116,10 @@ public class User {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
     }
 
     @OneToMany(fetch = FetchType.EAGER)

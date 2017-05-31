@@ -1,0 +1,460 @@
+/*01_CREATE DATABASE*/
+CREATE DATABASE `minions`;
+
+USE `minions`;
+
+
+
+/*02_CREATE TABLES*/
+CREATE TABLE IF NOT EXISTS `minions` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(55),
+    `age` TINYINT UNSIGNED,
+    CONSTRAINT pk_minions PRIMARY KEY(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `towns` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(55),
+    CONSTRAINT pk_minions PRIMARY KEY(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+/*03_ALTER MINIONS TABLE*/
+ALTER TABLE `minions` 
+ADD COLUMN `town_id` INT,
+ADD FOREIGN KEY fk_minions_towns(`town_id`) REFERENCES `towns`(`id`);
+
+
+
+/*04_INSERT DATA INTO TABLES MINIONS AND TOWNS*/
+INSERT INTO `towns` (`id`, `name`) VALUES(1, 'Sofia'), (2, 'Plovdiv'), (3, 'Varna');
+INSERT INTO `minions` (`id`, `name`, `age`, `town_id`) VALUES(1, 'Kevin', 22, 1), (2, 'Bob', 15, 3), (3, 'Steward', NULL, 2);
+
+
+
+/*05_Truncate Table Minions*/
+TRUNCATE TABLE `minions`;
+
+
+
+/*06_Drop All Tables*/
+DROP TABLES `minions`, `towns`;
+
+
+
+/*07_Create Table People*/
+CREATE TABLE `people` (
+	`id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+	`name` VARCHAR(200) NOT NULL,
+	`picture` MEDIUMBLOB,
+	`height` DOUBLE(3, 2),
+	`weight` DOUBLE(5, 2),
+	`gender` CHAR NOT NULL,
+	`birthdate` DATE NOT NULL,
+	`biography` LONGTEXT,
+	CONSTRAINT pk_people PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHAR SET=utf8;
+
+INSERT INTO `people` (`name`, `picture`, `height`, `weight`, `gender`, `birthdate`, `biography`) VALUES
+('Jan', NULL, 1.87, 94.32, 'm', '1984-05-06', 'Some very interesting biography!!!'),
+('Feb', NULL, 1.67, 54.82, 'f', '1988-12-30', NULL),
+('Mar', NULL, 1.73, 64.66, 'f', '1914-01-21', 'Some very interesting biography!!!'),
+('Apr', NULL, 1.54, 154.89, 'm', '1994-07-23', NULL),
+('May', NULL, 1.97, 102.72, 'm', '1999-11-15', 'Some very interesting biography!!!');
+
+
+
+
+/*08_Create Table Users*/
+CREATE TABLE `users` (
+    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `username` VARCHAR(30) NOT NULL UNIQUE,
+    `password` VARCHAR(26) NOT NULL,
+    `profile_picture` MEDIUMBLOB,
+    `last_login_time` DATETIME NOT NULL,
+    `is_deleted` BOOL,
+    CONSTRAINT pk_users PRIMARY KEY (`id`)
+)  ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHAR SET=UTF8;
+
+INSERT INTO `users` (`username`, `password`, `profile_picture`, `last_login_time`, `is_deleted`) VALUES
+('Jan', 'kjnfczskdjfvngjk', NULL, '1984-05-06 16:24:59', NULL),
+('Feb', 'sas4a4s5s5616516', NULL, '1988-12-30 17:34:09', NULL),
+('Mar', 'sasad6516s561sdf', NULL, '1914-01-21 19:23:45', TRUE),
+('Apr', 'sas4a4s5s56gdggr', NULL, '1994-07-23 10:04:33', NULL),
+('May', 'dhypoiuytrd16517', NULL, '1999-11-15 06:09:21', TRUE);
+
+
+
+/*09_Change Primary Key*/
+ALTER TABLE `users` 
+DROP PRIMARY KEY, 
+ADD PRIMARY KEY pk_users (`id`, `username`);
+
+
+
+/*10_Set Default Value of a Field*/
+ALTER TABLE `users`
+MODIFY COLUMN `last_login_time` DATETIME DEFAULT now();
+
+
+
+/*11_Set Unique Field*/
+ALTER TABLE `users` 
+DROP PRIMARY KEY, 
+ADD PRIMARY KEY pk_users(`id`),
+ADD CONSTRAINT uq_users UNIQUE (`username`);
+
+
+
+/*12_Movies Database*/
+CREATE TABLE `directors` (
+    `id` INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+    `director_name` VARCHAR(255) NOT NULL,
+    `notes` TEXT NOT NULL
+);
+
+CREATE TABLE `genres` (
+    `id` INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+    `genre_name` VARCHAR(255) NOT NULL,
+    `notes` TEXT NOT NULL
+);
+
+CREATE TABLE `categories` (
+    `id` INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+    `category_name` VARCHAR(255) NOT NULL,
+    `notes` TEXT NOT NULL
+);
+
+CREATE TABLE `movies` (
+    `id` INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `director_id` INT NOT NULL,
+    `copyright_year` INT NOT NULL,
+    `length` TIME NOT NULL,
+    `genre_id` INT NOT NULL, 
+    `category_id` INT NOT NULL,
+    `rating` TINYINT NOT NULL,
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `directors` (`director_name`, `notes`) VALUES ('Jan', 'good'), ('Feb', 'good'), ('Mar', 'good'), ('Apr', 'good'), ('May', 'good');
+INSERT INTO `genres` (`genre_name`, `notes`) VALUES ('Horror', 'good'), ('Comedy', 'good'), ('Action', 'good'), ('Family', 'good'), ('Clasics', 'good');
+INSERT INTO `categories` (`category_name`, `notes`) VALUES ('Home', 'good'), ('Rent', 'good'), ('Sell', 'good'), ('Buy', 'good'), ('Remake', 'good');
+
+INSERT INTO `movies` (`title`, `director_id`, `copyright_year`, `length`, `genre_id`, `category_id`, `rating`, `notes`) VALUES 
+('AAA', 1, 1987, '01:34:24', 1, 1, 1, 'Good'),
+('BBB', 2, 1987, '01:34:24', 2, 2, 2, 'Good'),
+('CCC', 3, 1987, '01:34:24', 3, 3, 3, 'Good'),
+('DDD', 4, 1987, '01:34:24', 4, 4, 4, 'Good'),
+('EEE', 5, 1987, '01:34:24', 5, 5, 5, 'Good');
+
+
+
+/*13_Car Rental Database*/
+CREATE TABLE `categories` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `category` VARCHAR(255),
+    `daily_rate` INT(3),
+    `weekly_rate` INT(3),
+    `monthly_rate` INT(4),
+    `weekend_rate` INT(3)
+) ENGINE=InnoDB CHAR SET=utf8;
+
+INSERT INTO `categories` (`category`, `daily_rate`, `weekly_rate`, `monthly_rate`, `weekend_rate`) VALUES
+	('VAN', 50, 300, 1200, 200),
+	('COMBI', 50, 300, 1200, 200),
+	('SEDAN', 50, 300, 1200, 200);
+
+CREATE TABLE `cars` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `plate_number` VARCHAR(15), 
+    `make` VARCHAR(50), 
+    `model` VARCHAR(50), 
+    `car_year` INT, 
+    `category_id` INT, 
+    `doors` TINYINT, 
+    `picture` BLOB, 
+    `car_condition` VARCHAR(255), 
+    `available` BOOL
+) ENGINE=InnoDB DEFAULT CHAR SET=utf8;
+
+INSERT INTO `cars` (`plate_number`, `make`, `model`, `car_year`, `category_id`, `doors`, `car_condition`, `available`) VALUES
+	('CA2828CA', 'MERCEDES', 'S500', '2017', 3, 4, 'LIKE NEW', TRUE),
+	('CA2928CA', 'MERCEDES', 'VITO', '2017', 1, 5, 'LIKE NEW', TRUE),
+	('CA2821CA', 'MERCEDES', 'E500', '2017', 2, 5, 'LIKE NEW', TRUE);
+
+CREATE TABLE `employees` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `first_name` VARCHAR(50),
+    `last_name` VARCHAR(50),
+    `title` VARCHAR(15), 
+    `notes` TEXT
+) ENGINE=InnoDB DEFAULT CHAR SET=utf8;
+
+INSERT INTO `employees` (`first_name`, `last_name`) VALUES 
+	('Pesho', 'Goshov'),
+    ('Pesho', 'Peshev'),
+    ('Pesho', 'Genchev');
+
+CREATE TABLE `customers` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `driver_licence_number` VARCHAR(55),
+    `full_name` VARCHAR(55),
+    `address` VARCHAR(55), 
+    `city` VARCHAR(55), 
+    `zip_code` VARCHAR(55),
+    `notes` TEXT
+) ENGINE=InnoDB DEFAULT CHAR SET=utf8;
+
+INSERT INTO `customers` (`driver_licence_number`, `full_name`, `address`, `city`, `zip_code`) VALUES 
+	('1212121212', 'Vasko Peshov Goshov','Ulichna 5', 'Sofia', '1818'),
+    ('7815451272', 'Marcho Peshov Peshev','Ulichna 7', 'Sofia', '1818'),
+    ('1289887327', 'Rachko Peshov Genchev','Ulichna 8', 'Sofia', '1818');
+
+CREATE TABLE `rental_orders` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `employee_id` INT,
+    `customer_id` INT,
+    `car_id` INT NOT NULL,
+    `car_condition` VARCHAR(55),
+    `tank_level` INT,
+    `kilometrage_start` INT,
+	`kilometrage_end` INT,
+	`total_kilometrage` INT,
+	`start_date` DATE,
+	`end_date` DATE, 
+	`total_days` INT, 
+	`rate_applied` DECIMAL, 
+	`tax_rate` DECIMAL,
+	`order_status` VARCHAR(55),
+    `notes` TEXT
+) ENGINE=InnoDB DEFAULT CHAR SET=utf8;
+
+INSERT INTO `rental_orders` (`employee_id`, `customer_id`, `car_id`, `car_condition`, `tank_level`, `kilometrage_start`, 
+`kilometrage_end`, `total_kilometrage`, `start_date`, `end_date`, `total_days`, `rate_applied`, `tax_rate`, `order_status`) VALUES
+	(1, 1, 1, 'GOOD', 50, 1500, 2001, `kilometrage_end` - `kilometrage_start`,
+    '2017-05-25', '2017-05-30', `end_date` - `start_date`, 500.00, 100.00, 'OK'),
+    (2, 2, 2, 'GOOD', 50, 1500, 2001, `kilometrage_end` - `kilometrage_start`,
+    '2017-05-25', '2017-05-30', `end_date` - `start_date`, 500.00, 100.00, 'OK'),
+    (3, 3, 3, 'GOOD', 50, 1500, 2001, `kilometrage_end` - `kilometrage_start`,
+    '2017-05-25', '2017-05-30', `end_date` - `start_date`, 500.00, 100.00, 'OK');
+	
+	
+	
+/*14_Hotel Database*/
+CREATE TABLE `employees` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `first_name` VARCHAR(55) NOT NULL,
+    `last_name` VARCHAR(55) NOT NULL,
+    `title` VARCHAR(15), 
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `employees` (`first_name`, `last_name`, `notes`) VALUES
+('Pesho1', 'Peshov1', 'bratched1'),
+('Pesho2', 'Peshov2', 'bratched2'),
+('Pesho2', 'Peshov2', 'bratched3');
+
+CREATE TABLE `customers` (
+	`account_number` INT NOT NULL PRIMARY KEY,
+    `first_name` VARCHAR(55) NOT NULL,
+    `last_name` VARCHAR(55) NOT NULL,
+    `phone_number` VARCHAR(15) NOT NULL,
+    `emergency_name` VARCHAR(55) NOT NULL,
+    `emergency_number` VARCHAR(15) NOT NULL, 
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `customers` (`account_number`, `first_name`, `last_name`, `phone_number`, `emergency_name`, `emergency_number`, `notes`) VALUES
+(151515, 'Name1', 'Namov', 0897444555, 'NamovEm1', 0897414555, 'blabla'),
+(153515, 'Name2', 'Namov', 0897445555, 'NamovEm2', 0897424555, 'blabla'),
+(151445, 'Name3', 'Namov', 0897448755, 'NamovEm3', 0897434555, 'blabla');
+
+CREATE TABLE `room_status` (
+	`room_status` VARCHAR(255) NOT NULL PRIMARY KEY, 
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `room_status` (`room_status`, `notes`) VALUES
+('Available', 'blabla'),
+('Reserved', 'blabla'),
+('NOT Available', 'blabla');
+
+CREATE TABLE `room_types` (
+	`room_type` VARCHAR(255) NOT NULL PRIMARY KEY, 
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `room_types` (`room_type`, `notes`) VALUES
+('Apartment', 'blabla'),
+('Studio', 'blabla'),
+('Room', 'blabla');
+
+CREATE TABLE `bed_types` (
+	`bed_type` VARCHAR(255) NOT NULL PRIMARY KEY, 
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `bed_types` (`bed_type`, `notes`) VALUES
+('Big', 'blabla'),
+('Medium', 'blabla'),
+('Small', 'blabla');
+
+CREATE TABLE `rooms` (
+    `room_number` INT NOT NULL PRIMARY KEY,
+    `room_type` VARCHAR(255) NOT NULL,
+    `bed_type` VARCHAR(255) NOT NULL,
+    `rate` DECIMAL NOT NULL,
+    `room_status` VARCHAR(255) NOT NULL,
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `rooms` (`room_number`, `room_type`, `bed_type`, `rate`, `room_status`, `notes`) VALUES
+(123, 'Apartment', 'Big', 201.22, 'Available', 'blabla'),
+(154, 'Studio', 'Medium', 191.22, 'Reserved', 'blabla'),
+(208, 'Room', 'Small', 241.22, 'NOT Available', 'blabla');
+
+CREATE TABLE `payments` (
+	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
+    `employee_id` INT NOT NULL, 
+    `payment_date` DATE NOT NULL,
+    `account_number` INT NOT NULL,
+    `first_date_occupied` DATE NOT NULL,
+    `last_date_occupied` DATE NOT NULL,
+	`total_days` INT, 
+    `amount_charged` DECIMAL NOT NULL, 
+    `tax_rate`INT NOT NULL, 
+    `tax_amount` DECIMAL NOT NULL, 
+    `payment_total` DECIMAL NOT NULL, 
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `payments`(`employee_id`, `payment_date`, `account_number`, `first_date_occupied`, `last_date_occupied`,
+`total_days`, `amount_charged`, `tax_rate`, `tax_amount`, `payment_total`, `notes`) VALUES
+(1, '2015-12-14', 151515, '2015-12-14', '2015-12-17', `last_date_occupied` - `first_date_occupied`, 201.22 * `total_days`,
+0.2, `amount_charged` * `tax_rate`, `amount_charged` + `tax_amount`, 'blabla'),
+(1, '2015-12-01', 153515, '2015-12-03', '2015-12-17', `last_date_occupied` - `first_date_occupied`, 191.22 * `total_days`,
+0.2, `amount_charged` * `tax_rate`, `amount_charged` + `tax_amount`, 'blabla'),
+(1, '2015-12-01', 151445, '2015-07-03', '2015-07-30', `last_date_occupied` - `first_date_occupied`, 241.22 * `total_days`,
+0.2, `amount_charged` * `tax_rate`, `amount_charged` + `tax_amount`, 'blabla');
+
+CREATE TABLE `occupancies` (
+    `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `employee_id` INT NOT NULL,
+    `date_occupied` DATE NOT NULL,
+    `account_number` INT NOT NULL,
+    `room_number` INT NOT NULL,
+    `rate_applied` DECIMAL NOT NULL,
+    `phone_charge` BOOL NOT NULL,
+    `notes` TEXT NOT NULL
+);
+
+INSERT INTO `occupancies` (`employee_id`, `date_occupied`, `account_number`, `room_number`, `rate_applied`, `phone_charge`, `notes`) VALUES
+(1, '2015-12-14', 151515, 123, 201.22, TRUE, 'blabla'),
+(2, '2015-12-03', 153515, 154, 191.22, TRUE, 'blabla'),
+(3, '2015-07-03', 151445, 208, 241.22, TRUE, 'blabla');
+
+
+
+/*15_SoftUni Database*/
+CREATE TABLE `towns` (
+`id` INT AUTO_INCREMENT NOT NULL,
+`name` VARCHAR(255) NOT NULL,
+CONSTRAINT `pk_towns` PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `addresses` (
+`id` INT AUTO_INCREMENT NOT NULL,
+`address_text` VARCHAR(255) NOT NULL, 
+`town_id` INT NOT NULL,
+CONSTRAINT `pk_addresses` PRIMARY KEY (`id`),
+CONSTRAINT `fk_addresses_towns` FOREIGN KEY (`town_id`) REFERENCES `towns`(`id`)
+);
+
+CREATE TABLE `departments` (
+`id` INT AUTO_INCREMENT NOT NULL,
+`name` VARCHAR(255) NOT NULL,
+CONSTRAINT `pk_departments` PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `employees` (
+`id` INT AUTO_INCREMENT NOT NULL,
+`first_name` VARCHAR(55) NOT NULL,
+`middle_name` VARCHAR(55) NOT NULL,
+`last_name` VARCHAR(55) NOT NULL,
+`job_title` VARCHAR(155) NOT NULL,
+`department_id` INT NOT NULL, 
+`hire_date` DATE NOT NULL, 
+`salary` DECIMAL NOT NULL, 
+`address_id` INT,
+CONSTRAINT `pk_employees` PRIMARY KEY (`id`),
+CONSTRAINT `fk_employees_departments` FOREIGN KEY (`department_id`) REFERENCES `departments`(`id`),
+CONSTRAINT `fk_employees_address` FOREIGN KEY (`address_id`) REFERENCES `addresses`(`id`)
+);
+
+
+
+/*16_Backup Database*/
+mysqldump soft_uni > softuni-backup.sql -u root -p
+
+
+/*17_Basic Insert*/
+INSERT INTO `towns` (`name`) VALUES
+('Sofia'), ('Plovdiv'), ('Varna'), ('Burgas');
+
+INSERT INTO `departments` (`name`) VALUES
+('Engineering'), ('Sales'), ('Marketing'), ('Software Development'), ('Quality Assurance');
+
+INSERT INTO `employees` (`first_name`, `middle_name`, `last_name`, `job_title`, `department_id`, `hire_date`, `salary`) VALUES
+('Ivan', 'Ivanov', 'Ivanov', '.NET Developer', 4, '2013-02-01', 3500.00),
+('Petar', 'Petrov', 'Petrov', 'Senior Engineer', 1 , '2004-03-02', 4000.00),
+('Maria', 'Petrova', 'Ivanova', 'Intern', 5, '2016-08-28', 525.25),
+('Georgi', 'Terziev', 'Ivanov', 'CEO', 2, '2007-12-09', 3000.00),
+('Peter', 'Pan', 'Pan', 'Intern', 3, '2016-08-28', 599.88);
+
+
+/*18_Basic Select All Fields*/
+SELECT * FROM `towns`;
+
+SELECT * FROM `departments`;
+
+SELECT * FROM `employees`;
+
+
+
+/*19_Basic Select All Fields and Order Them*/
+SELECT * FROM `towns` ORDER BY `name` ASC;
+
+SELECT * FROM `departments` ORDER BY `name` ASC;
+
+SELECT * FROM `employees` ORDER BY `salary` DESC;
+
+
+
+/*20_Basic Select Some Fields*/
+SELECT `name` FROM `towns` ORDER BY `name` ASC;
+
+SELECT `name` FROM `departments` ORDER BY `name` ASC;
+
+SELECT `first_name`, `last_name`, `job_title`, `salary` FROM `employees` ORDER BY `salary` DESC;
+
+
+
+/*21_Increase Employees Salary*/
+UPDATE `employees` SET `salary`=`salary` + `salary` * 0.1;
+
+SELECT `salary` FROM `employees`;
+
+
+
+/*22_Decrease Tax Rate*/
+UPDATE `payments` SET `tax_rate`=`tax_rate` - `tax_rate` * 0.03;
+
+SELECT `tax_rate` FROM `payments`;
+
+
+
+/*23_Delete All Records*/
+TRUNCATE `occupancies`;

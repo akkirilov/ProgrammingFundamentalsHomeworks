@@ -1,0 +1,273 @@
+/*01_Examine the Databases*/
+
+
+/*Part I – Queries for SoftUni Database*/
+/*02_Find All Information About Departments*/
+SELECT 
+    *
+FROM
+    `departments`;
+
+
+
+/*03_Find all Department Names*/
+SELECT 
+    `name`
+FROM
+    `departments`;
+
+
+
+/*04_Find Salary of Each Employee*/
+SELECT 
+    `first_name`, `last_name`, `salary`
+FROM
+    `employees`;
+
+
+
+/*05_Find Full Name of Each Employee*/
+SELECT 
+    `first_name`, `middle_name`, `last_name`
+FROM
+    `employees`;
+
+
+
+/*06_Find Email Address of Each Employee*/
+SELECT 
+    CONCAT(`first_name`,
+            '.',
+            `last_name`,
+            '@softuni.bg') AS `full_email_address`
+FROM
+    `employees`;
+
+
+
+/*07_Find All Different Employee’s Salaries*/
+SELECT DISTINCT
+    `salary`
+FROM
+    `employees`;	
+	
+	
+	
+/*08_Find all Information About Employees*/	
+SELECT 
+    *
+FROM
+    `employees`
+WHERE
+	`job_title` = 'Sales Representative';
+	
+	
+	
+/*09_Find Names of All Employees by Salary in Range*/		
+SELECT 
+    `first_name`, `last_name`, `job_title` AS `JobTitle`
+FROM
+    `employees`
+WHERE
+    `salary` BETWEEN 20000 AND 30000;
+
+
+
+/*10_Find Names of All Employees*/
+SELECT 
+    CONCAT(`first_name`,
+            ' ',
+            `middle_name`,
+            ' ',
+            `last_name`) AS `Full Name`
+FROM
+    `employees`
+WHERE
+    `salary` IN (25000 , 14000, 12500, 23600);
+	
+	
+	
+/*11_Find All Employees Without Manager*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    `manager_id` IS NULL;
+	
+	
+	
+/*12_Find All Employees with Salary More Than*/
+SELECT 
+    `first_name`, `last_name`, `salary`
+FROM
+    `employees`
+WHERE
+    `salary` > 50000
+ORDER BY `salary` DESC;
+
+
+
+/*13_Find 5 Best Paid Employees*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+ORDER BY `salary` DESC
+LIMIT 5;
+
+
+
+/*14_Find All Employees Except Marketing*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    `department_id` != 4;
+	
+	
+	
+/*15_Sort Employees Table*/
+SELECT 
+    *
+FROM
+    `employees`
+ORDER BY `salary` DESC , `first_name` ASC , `last_name` DESC , `middle_name` ASC;
+
+
+
+/*16_Create View Employees with Salaries*/
+CREATE VIEW `v_employees_salaries` AS
+    SELECT 
+        `first_name`, `last_name`, `salary`
+    FROM
+        `employees`;
+
+
+
+/*17_Create View Employees with Job Titles*/
+UPDATE `employees` 
+SET 
+    `middle_name` = ''
+WHERE
+    `middle_name` IS NULL;
+    
+CREATE VIEW `v_employees_job_titles` AS
+    SELECT 
+        CONCAT(`first_name`,
+                ' ',
+                `middle_name`,
+                ' ',
+                `last_name`) AS `full_name`,
+        `job_title`
+    FROM
+        `employees`;
+
+		
+		
+/*18_Distinct Job Titles*/
+SELECT DISTINCT
+    `job_title`
+FROM
+    `employees`;
+	
+	
+	
+/*19_Find First 10 Started Projects*/
+SELECT 
+    *
+FROM
+    `projects`
+ORDER BY `start_date` ASC , `name` ASC
+LIMIT 10;
+
+
+
+/*20_Last 7 Hired Employees*/
+SELECT 
+    `first_name`, `last_name`, `hire_date`
+FROM
+    `employees`
+ORDER BY `hire_date` DESC
+LIMIT 7;
+
+
+
+/*21_Increase Salaries*/
+UPDATE `employees` 
+SET 
+    `salary` = `salary` * 1.12
+WHERE
+    `department_id` IN (1, 2, 4, 11);
+
+SELECT 
+    `salary`
+FROM
+    `employees`;
+	
+	
+
+/*Part II – Queries for Geography Database*/	
+/*22_All Mountain Peaks*/
+SELECT 
+    `peak_name`
+FROM
+    `peaks`
+ORDER BY `peak_name` ASC;
+
+
+
+/*23_Biggest Countries by Population*/
+SELECT 
+    `country_name`, `population`
+FROM
+    `countries`
+WHERE
+    `continent_code` = 'EU'
+ORDER BY `population` DESC , `country_name` ASC
+LIMIT 30;
+
+
+
+/*24_Countries and Currency*/
+CREATE TABLE `countries_is_euro_or_not` 
+SELECT 
+	`country_name`, 
+    `country_code`, 
+    `currency_code` 
+FROM
+    `countries`;
+
+ALTER TABLE `countries_is_euro_or_not`
+MODIFY `currency_code` VARCHAR(15);
+
+UPDATE `countries_is_euro_or_not` 
+SET 
+    `currency_code` = 'Euro'
+WHERE
+    `currency_code` = 'EUR';
+
+UPDATE `countries_is_euro_or_not` 
+SET 
+    `currency_code` = 'Not Euro'
+WHERE
+    `currency_code` != 'Euro'
+        OR `currency_code` IS NULL;
+
+SELECT 
+    `country_name`,
+    `country_code`,
+    `currency_code` AS `currency`
+FROM
+    `countries_is_euro_or_not`
+ORDER BY `country_name` ASC;
+
+
+/*Part III – Queries for Diablo Database*/
+/*25_All Diablo Characters*/
+SELECT 
+    `name`
+FROM
+    `characters`
+ORDER BY `name` ASC;

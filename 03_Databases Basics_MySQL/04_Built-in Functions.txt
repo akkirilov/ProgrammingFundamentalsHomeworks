@@ -1,0 +1,142 @@
+/*Part I – Queries for SoftUni Database*/
+/*01_Find Names of All Employees by First Name*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    `first_name` LIKE 'Sa%';
+	
+	
+	
+/*02_Find Names of All Employees by Last Name*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    `last_name` LIKE '%ei%';
+	
+	
+	
+/*03_Find First Names of All Employess*/
+SELECT 
+    `first_name`
+FROM
+    `employees`
+WHERE
+    `department_id` IN (3 , 10)
+	AND 1995 <= EXTRACT(YEAR FROM `hire_date`)
+	AND 2005 >= EXTRACT(YEAR FROM `hire_date`);
+		
+		
+		
+/*04_Find All Employees Except Engineers*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    `job_title` NOT LIKE '%engineer%';
+	
+	
+	
+/*05_Find Towns with Name Length*/
+SELECT 
+    `name`
+FROM
+    `towns`
+WHERE
+    CHAR_LENGTH(`name`) = 5
+    OR CHAR_LENGTH(`name`) = 6
+ORDER BY `name` ASC;
+
+
+
+/*06_Find Towns Starting With*/
+SELECT 
+    `town_id`, `name`
+FROM
+    `towns`
+WHERE
+    `name` LIKE 'M%' 
+	OR `name` LIKE 'K%'
+	OR `name` LIKE 'B%'
+	OR `name` LIKE 'E%'
+ORDER BY `name` ASC;
+
+
+
+
+/*07_Find Towns Not Starting With*/
+SELECT 
+    `town_id`, `name`
+FROM
+    `towns`
+WHERE
+    `name` NOT LIKE 'R%' 
+	AND `name` NOT LIKE 'B%'
+	AND `name` NOT LIKE 'D%'
+ORDER BY `name` ASC;
+
+
+
+/*08_Create View Employees Hired After*/
+CREATE VIEW `v_employees_hired_after_2000` AS
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    EXTRACT(YEAR FROM `hire_date`) > 2000;
+		
+		
+		
+/*09_Length of Last Name*/
+SELECT 
+    `first_name`, `last_name`
+FROM
+    `employees`
+WHERE
+    char_length(`last_name`) = 5;
+	
+	
+/*Part II – Queries for Geography Database*/
+/*10_Countries Holding 'A'*/
+SELECT 
+    `country_name`, `iso_code`
+FROM
+    `countries`
+WHERE
+    `country_name` LIKE '%A%A%A%'
+ORDER BY `iso_code` ASC;
+
+
+
+/*11_Mix of Peak and River Names*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

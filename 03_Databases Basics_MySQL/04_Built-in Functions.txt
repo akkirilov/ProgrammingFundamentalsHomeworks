@@ -188,3 +188,24 @@ SELECT
 FROM
     `orders`;
 
+	
+	
+/*17_People Table(Bonus)*/
+USE `diablo`;
+
+CREATE TABLE `people` 
+SELECT 
+	`id`, 
+	concat(`first_name`, ' ', `last_name`) AS `name`,
+    date_sub(`registration_date`, INTERVAL 14 YEAR) AS `birthdate`
+FROM
+    `users`;
+
+SELECT 
+	`name`,
+    timestampdiff(YEAR,`birthdate`, now()) AS `age_in_years`, 
+    timestampdiff(MONTH,`birthdate`, now()) AS `age_in_months`,
+    timestampdiff(DAY,`birthdate`, now()) AS `age_in_days`,
+    timestampdiff(MINUTE,`birthdate`, now()) AS `age_in_minutes`
+FROM `people`
+ORDER BY `birthdate` ASC;

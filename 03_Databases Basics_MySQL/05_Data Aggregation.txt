@@ -1,0 +1,38 @@
+/*01_Data Records*/
+SELECT 
+    COUNT(*)
+FROM
+    `wizzard_deposits`;
+
+
+
+/*02_Longest Magic Wand*/
+SELECT 
+    MAX(`magic_wand_size`)
+FROM
+    `wizzard_deposits`;
+
+
+
+/*03_Longest Magic Wand per Deposit Groups*/
+SELECT 
+    `deposit_group`,
+    MAX(`magic_wand_size`) AS `longest_magic_wand`
+FROM
+    `wizzard_deposits`
+GROUP BY `deposit_group`
+ORDER BY `longest_magic_wand` ASC, `deposit_group` ASC;
+
+
+
+/*04_Smallest Deposit Group per Magic Wand Size*/
+SELECT 
+    `deposit_by_avg`.`deposit_group`
+FROM
+    (SELECT 
+        `deposit_group`, AVG(`magic_wand_size`) AS `avg_size`
+    FROM
+        `wizzard_deposits`
+    GROUP BY `deposit_group`) AS `deposit_by_avg`
+ORDER BY `avg_size`
+LIMIT 1;

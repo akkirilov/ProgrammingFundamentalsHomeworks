@@ -36,3 +36,17 @@ FROM
     GROUP BY `deposit_group`) AS `deposit_by_avg`
 ORDER BY `avg_size`
 LIMIT 1;
+
+
+
+/*05_Deposits Sum*/
+SELECT 
+    `w`.`deposit_group`, SUM(`w`.`deposit_amount`) AS `total`
+FROM
+    `wizzard_deposits` AS `w`
+GROUP BY `w`.`deposit_group`
+ORDER BY `total`;
+
+
+
+

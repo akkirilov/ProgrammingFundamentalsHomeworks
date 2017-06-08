@@ -272,31 +272,29 @@ GROUP BY `final`.`department_id`;
 
 
 
+/*18_Salary Challenge*/
+SELECT 
+    `e`.`first_name`, `e`.`last_name`, `e`.`department_id`
+FROM
+    `employees` AS `e`,
+    `employees` AS `a`
+WHERE `e`.`department_id` = `a`.`department_id` 
+	AND `e`.`salary` > (SELECT 
+							avg(`salary`) 
+						FROM 
+							`employees` 
+						WHERE 
+							`department_id` = `e`.`department_id`)
+GROUP BY `e`.`first_name`, `e`.`last_name`, `e`.`department_id`
+ORDER BY `e`.`department_id`
+LIMIT 10;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*19_Departments Total Salaries*/
+SELECT 
+    `e`.`department_id`, SUM(`e`.`salary`)
+FROM
+    `employees` AS `e`
+GROUP BY `e`.`department_id`
+ORDER BY `e`.`department_id`;

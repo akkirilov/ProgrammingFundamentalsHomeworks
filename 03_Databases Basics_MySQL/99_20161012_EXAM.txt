@@ -707,6 +707,64 @@ WHERE (`cwa`.`height` BETWEEN 1.74 AND 2.04) AND `cwa`.`customer_id` IS NULL;
 
 
 
+/*09_Average Loans*/
+SELECT 
+	`lc`.`customer_id`, `lc`.`amount`
+FROM
+	(SELECT 
+		`l`.`loan_id`, `l`.`amount`, `l`.`customer_id`, `c`.`gender`, `c`.`last_name`
+	FROM
+		`loans` AS `l`
+		INNER JOIN
+		`customers` AS `c`
+		ON `l`.`customer_id` = `c`.`customer_id`) AS `lc`
+	JOIN
+	(SELECT 
+		avg(`l`.`amount`) AS `avg_amount`
+	FROM
+		`loans` AS `l`
+		INNER JOIN
+		`customers` AS `c`
+		ON `l`.`customer_id` = `c`.`customer_id`
+	WHERE `c`.`gender` = 'M') AS `avg`
+WHERE `lc`.`amount` > `avg`.`avg_amount`
+ORDER BY `lc`.`last_name` ASC
+LIMIT 5;
+
+
+
+/*10_Oldest Account*/
+SELECT 
+	`a`.`customer_id`, `c`.`first_name`, `a`.`start_date` 
+FROM 
+	`accounts` AS `a`
+    INNER JOIN
+	`customers` AS `c`
+    ON 
+    `a`.`customer_id` = `c`.`customer_id`
+ORDER BY `a`.`start_date` ASC
+LIMIT 1;
+
+
+
+
+
+
+
+/*Section 4. Programmability*/
+/*01_String Joiner Function*/
+CREATE FUNCTION `udf_concat_string`(s1 VARCHAR(127), s2 VARCHAR(127)) 
+RETURNS VARCHAR(255) CHARSET utf8
+BEGIN
+	RETURN CONCAT(REVERSE(s1), REVERSE(s2));
+END
+
+
+
+/*02_Inexpired Loans*/
+
+
+
 
 
 

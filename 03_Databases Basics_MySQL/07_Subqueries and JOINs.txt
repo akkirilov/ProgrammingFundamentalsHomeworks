@@ -1,0 +1,102 @@
+/*01_*/
+
+
+
+
+/*02_*/
+
+
+
+
+/*03_*/
+
+
+
+
+/*04_*/
+
+
+
+
+/*05_Employees Without Project*/
+SELECT 
+	`e`.`employee_id`, `e`.`first_name`
+FROM
+	`employees` AS `e`
+    LEFT OUTER JOIN
+    `employees_projects` AS `ep`
+    ON `e`.`employee_id` = `ep`.`employee_id`
+WHERE `ep`.`project_id` IS NULL
+ORDER BY `e`.`employee_id` DESC
+LIMIT 3;
+
+
+
+/*06_*/
+
+
+
+
+/*07_*/
+
+
+
+
+/*08_*/
+
+
+
+
+/*09_*/
+
+
+
+
+/*10_*/
+
+
+
+
+/*11_*/
+
+
+
+
+/*12_Highest Peaks in Bulgaria*/
+SELECT 
+    `c`.`country_code`, `m`.`mountain_range`, `p`.`peak_name`, `p`.`elevation`
+FROM
+    `countries` AS `c`
+    JOIN
+    `mountains_countries` AS `mc`
+    ON
+    `mc`.`country_code` = 'BG' AND `mc`.`country_code` = `c`.`country_code`
+    JOIN
+    `mountains` AS `m`
+    ON 
+    `mc`.`mountain_id` = `m`.`id`
+    JOIN
+    `peaks` AS `p`
+    ON
+    `p`.`mountain_id` = `m`.`id`
+WHERE `p`.`elevation` > 2835
+ORDER BY `p`.`elevation` DESC;
+
+
+
+/*13_*/
+
+
+
+
+/*14_*/
+
+
+
+
+/*15_*/
+
+
+
+
+

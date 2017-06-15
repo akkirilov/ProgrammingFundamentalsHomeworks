@@ -510,5 +510,108 @@ ORDER BY `a`.`airport_id` ASC;
 
 
 /*Section 4: Programmability*/
+/*01_Submit Review*/
+CREATE PROCEDURE `usp_submit_review`(customer_id INT, review_content VARCHAR(255), 
+										review_grade INT, airline_name VARCHAR(30))
+BEGIN
+    DECLARE airline_id INT;
+    DECLARE review_id INT;
+    SET airline_id := (SELECT `a`.`airline_id` FROM `airlines` AS `a` 
+							WHERE `a`.`airline_name` = airline_name LIMIT 1);
+    SET review_id := last_insert_id() + 1;
+    
+    
+    START TRANSACTION;
+    INSERT INTO `customer_reviews` (`review_id`, `review_content`, `review_grade`, 
+									`airline_id`, `customer_id`) VALUES
+	(review_id, review_content, review_grade, airline_id, customer_id);
+    
+    IF (airline_id IS NULL) THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Airline does not exist.'; 
+        ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+END
 
 
+
+
+
+
+
+/*02_Ticket Purchase*/
+CREATE PROCEDURE `usp_purchase_ticket`(customer_id INT, flight_id INT, 
+										ticket_price DECIMAL(10, 2), class VARCHAR(6), 
+                                        seat VARCHAR(5))
+BEGIN
+	DECLARE balance DECIMAL;
+    DECLARE lid INT;
+    
+    SET balance := (SELECT `cba`.`balance` 
+						FROM `customer_bank_accounts` AS `cba` 
+                        WHERE `cba`.`customer_id` = customer_id 
+                        ORDER BY `cba`.`balance` DESC LIMIT 1);
+                        
+	SET lid := (SELECT `t`.`ticket_id` + 1
+					FROM `tickets` AS `t`
+                    ORDER BY `t`.`ticket_id` DESC LIMIT 1);
+                    
+	SET autocommit = 0;
+    START TRANSACTION;
+		INSERT INTO `tickets` (`ticket_id`, `price`, `class`, `seat`, 
+								`customer_id`, `flight_id`) VALUES 
+		(lid, ticket_price, class, seat, customer_id, flight_id);
+        
+        UPDATE `customer_bank_accounts` 
+		SET `customer_bank_accounts`.`balance` = `customer_bank_accounts`.`balance` - ticket_price
+		WHERE `customer_bank_accounts`.`customer_id` = customer_id;
+        
+        IF (balance < ticket_price OR balance < 0 OR balance IS NULL) THEN
+			ROLLBACK;
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient bank account balance for ticket purchase.';
+		ELSE
+			COMMIT;
+		END IF;
+    SET autocommit = 1;
+END
+
+
+
+
+
+
+
+/*Section 5 (BONUS)*/
+
+CREATE TABLE `arrived_flights` (
+	`flight_id` INT NOT NULL,
+	`arrival_time` DATETIME NOT NULL,
+	`origin` VARCHAR(50),
+	`destination` VARCHAR(50),
+	`passengers` INT NOT NULL,
+    CONSTRAINT `pk_arrived_flights` PRIMARY KEY (`flight_id`)
+);
+
+/*01_Update Trigger*/
+CREATE TRIGGER `tr_arrived_flights` 
+AFTER UPDATE ON `flights`
+FOR EACH ROW
+BEGIN 
+    DECLARE origin VARCHAR(50);
+    DECLARE destination VARCHAR(50);
+    DECLARE passengers INT;
+    
+    SET origin := (SELECT `a`.`airport_name` FROM `airports` AS `a`
+					WHERE NEW.`origin_airport_id` = `a`.`airport_id`);
+	SET destination := (SELECT `a`.`airport_name` FROM `airports` AS `a`
+					WHERE NEW.`destination_airport_id` = `a`.`airport_id`);
+	SET passengers := (SELECT COUNT(*) FROM `tickets` AS `t` 
+					WHERE `t`.`flight_id` = NEW.`flight_id`);
+   
+	IF (NEW.status = 'Arrived') THEN
+		INSERT INTO `arrived_flights` (`flight_id`, `arrival_time`, `origin`,
+										`destination`, `passengers`) VALUES
+		(NEW.`flight_id`, NEW.`arrival_time`, origin, destination, passengers);
+    END IF;	
+END

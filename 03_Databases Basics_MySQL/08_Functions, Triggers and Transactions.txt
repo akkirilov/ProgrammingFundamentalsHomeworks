@@ -349,28 +349,161 @@ END;
 
 
 /*13_Deposit Money*/
+CREATE PROCEDURE usp_deposit_money (account_id INT, money_amount DECIMAL(19, 10))
+BEGIN
+    SET money_amount := ROUND(money_amount, 4);
+
+    START TRANSACTION;
+    
+    UPDATE `accounts` AS `a`
+    SET `a`.`balance` = `a`.`balance` + money_amount
+    WHERE `a`.`id` = account_id;
+    
+    IF (money_amount <= 0) THEN
+	ROLLBACK;
+    ELSE
+	COMMIT;
+    END IF;
+END
 
 
 
+/*14_Withdraw Money*/
+CREATE PROCEDURE usp_withdraw_money(account_id INT, money_amount DECIMAL(19, 10))
+BEGIN
+    SET money_amount := ROUND(money_amount, 4);
+	
+    START TRANSACTION;
+    
+    UPDATE `accounts` AS `a`
+    SET `a`.`balance` = `a`.`balance` - money_amount
+	WHERE `a`.`id` = account_id;
+    
+    IF (money_amount <= 0 
+			OR (SELECT `balance` FROM `accounts` 
+            WHERE `accounts`.`id` = account_id) < 0) THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+END
 
 
 
+/*15_Money Transfer*/
+CREATE PROCEDURE usp_transfer_money(from_account_id INT, to_account_id INT, amount DECIMAL(19, 10))
+BEGIN
+    SET amount := ROUND(amount, 4);
+	
+    START TRANSACTION;
+    
+    UPDATE `accounts` AS `a`
+	SET `a`.`balance` = `a`.`balance` - amount
+	WHERE `a`.`id` = from_account_id;
+        
+	UPDATE `accounts` AS `a`
+	SET `a`.`balance` = `a`.`balance` + amount
+	WHERE `a`.`id` = to_account_id;
+        
+    IF (from_account_id != to_account_id 
+	AND amount > 0 
+	AND (SELECT `balance` FROM `accounts` 
+            WHERE `accounts`.`id` = from_account_id) > 0
+        AND (SELECT `accounts`.`id` FROM `accounts` 
+            WHERE `accounts`.`id` = from_account_id)
+        AND (SELECT `accounts`.`id` FROM `accounts` 
+            WHERE `accounts`.`id` = to_account_id)) THEN
+	COMMIT;
+    ELSE
+        ROLLBACK;
+    END IF;   
+END
 
 
 
+/*16_Log Accounts Trigger*/
+CREATE TABLE `logs` (
+    `log_id` INT NOT NULL AUTO_INCREMENT, 
+    `account_id` INT, 
+    `old_sum` DECIMAL(19, 4), 
+    `new_sum` DECIMAL(19, 4),
+    CONSTRAINT `pk_logs` PRIMARY KEY (`log_id`),
+    CONSTRAINT `fk_logs_account_id` FOREIGN KEY (`account_id`)
+        REFERENCES `accounts` (`id`)
+);
+
+CREATE TRIGGER tr_account_change_balance
+AFTER UPDATE
+ON `accounts`
+FOR EACH ROW
+BEGIN
+    INSERT INTO `logs` (`account_id`, `old_sum`, `new_sum`) VALUES
+    (NEW.`id`, OLD.`balance`, NEW.`balance`);
+END;
 
 
 
+/*17_Emails Trigger*/
+CREATE TABLE `logs` (
+    `log_id` INT NOT NULL AUTO_INCREMENT, 
+    `account_id` INT, 
+    `old_sum` DECIMAL(19, 4), 
+    `new_sum` DECIMAL(19, 4),
+    CONSTRAINT `pk_logs` PRIMARY KEY (`log_id`),
+    CONSTRAINT `fk_logs_account_id` FOREIGN KEY (`account_id`)
+        REFERENCES `accounts` (`id`)
+);
+
+CREATE TRIGGER tr_account_change_balance
+AFTER UPDATE
+ON `accounts`
+FOR EACH ROW
+BEGIN
+    INSERT INTO `logs` (`account_id`, `old_sum`, `new_sum`) VALUES
+    (NEW.`id`, OLD.`balance`, NEW.`balance`);
+END;
+
+CREATE TABLE `notification_emails`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `recipient` INT NOT NULL,
+    `subject` VARCHAR(100), 
+    `body` TEXT NOT NULL,
+    CONSTRAINT `pk_notification_emails` PRIMARY KEY (`id`)
+);
+
+CREATE TRIGGER tr_change_balance
+AFTER INSERT
+ON `logs`
+FOR EACH ROW
+BEGIN
+    DECLARE lid INT;
+    DECLARE recipient INT;
+    DECLARE old_sum DECIMAL(19, 4);
+    DECLARE new_sum DECIMAL(19, 4);
+    DECLARE e_subject VARCHAR(100);
+    DECLARE body TEXT;
+    
+    SET lid := (SELECT `l`.`log_id` FROM `logs` AS `l`
+		ORDER BY `l`.`log_id` DESC LIMIT 1);
+    SET recipient := (SELECT `l`.`account_id` FROM `logs` AS `l`
+		    WHERE `l`.`log_id` = lid);
+    SET old_sum := (SELECT `l`.`old_sum` FROM `logs` AS `l`
+		    WHERE `l`.`log_id` = lid);
+    SET new_sum := (SELECT `l`.`new_sum` FROM `logs` AS `l`
+		    WHERE `l`.`log_id` = lid);
+    SET e_subject := CONCAT('Balance change for account: ', recipient);
+    SET body := CONCAT('On ', DATE_FORMAT(NOW(), '%b %d %Y at %r'), ' your balance was 
+                        changed from ', old_sum , ' to ', new_sum, '.');
+    
+    INSERT INTO `notification_emails` (`recipient`, `subject`, `body`) VALUES
+    (recipient, e_subject, body);  
+END;
 
 
 
+/*PART III – Queries for Diablo Database*/
 
-
-
-
-
-
-
+/*18_Massive Shopping*/
 
 
 

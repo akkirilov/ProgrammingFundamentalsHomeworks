@@ -504,10 +504,159 @@ END;
 /*PART III – Queries for Diablo Database*/
 
 /*18_Massive Shopping*/
+CREATE PROCEDURE usp_massive_shopping ()
+BEGIN
+
+	DECLARE u_id INT;
+	DECLARE g_id INT;
+	DECLARE ug_id INT;
+    DECLARE i_id INT;
+    DECLARE items_to_buy_i INT;
+    DECLARE items_to_buy_len INT;
+    DECLARE i_price DECIMAL(19, 4);
+    
+    SET u_id := (SELECT `u`.`id` FROM `users` AS `u` WHERE `u`.`user_name` = 'Stamat');
+    SET g_id := (SELECT `g`.`id` FROM `games` AS `g` WHERE `g`.`name` = 'Safflower');
+    SET ug_id := (SELECT `ug`.`id` FROM `users_games` AS `ug` WHERE u_id = `ug`.`user_id` AND g_id = `ug`.`game_id`);
+    SET items_to_buy_i := 1;
+
+	DROP TEMPORARY TABLE IF EXISTS `my_items` ;
+	CREATE TEMPORARY TABLE `my_items` (`item_id` INT)
+	AS
+	(SELECT `ugi`.`item_id` AS `item_id` FROM `user_game_items` AS `ugi` WHERE `ugi`.`user_game_id` = ug_id);
+    
+    DROP TEMPORARY TABLE IF EXISTS `items_to_buy` ;
+	CREATE TEMPORARY TABLE `items_to_buy` (
+	`temp_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, `item_id` INT, `name` VARCHAR(150), `price` DECIMAL(19, 4))
+	AS
+	(SELECT `id` AS `item_id`, `name` AS `name`, `price` AS `price` FROM `items` WHERE `min_level` IN (11, 12) AND `id` NOT IN (SELECT * FROM `my_items`));
+    
+    SET items_to_buy_len := (SELECT COUNT(*) FROM `items_to_buy`);
+    
+    START TRANSACTION;
+    WHILE (items_to_buy_i <= items_to_buy_len) DO
+		SET i_price := (SELECT `itb`.`price` FROM `items_to_buy` AS `itb` WHERE `itb`.`temp_id` = items_to_buy_i);
+		SET i_id := (SELECT `itb`.`item_id` FROM `items_to_buy` AS `itb` WHERE `itb`.`temp_id` = items_to_buy_i);
+        
+        INSERT INTO `user_game_items` (`item_id`, `user_game_id`) VALUE (i_id, ug_id);
+		UPDATE `users_games` SET `cash` = `cash` - i_price WHERE `id` = ug_id; 
+    
+		SET items_to_buy_i := items_to_buy_i + 1;
+    END WHILE;
+    IF ((SELECT `cash` FROM `users_games` WHERE `id` = ug_id) < 0) THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+    
+    DROP TABLE IF EXISTS `items_to_buy` ;
+	CREATE TEMPORARY TABLE `items_to_buy` (
+	`temp_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, `item_id` INT, `name` VARCHAR(150), `price` DECIMAL(19, 4))
+	AS
+	(SELECT `id` AS `item_id`, `name` AS `name`, `price` AS `price` FROM `items` WHERE `min_level` IN (19, 20, 21) AND `id` NOT IN (SELECT * FROM `my_items`));
+    
+    SET items_to_buy_i := 1;
+    SET items_to_buy_len := (SELECT COUNT(*) FROM `items_to_buy`);
+    
+    START TRANSACTION;
+    WHILE (items_to_buy_i <= items_to_buy_len) DO
+		SET i_price := (SELECT `itb`.`price` FROM `items_to_buy` AS `itb` WHERE `itb`.`temp_id` = items_to_buy_i);
+		SET i_id := (SELECT `itb`.`item_id` FROM `items_to_buy` AS `itb` WHERE `itb`.`temp_id` = items_to_buy_i);
+        
+        INSERT INTO `user_game_items` (`item_id`, `user_game_id`) VALUE (i_id, ug_id);
+		UPDATE `users_games` SET `cash` = `cash` - i_price WHERE `id` = ug_id; 
+    
+		SET items_to_buy_i := items_to_buy_i + 1;
+    END WHILE;
+    IF ((SELECT `cash` FROM `users_games` WHERE `id` = ug_id) < 0) THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+    
+    SELECT `i`.`name`
+	FROM `user_game_items` AS `ugi` 
+	JOIN `users_games` AS `ug`
+	ON `ug`.`id` = `ugi`.`user_game_id`
+	JOIN `games` AS `g`
+	ON `ug`.`game_id` = `g`.`id` AND `g`.`name` = 'Safflower'
+	JOIN `items` AS `i`
+	ON `i`.`id` = `ugi`.`item_id`
+	ORDER BY `i`.`name` ASC;
+    
+    SELECT `cash` 
+    FROM `users_games` 
+    WHERE `id` = ug_id;    
+
+END
 
 
 
+/*19_Buy Items for User in Game*/
+CREATE PROCEDURE `usp_buy_item`(ug_id INT, u_level INT, i_name VARCHAR(100))
+BEGIN
+	
+    DECLARE i_id INT;
+    DECLARE i_level INT;
+    DECLARE i_price DECIMAL(19, 4);
+    
+    SET i_id := (SELECT `id` FROM `items` WHERE `name` = i_name);
+    SET i_price := (SELECT `price` FROM `items` WHERE `id` = i_id);
+    SET i_level := (SELECT `min_level` FROM `items` WHERE `id` = i_id);
+    
+    IF (u_level >= i_level AND i_id NOT IN (SELECT `item_id` FROM `user_game_items` AS `ugi` WHERE `ugi`.`user_game_id` = ug_id)) THEN
+		START TRANSACTION;
+		INSERT INTO `user_game_items` (`item_id`, `user_game_id`) VALUE (i_id, ug_id);
+		UPDATE `users_games` SET `cash` = `cash` - i_price WHERE `id` = ug_id;
+		IF ((SELECT `cash` FROM `users_games` WHERE `id` = ug_id) < 0) THEN
+			ROLLBACK;
+		ELSE
+			COMMIT;
+		END IF;
+	END IF;    
 
+END;
 
+CREATE PROCEDURE `usp_buy_items_for_alex`()
+BEGIN
 
-
+	DECLARE u_id INT;
+    DECLARE u_level INT;
+	DECLARE g_id INT;
+	DECLARE ug_id INT;
+    
+    SET u_id := (SELECT `u`.`id` FROM `users` AS `u` WHERE `u`.`user_name` = 'Alex');
+    SET g_id := (SELECT `g`.`id` FROM `games` AS `g` WHERE `g`.`name` = 'Edinburgh');
+    SET ug_id := (SELECT `ug`.`id` FROM `users_games` AS `ug` WHERE u_id = `ug`.`user_id` AND g_id = `ug`.`game_id`);
+    SET u_level := (SELECT `ug`.`level` FROM `users_games` AS `ug` WHERE u_id = `ug`.`user_id` AND g_id = `ug`.`game_id`);
+	
+    CALL usp_buy_item(ug_id, u_level, 'Blackguard');
+	CALL usp_buy_item(ug_id, u_level, 'Bottomless Potion of Amplification');
+	CALL usp_buy_item(ug_id, u_level, 'Eye of Etlich (Diablo III)');
+	CALL usp_buy_item(ug_id, u_level, 'Gem of Efficacious Toxin');
+	CALL usp_buy_item(ug_id, u_level, 'Golden Gorget of Leoric');
+	CALL usp_buy_item(ug_id, u_level, 'Ziggurat Tooth');
+	CALL usp_buy_item(ug_id, u_level, 'The Three Hundredth Spear');
+	CALL usp_buy_item(ug_id, u_level, 'The Short Mans Finger');
+	CALL usp_buy_item(ug_id, u_level, 'Tzo Krins Gaze');
+	CALL usp_buy_item(ug_id, u_level, 'Valtheks Rebuke');
+	CALL usp_buy_item(ug_id, u_level, 'Utars Roar');
+	CALL usp_buy_item(ug_id, u_level, 'Urn of Quickening');
+	CALL usp_buy_item(ug_id, u_level, 'Boots');
+	CALL usp_buy_item(ug_id, u_level, 'Bombardiers Rucksack');
+	CALL usp_buy_item(ug_id, u_level, 'Cloak of Deception');
+	CALL usp_buy_item(ug_id, u_level, 'Hellfire Amulet');
+    
+    SELECT `u`.`user_name`, `g`.`name`, `ug`.`cash`, `i`.`name` 
+    FROM `users` AS `u`
+    JOIN `users_games` AS `ug`
+    ON `ug`.`user_id` = `u`.`id`
+	JOIN `user_game_items` AS `ugi`
+    ON `ug`.`id` = `ugi`.`user_game_id`
+	JOIN `games` AS `g`
+	ON `ug`.`game_id` = `g`.`id` AND `g`.`name` = 'Edinburgh'
+	JOIN `items` AS `i`
+	ON `i`.`id` = `ugi`.`item_id`
+	ORDER BY `i`.`name` ASC;
+	    
+END

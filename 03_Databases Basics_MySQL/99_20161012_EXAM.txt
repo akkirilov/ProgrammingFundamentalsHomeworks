@@ -762,6 +762,54 @@ END
 
 
 /*02_Inexpired Loans*/
+CREATE PROCEDURE `usp_customers_with_unexpired_loans`(c_id INT)
+BEGIN
+
+	SELECT 
+		`l`.`customer_id`, `c`.`first_name`, `l`.`loan_id`
+	FROM
+		`loans` AS `l`
+        JOIN
+        `customers` AS `c`
+        ON `c`.`customer_id` = `l`.`customer_id` AND `l`.`customer_id` = c_id
+    WHERE `l`.`expiration_date` IS NULL;
+
+END
+
+
+
+/*03_Take Loan Procedure*/
+CREATE PROCEDURE `usp_take_loan`(c_id INT, loan_amount DECIMAL(19, 4), interest DECIMAL(19, 4), start_date VARCHAR(10))
+BEGIN
+	
+    DECLARE s_date DATE;
+    SET s_date := DATE_FORMAT(concat(LEFT(start_date, 4), '-', SUBSTRING(start_date, 5, 2), '-', SUBSTRING(start_date, 7, 2)), '%Y-%m-%d');
+    
+	START TRANSACTION;
+    INSERT INTO `loans` (`start_date`, `amount`, `interest`, `customer_id`) VALUES
+    (s_date, loan_amount, interest, c_id);
+
+END
+
+
+
+/*04_Hire Employee*/
+CREATE TRIGGER tr_new_employee
+AFTER INSERT
+ON `employees`
+FOR EACH ROW
+BEGIN
+	
+    DECLARE e_prev_id INT;
+    DECLARE l_prev INT;
+    
+    SET e_prev_id := (SELECT `employee_id` FROM `employees` ORDER BY `employee_id` DESC LIMIT 1 OFFSET 1);
+    SET l_prev := (SELECT `loan_id` FROM `employees_loans` WHERE `employee_id` = e_prev_id ORDER BY `loan_id` DESC LIMIT 1);
+    
+    INSERT INTO `employees_loans` (`employee_id`, `loan_id`) VALUES 
+    (NEW.`employee_id`, l_prev);
+
+END
 
 
 
@@ -769,26 +817,16 @@ END
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*Section 5. Bonus*/
+/*01_Delete Trigger*/
+CREATE TRIGGER tr_delete_account
+BEFORE DELETE
+ON `accounts`
+FOR EACH ROW
+BEGIN
+	
+    DELETE FROM `employees_accounts` WHERE `account_id` = OLD.`account_id`;
+    INSERT INTO `account_logs` (`account_id`, `account_number`, `start_date`, `customer_id`) VALUES
+    (OLD.`account_id`, OLD.`account_number`, OLD.`start_date`, OLD.`customer_id`);
+    
+END

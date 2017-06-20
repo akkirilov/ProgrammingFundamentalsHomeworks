@@ -444,6 +444,11 @@ WHERE `m`.`sent_on` < `c`.`start_date`;
 
 
 /*04_Delete*/
+DELETE FROM `locations` 
+WHERE `locations`.`id` NOT IN 
+	(SELECT `location_id` 
+    FROM `users`
+    WHERE `location_id` IS NOT NULL);
 
 
 
@@ -451,6 +456,13 @@ WHERE `m`.`sent_on` < `c`.`start_date`;
 
 
 
+/*Section 3. Querying*/
+/*05_Age Range*/
+SELECT
+	`u`.`nickname`, `gender`, `age`
+FROM
+	`users` AS `u`
+WHERE `u`.`age` BETWEEN 22 AND 37;
 
 
 
@@ -458,6 +470,14 @@ WHERE `m`.`sent_on` < `c`.`start_date`;
 
 
 
+/*06_Messages*/
+SELECT
+	`m`.`content`, `m`.`sent_on`
+FROM
+	`messages` AS `m`
+WHERE `m`.`sent_on` > '2014-05-12'
+	AND `m`.`content` LIKE '%just%'
+ORDER BY `m`.`id` DESC; 
 
 
 
@@ -465,6 +485,14 @@ WHERE `m`.`sent_on` < `c`.`start_date`;
 
 
 
+/*07_Chats*/
+SELECT 
+	`c`.`title`, `c`.`is_active`
+FROM
+	`chats` AS `c`
+WHERE CHAR_LENGTH(`c`.`title`) < 5 AND `c`.`is_active` = 0
+	OR SUBSTR(`c`.`title`, 3, 2) = 'tl'
+ORDER BY `c`.`title` DESC;
 
 
 
@@ -472,10 +500,237 @@ WHERE `m`.`sent_on` < `c`.`start_date`;
 
 
 
+/*08_Chat Messages*/
+SELECT 
+	`c`.`id`, `c`.`title`, `m`.`id`
+FROM
+	`chats` AS `c`
+    JOIN
+    `messages` AS `m`
+    ON `m`.`chat_id` = `c`.`id`
+WHERE `m`.`sent_on` < '2012-03-26' 
+	AND `c`.`title` LIKE '%x'
+ORDER BY `c`.`id` ASC, `m`.`id` ASC;
 
 
 
 
+
+
+
+/*09_Message Count*/
+SELECT 
+	`m`.`chat_id`, COUNT(*) AS `total_messages`
+FROM
+	`messages` AS `m`
+WHERE `m`.`id` < 90
+GROUP BY `m`.`chat_id`
+ORDER BY `total_messages` DESC, `m`.`chat_id` ASC
+LIMIT 5;
+
+
+
+
+
+
+
+/*10_Credentials*/
+SELECT
+	`u`.`nickname`,
+	`c`.`email`,
+    `c`.`password`
+FROM
+	`users` AS `u`
+    INNER JOIN
+    `credentials` AS `c`
+    ON
+    `u`.`credential_id` = `c`.`id`
+		AND `c`.`email` LIKE '%co.uk'
+ORDER BY `c`.`email` ASC;
+
+
+
+
+
+
+
+/*11_Locations*/
+SELECT
+	`u`.`id`,
+    `u`.`nickname`,
+    `u`.`age`
+FROM
+	`users` As `u`
+WHERE `u`.`location_id` IS NULL;
+
+
+
+
+
+
+
+/*12_Left Users*/
+SELECT
+	`m`.`id`, 
+    `m`.`chat_id`, 
+    `m`.`user_id`
+FROM
+    `messages` AS `m`
+WHERE `m`.`chat_id` = 17 
+	AND `m`.`user_id` NOT IN 
+		(SELECT `user_id` 
+        FROM `users_chats` 
+        WHERE `chat_id` = 17)
+    OR `m`.`chat_id` = 17 
+		AND `m`.`user_id` IS NULL
+GROUP BY `m`.`id`
+ORDER BY `m`.`id` DESC;
+
+
+
+
+
+
+
+/*13_Users in Bulgaria*/
+SELECT 
+	`u`.`nickname`,
+	`c`.`title`,
+	`l`.`latitude`,
+	`l`.`longitude`
+FROM
+	`users` AS `u`
+    JOIN
+    `locations` AS `l`
+    ON
+    `u`.`location_id` = `l`.`id`
+	JOIN
+    `users_chats` AS `uc`
+    ON
+    `uc`.`user_id` = `u`.`id`
+    JOIN
+    `chats` AS `c`
+    ON 
+    `c`.`id` = `uc`.`chat_id`
+WHERE `l`.`latitude` >= 41.139999 AND `l`.`latitude` <= 44.129999
+	AND `l`.`longitude` >= 22.209999 AND `l`.`longitude` <= 28.359999
+ORDER BY `c`.`title` ASC;
+
+
+
+
+
+
+
+/*14_Last Chat*/
+SELECT
+	`c`.`title`,
+	`m`.`content`
+FROM
+	(SELECT * FROM `chats` ORDER BY `start_date` DESC LIMIT 1) AS `c`
+    LEFT OUTER JOIN
+    `messages` AS `m`
+    ON `m`.`chat_id` = `c`.`id`;
+
+
+
+
+
+
+/*Section 4. Programmability*/
+/*15_Radians*/
+CREATE FUNCTION `udf_get_radians`(degree FLOAT)
+RETURNS FLOAT
+BEGIN
+	RETURN (degree * PI()) / 180;
+END
+
+
+
+
+
+
+
+/*16_Change Password*/
+CREATE PROCEDURE `udp_change_password`(email VARCHAR(50), new_pass VARCHAR(50))
+BEGIN
+	
+    IF (email NOT IN (SELECT `email` FROM `credentials`)) THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "The email does't exist!";
+	ELSE
+		UPDATE `credentials` SET `password` = new_pass
+        WHERE `email` = email;
+    END IF;
+    
+END
+
+
+
+
+
+
+
+/*17_Send Message*/
+CREATE PROCEDURE `udp_send_message`(user_id INT, chat_id INT, content VARCHAR(200))
+BEGIN
+	
+    IF (user_id NOT IN (SELECT `user_id` FROM `users_chats`)) THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "There is no chat with that user!";
+	ELSE
+		INSERT INTO `messages` (`content`, `sent_on`, `chat_id`, `user_id`) VALUES
+        (content, DATE(NOW()), chat_id, user_id);
+    END IF;
+    
+END
+
+
+
+
+
+
+
+/*18_Log Messages*/
+CREATE TABLE IF NOT EXISTS `messages_log` (
+	`id` INT PRIMARY KEY,
+	`content` VARCHAR(200),
+	`sent_on` DATE,
+    `chat_id` INT,
+	`user_id` INT,
+    CONSTRAINT `fk_messages_log_chats` FOREIGN KEY (`chat_id`)
+		REFERENCES `chats` (`id`),
+	CONSTRAINT `fk_messages_log_users` FOREIGN KEY (`user_id`)
+		REFERENCES `users` (`id`)
+);
+
+CREATE TRIGGER tr_delete_message
+AFTER DELETE
+ON `messages`
+FOR EACH ROW
+BEGIN
+
+	INSERT INTO `messages_log` (`id`, `content`, `sent_on`, `chat_id`, `user_id`) VALUES
+    (OLD.`id`, OLD.`content`, OLD.`sent_on`, OLD.`chat_id`, OLD.`user_id`);
+    
+END
+
+
+
+
+
+
+
+/*Section 5. Bonus	*/
+/*19_Delete users*/
+CREATE TRIGGER tr_delete_user
+BEFORE DELETE
+ON `users`
+FOR EACH ROW
+BEGIN
+
+	DELETE FROM `users_chats` WHERE `user_id` = OLD.`id`;
+    DELETE FROM `messages` WHERE `user_id` = OLD.`id`;
+    
+END
 
 
 

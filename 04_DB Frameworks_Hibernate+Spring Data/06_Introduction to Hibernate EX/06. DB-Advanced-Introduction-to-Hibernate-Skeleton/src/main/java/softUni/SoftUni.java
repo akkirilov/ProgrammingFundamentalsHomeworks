@@ -30,7 +30,10 @@ public class SoftUni {
 					+ "7a = Find employees by town, 7b = Find employees by department, %n"
 					+ "8a = Add new Address, 8b = Update employee address, 8c = Find Top 10 addresses,%n"
 					+ "8d = Find employee's projects, 8e = Find Employees By Time Interval of their projects %n"
-					+ "8f = Find departments with employees more than...,  %n");
+					+ "8f = Find departments with employees more than...,%n"
+					+ "9 = Try concurrent database changes, 10 - Find latest 10 projects,%n"
+					+ "11 = Increase salaries in department ..., 12 = Remove Town,%n"
+					+ "13 = Find employee which name starts with..., 14 = Max salaries in departmens  %n");
 			System.out.println("31 = Add new town");
 			
 			String command = scanner.nextLine();
@@ -106,14 +109,40 @@ public class SoftUni {
 				Integer minCount= Integer.parseInt(scanner.nextLine());
 				Problem.findDepartmentsByMinCountOfEmployees(em, minCount);
 				break;
-				
+			case "9":
+				Problem.tryConcurentChangesToDatabase();
+				break;
+			case "10":
+				Problem.findLatestTenProjects(em);
+				break;
+			case "11":
+				System.out.println("Enter name of the new department: ");
+				String departmentName = scanner.nextLine();
+				Problem.increaseSalaryInDepartment(em, departmentName);
+			break;
+			case "12":
+				System.out.println("Enter name of the town: ");
+				String townName = scanner.nextLine();
+				Problem.removeTown(em, townName);
+			break;
+			case "13":
+				System.out.println("Enter first name or first letters of employee: ");
+				String employeeName = scanner.nextLine();
+				Problem.findEnmployeeByFirstLetters(em, employeeName);
+			break;
+			case "14":
+				Problem.findMaxSalariesForAllDepartments(em);
+				break;
+			
 			case "31":
-				System.out.println("Enter name of the new town: ");
+				System.out.println("Enter name of the town: ");
 				String name = scanner.nextLine();
 				Problem.addTown(em, name);
 				
 				System.out.println("Successfully add " + name);
 			break;
+				
+			
 			default:
 				continue;
 			}

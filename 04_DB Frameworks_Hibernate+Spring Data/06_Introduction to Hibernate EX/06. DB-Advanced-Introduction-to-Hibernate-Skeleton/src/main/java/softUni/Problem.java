@@ -3,6 +3,7 @@ package softUni;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -10,6 +11,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
+import org.hibernate.internal.util.compare.CalendarComparator;
+
+import com.sun.javafx.collections.MappingChange.Map;
 import com.sun.jmx.snmp.Timestamp;
 
 import entities.Address;
@@ -385,6 +389,169 @@ public final class Problem {
 		for (Department department : departments) {
 			System.out.println(counter++ + ". " + department.getName() + " - " + department.getEmployees().size() + " employees;");
 		}
+		
+	}
+
+	public static void tryConcurentChangesToDatabase() {
+		
+		EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("softuni");
+		EntityManager em1 = emf1.createEntityManager();
+		EntityManager em2 = emf1.createEntityManager();
+		
+		em1.getTransaction().begin();
+		Employee employee1 = em1.find(Employee.class, 1);
+		System.out.println("First name before c1: " + employee1.getFirstName());
+		employee1.setFirstName("gogo11111111");
+		
+		em2.getTransaction().begin();
+		Employee employee2 = em2.find(Employee.class, 1);
+		System.out.println("First name before c2: " + employee2.getFirstName());
+		employee2.setFirstName("gogo2222222");
+		
+		em1.persist(employee1);
+		em2.persist(employee2);
+		em1.getTransaction().commit();
+		em2.getTransaction().commit();
+				
+		employee1 = em1.find(Employee.class, 1);
+		System.out.println("First name after c1: " + employee1.getFirstName());
+		employee2 = em2.find(Employee.class, 1);
+		System.out.println("First name after c2: " + employee2.getFirstName());
+		
+		EntityManager em3 = emf1.createEntityManager();
+		Employee employee3 = em3.find(Employee.class, 1);
+		System.out.println("First name check: " + employee3.getFirstName());
+		
+		em1.close();
+		em2.close();
+		em3.close();
+		emf1.close();
+		
+	}
+
+	public static void findLatestTenProjects(EntityManager em) {
+		
+		List<Project> projects = em.createQuery("SELECT p FROM Project AS p").getResultList();
+		
+		projects = projects
+				.stream()
+				.sorted((a, b) -> b.getStartDate().compareTo(a.getStartDate()))
+				.limit(10)
+				.sorted((a, b) -> a.getName().compareTo(b.getName()))
+				.collect(Collectors.toList());
+		
+		for (Project project : projects) {
+			System.out.printf("%s (%s), from %s to %s%n", project.getName(), project.getDescription(), project.getStartDate(), project.getEndDate());
+		}
+		
+	}
+
+	public static void increaseSalaryInDepartment(EntityManager em, String departmentName) {
+		
+		Department d = null;
+		try {
+			d = (Department) em.createQuery("SELECT d FROM Department AS d WHERE d.name = '" + departmentName + "';").getSingleResult();
+		} catch (Exception e) {
+			em.clear();
+			System.out.println("There are no such department!");
+			return;
+		}
+		
+		em.getTransaction().begin();
+		Query query = em.createQuery("SELECT e FROM Employee AS e WHERE e.department.name = :departmentName");
+		query.setParameter("departmentName", departmentName);
+		
+		List<Employee> employees = query.getResultList();
+		for (Employee employee : employees) {
+			employee.setSalary(employee.getSalary().multiply(new BigDecimal("1.12")));
+			em.persist(employee);
+		}
+		em.getTransaction().commit();
+		em.clear();
+
+		System.out.println("Salaries updated with 12%!");
+		
+	}
+
+	public static void removeTown(EntityManager em, String townName) {
+		
+		Town town = null;
+		try {
+			town = (Town) em.createQuery("SELECT t FROM Town AS t WHERE t.name = '" + townName + "'").getSingleResult();
+		} catch (Exception e) {
+			em.clear();
+			System.out.println("There are no such Town!");
+			return;
+		}
+		
+		em.clear();
+		em.getTransaction().begin();
+		
+		List<Employee> employees = em.createQuery("SELECT e FROM Employee AS e WHERE e.address.town.name = '" + townName + "'").getResultList();
+		for (Employee employee : employees) {
+			if (employee.getAddress().getTown().getName().equals(townName)) {
+				employee.setAddress(null);
+				em.persist(employee);
+			}
+		}
+		
+		Integer counter = 0;
+		List<Address> addresses = em.createQuery("SELECT a FROM Address AS a WHERE a.town.name = '" + townName + "'").getResultList();
+		for (Address address : addresses) {
+			em.remove(address);
+			counter++;
+		}
+
+		town = (Town) em.createQuery("SELECT t FROM Town AS t WHERE t.name = '" + townName + "'").getSingleResult();
+		em.remove(town);
+		
+		em.getTransaction().commit();
+		em.clear();
+		
+		System.out.println("Town " + townName + " removed! " + counter + " addresses removed!");
+		
+	}
+
+	public static void findEnmployeeByFirstLetters(EntityManager em, String employeeName) {
+		
+		Integer counter = 1;
+		List<Employee> employees = em.createQuery("SELECT e FROM Employee AS e WHERE e.firstName LIKE '" + employeeName + "%'").getResultList();
+		if (employees.size() < 1) {
+			System.out.println("Nothing found!");
+			em.clear();
+			return;
+		}
+		
+		for (Employee employee : employees) {
+			System.out.println(counter++ + ". " + employee.getFirstName() + " " + employee.getLastName());
+		}
+		
+	}
+
+	public static void findMaxSalariesForAllDepartments(EntityManager em) {
+		
+		Integer counter = 1;
+		List<Employee> employees = em.createQuery("SELECT e FROM Employee AS e GROUP BY e.department.name").getResultList();
+		employees = employees
+				.stream()
+				.sorted((a, b) -> {
+					int res = b.getSalary().compareTo(a.getSalary());
+					if (res == 0) {
+						res = a.getDepartment().getName().compareTo(b.getDepartment().getName());
+					}
+					return res;
+				})
+				.collect(Collectors.toList());
+		
+		for (Employee employee : employees) {
+			System.out.println(counter++ + ". " 
+					+ employee.getDepartment().getName() + " "
+					+ employee.getSalary()
+					+ " (" + employee.getFirstName() + " " + employee.getLastName() 
+					+ ", " + employee.getJobTitle()	+ ")");
+		}
+		
+		em.clear();
 		
 	}
 

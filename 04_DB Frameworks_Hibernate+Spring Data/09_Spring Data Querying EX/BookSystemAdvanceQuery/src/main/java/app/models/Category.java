@@ -1,10 +1,13 @@
 package app.models;
 
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,9 @@ public class Category {
 	
 	@Basic
 	private String name;
+	
+	@ManyToMany(mappedBy = "categories")
+	private Set<Book> books;
 
 	public Category() {
 		super();
@@ -36,6 +42,14 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<Book> books) {
+		this.books = books;
 	}
 
 }

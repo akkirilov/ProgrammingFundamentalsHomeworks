@@ -9,5 +9,9 @@ public interface CategoryService{
 	void save(Category category);
 	
 	void save(List<Category> categories);
+
+	List<Category> findAllByNameIn(String[] inputStrArr);
+
+	List<Category> findAll();
 	
 }

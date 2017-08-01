@@ -37,4 +37,24 @@ public class AuthorServiceImpl implements AuthorService{
 		return authorRepository.findAllAndOrderByBooksCount();
 	}
 
+	@Override
+	public List<Author> findAllByFirstNameEndsWith(String suffix) {
+		return authorRepository.findAllByFirstNameEndsWith(suffix);
+	}
+
+	@Override
+	public List<Author> findAll() {
+		return authorRepository.findAll();
+	}
+
+	@Override
+	public Integer getTotalCopiesOfBooks(Long id) {
+		return authorRepository.getTotalCopiesOfBooks(id);
+	}
+
+	@Override
+	public Integer getTotalBooks(String firstName, String lastName) {
+		return authorRepository.getTotalBooks(firstName, lastName);
+	}
+
 }

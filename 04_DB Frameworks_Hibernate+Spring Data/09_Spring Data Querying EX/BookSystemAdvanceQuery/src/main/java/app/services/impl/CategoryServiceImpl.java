@@ -27,4 +27,14 @@ public class CategoryServiceImpl implements CategoryService{
 		categoryRepository.save(categories);
 	}
 
+	@Override
+	public List<Category> findAllByNameIn(String[] inputStrArr) {
+		return categoryRepository.findAllByNameIn(inputStrArr);
+	}
+
+	@Override
+	public List<Category> findAll() {
+		return categoryRepository.findAll();
+	}
+
 }

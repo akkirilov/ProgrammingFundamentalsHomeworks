@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +20,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import enums.AgeRestriction;
-import enums.EditionType;
+import app.enums.AgeRestriction;
+import app.enums.EditionType;
 
 @Entity
 @Table(name = "books")
@@ -53,7 +54,7 @@ public class Book {
 	@Basic
 	private BigDecimal price;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Author author;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -62,7 +63,7 @@ public class Book {
 			inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
 	private Set<Category> categories;
 	
-	@ManyToMany()
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "related_books",
 			joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "related_book_id", referencedColumnName = "id"))

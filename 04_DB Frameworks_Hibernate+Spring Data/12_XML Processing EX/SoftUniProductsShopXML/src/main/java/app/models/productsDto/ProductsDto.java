@@ -7,13 +7,19 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 @XmlRootElement(name = "products")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProductsDto {
 
+	@Expose
 	@XmlElement(name = "product")
 	List<ProductDto> productDtos;
 	
+	@Expose
+	@SerializedName(value = "products")
 	@XmlElement(name = "product")
 	List<ProductWithSellerDto> productWithSellerDtos;
 

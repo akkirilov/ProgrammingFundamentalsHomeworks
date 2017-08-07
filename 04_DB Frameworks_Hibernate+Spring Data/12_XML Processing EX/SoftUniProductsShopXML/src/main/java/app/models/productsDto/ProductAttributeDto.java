@@ -9,11 +9,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 @XmlRootElement(name = "product")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ProductWithSellerDto implements Serializable {
+public class ProductAttributeDto implements Serializable {
 
 	private static final long serialVersionUID = -8236654919154788024L;
 
@@ -22,18 +21,13 @@ public class ProductWithSellerDto implements Serializable {
 	private String name;
 	
 	@Expose
-	@XmlAttribute(name = "price")
+	@XmlAttribute
 	private BigDecimal price;
-	
-	@Expose
-	@SerializedName(value = "seller")
-	@XmlAttribute(name = "seller")
-	private String sellerName;
 
-	public ProductWithSellerDto() {
+	public ProductAttributeDto() {
 		super();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -48,14 +42,6 @@ public class ProductWithSellerDto implements Serializable {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}
-
-	public String getSellerName() {
-		return sellerName;
-	}
-
-	public void setSellerName(String sellerName) {
-		this.sellerName = sellerName;
 	}
 
 }

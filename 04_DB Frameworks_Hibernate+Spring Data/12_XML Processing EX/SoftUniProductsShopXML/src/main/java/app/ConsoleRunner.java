@@ -3,11 +3,9 @@ package app;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 
 import javax.xml.bind.JAXBException;
 
@@ -18,11 +16,11 @@ import org.springframework.stereotype.Component;
 import app.entities.Category;
 import app.entities.Product;
 import app.entities.User;
-import app.models.*;
 import app.models.categoriesDto.CategoriesDto;
 import app.models.categoriesDto.CategoryWithProductsDto;
-import app.models.productsDto.ProductWithBayerDto;
 import app.models.productsDto.ProductsDto;
+import app.models.productsDto.SoldProductDto;
+import app.models.usersDto.UserWithProductsInfoDto;
 import app.models.usersDto.UserWithSoldProductsDto;
 import app.models.usersDto.UsersDto;
 import app.services.api.CategoryService;
@@ -35,8 +33,10 @@ import app.utils.XmlParser;
 @Component
 public class ConsoleRunner implements CommandLineRunner{
 	
-	private final String EXPORT_PATH = System.getProperty("user.dir") + "/src/main/resources/files/xml/output/";
-	private final String IMPORT_PATH = "/files/xml/input/";
+	private final String EXPORT_XML_PATH = System.getProperty("user.dir") + "/src/main/resources/files/xml/output/";
+	private final String IMPORT_XML_PATH = "/files/xml/input/";
+	private final String EXPORT_JSON_PATH = System.getProperty("user.dir") + "/src/main/resources/files/json/output/";
+	private final String IMPORT_JSON_PATH = "/files/json/input/";
 	
 	private UserService userService;
 	private CategoryService categoryService;
@@ -104,7 +104,31 @@ public class ConsoleRunner implements CommandLineRunner{
 	}
 		
 	private void exportUserProductsInfo() {
+		List<User> users = userService.findAllSuccessfullUser();
+		UsersDto usersDto = new UsersDto();
+		List<UserWithProductsInfoDto> userWithProductsInfo = Mapper.mapToList(users, UserWithProductsInfoDto.class);
+		for (UserWithProductsInfoDto u : userWithProductsInfo) {
+			SoldProductDto soldProducts = new SoldProductDto();
+			soldProducts.setSoldProducts(u.getSoldProducts());
+			u.setProductAttributeDto(soldProducts);
+		}
+		usersDto.setUserWithProductsInfo(userWithProductsInfo);
+		try {
+			xmlParser.exportXml(usersDto, EXPORT_XML_PATH + "usersWithProductsInfo.xml");
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		for (UserWithProductsInfoDto u : userWithProductsInfo) {
+			u.getProductAttributeDto().setCount(u.getProductAttributeDto().getCount());
+		}
+		try {
+			jsonParser.exportJson(usersDto.getUserWithProductsInfo(), EXPORT_JSON_PATH + "usersWithProductsInfo.json");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void exportCategoriesByProductsCount() {
@@ -113,9 +137,20 @@ public class ConsoleRunner implements CommandLineRunner{
 		List<CategoryWithProductsDto> categoryWithProductsDto = Mapper.mapToList(categories, CategoryWithProductsDto.class);
 		categoriesDto.setCategoryWithProductsDto(categoryWithProductsDto);
 		try {
-			xmlParser.exportXml(categoriesDto, EXPORT_PATH + "categoriesWithProductsInfo.xml");
+			xmlParser.exportXml(categoriesDto, EXPORT_XML_PATH + "categoriesWithProductsInfo.xml");
 		} catch (JAXBException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		for (CategoryWithProductsDto c : categoryWithProductsDto) {
+			c.setAveragePrice(c.getAveragePrice());
+			c.setTotalRevenue(c.getTotalRevenue());
+			c.setProductsCount(c.getProductsCount());
+		}
+		try {
+			jsonParser.exportJson(categoriesDto, EXPORT_JSON_PATH + "categoriesWithProductsInfo.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -127,9 +162,15 @@ public class ConsoleRunner implements CommandLineRunner{
 		List<UserWithSoldProductsDto> successfullUsers = Mapper.mapToList(users, UserWithSoldProductsDto.class);
 		usersDto.setSuccessfullUsers(successfullUsers);
 		try {
-			xmlParser.exportXml(usersDto, EXPORT_PATH + "usersWithSoldProducts.xml");
+			xmlParser.exportXml(usersDto, EXPORT_XML_PATH + "usersWithSoldProducts.xml");
 		} catch (JAXBException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			jsonParser.exportJson(usersDto.getSuccessfullUsers(), EXPORT_JSON_PATH + "usersWithSoldProducts.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -139,9 +180,15 @@ public class ConsoleRunner implements CommandLineRunner{
 		List<Product> products = productService.findProductsByPriceInGivenRange(min, max);
 		ProductsDto productsDto = Mapper.mapToProductsWithSellerDtoXml(products);
 		try {
-			xmlParser.exportXml(productsDto, EXPORT_PATH + "productsInRange.xml");
+			xmlParser.exportXml(productsDto, EXPORT_XML_PATH + "productsInRange.xml");
 		} catch (JAXBException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			jsonParser.exportJson(productsDto, EXPORT_JSON_PATH + "productsInRange.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -167,7 +214,7 @@ public class ConsoleRunner implements CommandLineRunner{
 		
 		UsersDto usersDto = null;
 		try {
-			usersDto = xmlParser.importXml(UsersDto.class, IMPORT_PATH + "users.xml");
+			usersDto = xmlParser.importXml(UsersDto.class, IMPORT_XML_PATH + "users.xml");
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -178,7 +225,7 @@ public class ConsoleRunner implements CommandLineRunner{
 		
 		CategoriesDto categoriesDto = null;
 		try {
-			categoriesDto = xmlParser.importXml(CategoriesDto.class, IMPORT_PATH + "categories.xml");
+			categoriesDto = xmlParser.importXml(CategoriesDto.class, IMPORT_XML_PATH + "categories.xml");
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -189,7 +236,7 @@ public class ConsoleRunner implements CommandLineRunner{
 		
 		ProductsDto productsDto = null;
 		try {
-			productsDto = xmlParser.importXml(ProductsDto.class, IMPORT_PATH + "products.xml");
+			productsDto = xmlParser.importXml(ProductsDto.class, IMPORT_XML_PATH + "products.xml");
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

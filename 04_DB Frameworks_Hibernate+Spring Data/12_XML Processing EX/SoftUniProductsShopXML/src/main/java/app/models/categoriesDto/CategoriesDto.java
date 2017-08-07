@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 @XmlRootElement(name = "categories")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CategoriesDto {
@@ -14,6 +17,8 @@ public class CategoriesDto {
 	@XmlElement(name = "category")
 	private List<CategoryDto> categoryDtos;
 	
+	@Expose
+	@SerializedName(value = "categories")
 	@XmlElement(name = "category")
 	private List<CategoryWithProductsDto> categoryWithProductsDto;
 

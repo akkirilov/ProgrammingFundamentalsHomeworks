@@ -7,17 +7,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import app.models.productsDto.ProductWithBayerDto;
+import app.models.productsDto.ProductAttributeDto;
+import app.models.productsDto.SoldProductDto;
 
 @XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UserWithSoldProductsDto implements Serializable{
+public class UserWithProductsInfoDto implements Serializable{
 
 	private static final long serialVersionUID = -6816244753026670213L;
 
@@ -30,12 +31,18 @@ public class UserWithSoldProductsDto implements Serializable{
 	private String lastName;
 	
 	@Expose
-	@SerializedName(value = "products")
-	@XmlElementWrapper(name = "sold-products")
-	@XmlElement(name = "product")
-	private List<ProductWithBayerDto> soldProducts;
+	@XmlAttribute(name = "age")
+	private Integer age;
 	
-	public UserWithSoldProductsDto() {
+	@XmlTransient
+	private List<ProductAttributeDto> soldProducts;
+	
+	@Expose
+	@SerializedName(value = "soldProducts")
+	@XmlElement(name = "sold-products")
+	private SoldProductDto productAttributeDto;
+	
+	public UserWithProductsInfoDto() {
 		super();
 	}
 
@@ -55,12 +62,28 @@ public class UserWithSoldProductsDto implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public List<ProductWithBayerDto> getSoldProducts() {
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public List<ProductAttributeDto> getSoldProducts() {
 		return soldProducts;
 	}
 
-	public void setSoldProducts(List<ProductWithBayerDto> soldProducts) {
+	public void setSoldProducts(List<ProductAttributeDto> soldProducts) {
 		this.soldProducts = soldProducts;
+	}
+
+	public SoldProductDto getProductAttributeDto() {
+		return productAttributeDto;
+	}
+
+	public void setProductAttributeDto(SoldProductDto productAttributeDto) {
+		this.productAttributeDto = productAttributeDto;
 	}
 	
 }

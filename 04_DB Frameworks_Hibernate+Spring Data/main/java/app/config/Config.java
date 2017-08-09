@@ -1,6 +1,6 @@
 package app.config;
 
-public class Config {
+public final class Config {
 	
 	private static final String EXPORT_XML_PATH = System.getProperty("user.dir") + "/src/main/resources/files/xml/output/";
 	

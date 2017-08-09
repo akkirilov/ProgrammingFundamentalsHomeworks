@@ -65,11 +65,17 @@ public class ConsoleRunner implements CommandLineRunner{
 		String path = Config.IMPORT_XML_PATH + fileName;
 		VenuesWrapperXmlDto venuesWrapperXmlDto = null;
 		try {
-			venuesWrapperXmlDto = xmlParser.importXml(VenuesWrapperXmlDto.class, fileName);
+			venuesWrapperXmlDto = xmlParser.importXml(VenuesWrapperXmlDto.class, path);
+			venueService.createFromVenueXmlDto(venuesWrapperXmlDto.getVenueXmlDtos());
 		} catch (JAXBException | IOException e) {
-			System.out.println("ERROR: Can't read " + path);
+			try {
+				throw e;
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//System.out.println("ERROR: Can't read " + path);
 		}
-		venueService.createFromVenueXmlDto(venuesWrapperXmlDto.getVenueXmlDtos());
 		
 	}
 

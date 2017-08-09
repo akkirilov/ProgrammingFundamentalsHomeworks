@@ -18,5 +18,7 @@ public interface VenueService {
 	void createFromVenueXmlDto(List<VenueXmlDto> entities);
 	
 	Long count();
+
+	List<Venue> findAllWithMoreThanThreeWeddings();
 		
 }

@@ -1,10 +1,14 @@
 package app.domain.entities;
 
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +27,9 @@ public class Venue {
 	
 	@Basic
 	private String town;
+	
+	@ManyToMany(mappedBy = "venues", fetch = FetchType.EAGER)
+	private Set<Wedding> weddings;
 
 	public Venue() {
 		super();
@@ -58,6 +65,14 @@ public class Venue {
 
 	public void setTown(String town) {
 		this.town = town;
+	}
+
+	public Set<Wedding> getWeddings() {
+		return weddings;
+	}
+
+	public void setWeddings(Set<Wedding> weddings) {
+		this.weddings = weddings;
 	}
 	
 }

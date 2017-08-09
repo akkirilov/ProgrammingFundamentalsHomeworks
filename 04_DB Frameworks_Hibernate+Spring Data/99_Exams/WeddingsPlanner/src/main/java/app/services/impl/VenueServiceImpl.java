@@ -1,14 +1,19 @@
 package app.services.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.domain.dtos.venues.VenueXmlDto;
 import app.domain.entities.Venue;
+import app.domain.entities.Wedding;
 import app.repositories.VenueRepository;
 import app.services.api.VenueService;
+import app.services.api.WeddingService;
 import app.utils.*;
 
 @Service
@@ -18,13 +23,16 @@ public class VenueServiceImpl implements VenueService {
 	
 	private JsonParser jsonParser;
 	private XmlParser xmlParser;
+	private WeddingService weddingService;
 	
 	@Autowired
 	public VenueServiceImpl(VenueRepository venueRepository, 
+							WeddingService weddingService,
 							JsonParser jsonParser,
 							XmlParser xmlParser) {
 		super();
 		this.venueRepository = venueRepository;
+		this.weddingService = weddingService;
 		this.jsonParser = jsonParser;
 		this.xmlParser = xmlParser;
 	}
@@ -71,7 +79,26 @@ public class VenueServiceImpl implements VenueService {
 		for (Venue venue : venues) {
 			this.save(venue);
 		}
+		venues = this.findAll();
+		List<Wedding> weddings = weddingService.findAll();
+		Random random = new Random();
+		Integer maxIndex = venues.size();
+		for (Wedding wedding : weddings) {
+			Set<Venue> venuesToSet = new HashSet<>();
+			while (venuesToSet.size() < 3) {
+				venuesToSet.add(venues.get(random.nextInt(maxIndex)));
+			}
+			wedding.setVenues(venuesToSet);
+			weddingService.save(wedding);
+		}
+				
 		
+		
+	}
+
+	@Override
+	public List<Venue> findAllWithMoreThanThreeWeddings() {
+		return venueRepository.findAllWithMoreThanThreeWeddings();
 	}
 
 

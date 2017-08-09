@@ -19,8 +19,10 @@ public class FileParser {
 	public String readFile(String path) throws IOException {
 		
 		StringBuilder content = new StringBuilder();
-		try (InputStream in = getClass().getResourceAsStream(path);
-				BufferedReader bfr = new BufferedReader(new InputStreamReader(in))) {
+		try (
+				InputStream in = getClass().getResourceAsStream(path);
+				BufferedReader bfr = new BufferedReader(new InputStreamReader(in, "UTF8"))
+				) {
 			
 			String line = null;
             while ((line = bfr.readLine()) != null) {

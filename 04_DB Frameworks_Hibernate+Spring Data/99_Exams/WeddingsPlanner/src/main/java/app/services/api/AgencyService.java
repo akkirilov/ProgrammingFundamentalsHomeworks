@@ -19,4 +19,6 @@ public interface AgencyService {
 	
 	Agency findOneByName(String name);
 	
+	List<Agency> findAllAgnciesOrdered();
+	
 }

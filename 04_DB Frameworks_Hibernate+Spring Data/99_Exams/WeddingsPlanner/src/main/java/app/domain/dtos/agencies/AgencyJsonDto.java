@@ -10,6 +10,7 @@ public class AgencyJsonDto implements Serializable {
 	private String name;
 	
 	@Expose
+	@SerializedName(value="count")
 	private Integer employeesCount;
 	
 	@Expose

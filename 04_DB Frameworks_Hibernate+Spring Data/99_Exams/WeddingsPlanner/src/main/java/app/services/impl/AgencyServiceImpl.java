@@ -67,4 +67,9 @@ public class AgencyServiceImpl implements AgencyService {
 		return agencyRepository.findFirstByName(name);
 	}
 
+	@Override
+	public List<Agency> findAllAgnciesOrdered() {
+		return agencyRepository.findAllByOrderByEmployeesCountDescNameAsc();
+	}
+
 }

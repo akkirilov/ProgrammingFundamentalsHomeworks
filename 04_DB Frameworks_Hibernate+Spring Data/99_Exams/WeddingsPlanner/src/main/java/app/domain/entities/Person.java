@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -40,6 +41,9 @@ public class Person implements Serializable {
 	@NotNull
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@Transient
+	private String fullName;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -95,7 +99,7 @@ public class Person implements Serializable {
 	public String getFullName() {
 		return firstName + " " + middleName + " " + lastName;
 	}
-	
+		
 	public Integer getAge() {
 		Integer age;;
 		Calendar calendar = Calendar.getInstance();

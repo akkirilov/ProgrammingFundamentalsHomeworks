@@ -9,11 +9,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.domain.dtos.persons.GuestsListJsonDto;
 import app.domain.dtos.persons.PeopleJsonDto;
 import app.domain.entities.Agency;
 import app.domain.entities.Person;
 import app.repositories.PersonRepository;
 import app.services.api.PersonService;
+import app.services.api.WeddingService;
 import app.utils.*;
 
 @Service
@@ -25,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 	private XmlParser xmlParser;
 	
 	@Autowired
-	public PersonServiceImpl(PersonRepository personRepository, 
+	public PersonServiceImpl(PersonRepository personRepository,
 							JsonParser jsonParser,
 							XmlParser xmlParser) {
 		super();

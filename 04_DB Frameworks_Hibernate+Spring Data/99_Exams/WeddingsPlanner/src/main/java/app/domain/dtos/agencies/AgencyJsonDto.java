@@ -3,6 +3,7 @@ package app.domain.dtos.agencies;
 import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class AgencyJsonDto implements Serializable {
 
@@ -10,6 +11,7 @@ public class AgencyJsonDto implements Serializable {
 	private String name;
 	
 	@Expose
+	@SerializedName(value="count")
 	private Integer employeesCount;
 	
 	@Expose

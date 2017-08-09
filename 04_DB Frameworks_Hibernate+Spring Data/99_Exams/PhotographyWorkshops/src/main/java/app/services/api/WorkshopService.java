@@ -12,5 +12,7 @@ public interface WorkshopService {
 	void create(List<Workshop> workshops);
 	
 	void createFromJsonImport(List<WorkshopImportXmlDto> workshopImportXmlDtos);
+
+	List<Workshop> findAllByOrderByLocation();
 	
 }

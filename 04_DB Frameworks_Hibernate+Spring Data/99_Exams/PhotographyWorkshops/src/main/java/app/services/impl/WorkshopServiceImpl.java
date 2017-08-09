@@ -60,4 +60,9 @@ public class WorkshopServiceImpl implements WorkshopService {
 		}
 		
 	}
+
+	@Override
+	public List<Workshop> findAllByOrderByLocation() {
+		return this.workshopRepository.findAllByOrderByLocation();
+	}
 }

@@ -25,12 +25,18 @@ import app.domain.dtos.photographers.PhotographerExportJsonDto;
 import app.domain.dtos.photographers.PhotographerImportJsonDto;
 import app.domain.dtos.photographers.PhotographerWrapperDto;
 import app.domain.dtos.photographers.PhotographersWithSameCamerasExportXmlDto;
+import app.domain.dtos.workshops.LocationDto;
+import app.domain.dtos.workshops.LocationWrapperDto;
+import app.domain.dtos.workshops.ParticipantDto;
+import app.domain.dtos.workshops.ParticipantsDto;
+import app.domain.dtos.workshops.WorkshopByLocationDto;
 import app.domain.dtos.workshops.WorkshopWrapperDto;
 import app.domain.entities.Accessory;
 import app.domain.entities.DSLRCamera;
 import app.domain.entities.Lens;
 import app.domain.entities.MirrorlessCamera;
 import app.domain.entities.Photographer;
+import app.domain.entities.Workshop;
 import app.services.api.AccessoryService;
 import app.services.api.CameraService;
 import app.services.api.LensService;
@@ -76,8 +82,34 @@ public class ConsoleRunner implements CommandLineRunner{
 		
 		//exportPhotographersOrderedByFirstAndLastNames();
 		//exportLandscapePhotographers();
+		//exportSameCamerasPhotographers();
+		exportWorkshopsByLocation();
 		
-		exportSameCamerasPhotographers();
+	}
+
+	private void exportWorkshopsByLocation() {
+		String currentLocation = null;
+		LocationDto locationDto = null;
+		LocationWrapperDto locationWrapperDto = new LocationWrapperDto();
+		List<Workshop> workshops = workshopService.findAllByOrderByLocation();
+		for (Workshop w : workshops) {
+			if (currentLocation == null || !currentLocation.equals(w.getLocation())) {
+				currentLocation = w.getLocation();
+				locationDto = new LocationDto();
+				locationDto.setName(currentLocation);
+			}
+			WorkshopByLocationDto workshopByLocationDto = Mapper.mapOne(w, WorkshopByLocationDto.class);
+			ParticipantsDto participantsDto = new ParticipantsDto();
+			participantsDto.setParticipants(workshopByLocationDto.getParticipants());
+			workshopByLocationDto.setWorkshopParticipants(participantsDto);
+			locationDto.addWorkshopByLocationDtos(workshopByLocationDto);
+			locationWrapperDto.addLocationDtos(locationDto);
+		}
+		try {
+			xmlParser.exportXml(locationWrapperDto, Config.EXPORT_XML_PATH + "workshops-by-location.xml");
+		} catch (IOException | JAXBException e) {
+			System.out.println("ERROR: Can't export to " + "workshops-by-location.xml");
+		}
 	}
 
 	private void exportSameCamerasPhotographers() {

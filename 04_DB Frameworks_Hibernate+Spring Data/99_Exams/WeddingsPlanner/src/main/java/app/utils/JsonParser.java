@@ -1,11 +1,11 @@
 package app.utils;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -30,7 +30,8 @@ public class JsonParser {
 	}
 	
 	public <T> List<T> importJsonList(Class<T> clazz, String path) throws IOException {
-		Type type = new TypeToken<ArrayList<T>>() {}.getType();
+
+		Type type = new TypeToken<List<T>>() {}.getType();
 		
 		String file = fileParser.readFile(path);
 		return gson.fromJson(file, type);

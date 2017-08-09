@@ -74,15 +74,15 @@ public class ConsoleRunner implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		//initializeCameras();
-		//initializeLenses();
-		//initializePhotographers();
-		//initializeAccessories();
-		//initializeWorkshops();
+		initializeCameras();
+		initializeLenses();
+		initializePhotographers();
+		initializeAccessories();
+		initializeWorkshops();
 		
-		//exportPhotographersOrderedByFirstAndLastNames();
-		//exportLandscapePhotographers();
-		//exportSameCamerasPhotographers();
+		exportPhotographersOrderedByFirstAndLastNames();
+		exportLandscapePhotographers();
+		exportSameCamerasPhotographers();
 		exportWorkshopsByLocation();
 		
 	}

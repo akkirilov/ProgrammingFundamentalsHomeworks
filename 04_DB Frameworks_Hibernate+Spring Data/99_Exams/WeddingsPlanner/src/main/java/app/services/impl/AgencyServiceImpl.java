@@ -64,7 +64,7 @@ public class AgencyServiceImpl implements AgencyService {
 
 	@Override
 	public Agency findOneByName(String name) {
-		return agencyRepository.findOneByName(name);
+		return agencyRepository.findFirstByName(name);
 	}
 
 }

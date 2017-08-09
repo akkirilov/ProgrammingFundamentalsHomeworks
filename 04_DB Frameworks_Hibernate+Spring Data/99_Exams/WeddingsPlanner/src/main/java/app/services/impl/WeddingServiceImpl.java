@@ -1,5 +1,9 @@
 package app.services.impl;
 
+import static org.assertj.core.api.Assertions.in;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +20,7 @@ import app.domain.entities.Wedding;
 import app.repositories.PersonRepository;
 import app.repositories.WeddingRepository;
 import app.services.api.AgencyService;
+import app.services.api.InvitationService;
 import app.services.api.PersonService;
 import app.services.api.WeddingService;
 import app.utils.*;
@@ -25,6 +30,7 @@ public class WeddingServiceImpl implements WeddingService {
 	
 	private WeddingRepository weddingRepository;
 	private PersonService personService;
+	private InvitationService invitationService;
 	private AgencyService agencyService;
 	
 	private JsonParser jsonParser;
@@ -34,12 +40,14 @@ public class WeddingServiceImpl implements WeddingService {
 	public WeddingServiceImpl(WeddingRepository weddingRepository,
 							PersonService personService,
 							AgencyService agencyService,
+							InvitationService invitationService,
 							JsonParser jsonParser,
 							XmlParser xmlParser) {
 		super();
 		this.weddingRepository = weddingRepository;
 		this.personService = personService;
 		this.agencyService = agencyService;
+		this.invitationService = invitationService;
 		this.jsonParser = jsonParser;
 		this.xmlParser = xmlParser;
 	}
@@ -48,7 +56,9 @@ public class WeddingServiceImpl implements WeddingService {
 	public void save(Wedding entity) {
 		try {
 			weddingRepository.save(entity);
-			System.out.println("Successfully imported " );
+			System.out.println("Successfully imported wedding of "
+					+ entity.getBride().getFirstName() + " and "
+					+ entity.getBridegroom().getFirstName());
 		} catch (Exception e) {
 			System.out.println("Error. Invalid data provided");
 		}
@@ -71,19 +81,31 @@ public class WeddingServiceImpl implements WeddingService {
 
 	@Override
 	public void createFromWeddingJsonDto(List<WeddingJsonDto> entities) {
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		entities = Mapper.mapToList(entities, WeddingJsonDto.class);
 		for (WeddingJsonDto weddingJsonDto : entities) {
-			Wedding wedding = Mapper.mapOne(weddingJsonDto, Wedding.class);
+			Wedding wedding = new Wedding();
 			wedding.setBride(personService.findByFullName(weddingJsonDto.getBride()));
 			wedding.setBridegroom(personService.findByFullName(weddingJsonDto.getBridegroom()));
-			wedding.setAgency(agencyService.findOneByName(weddingJsonDto.getAgencyName()));
-
+			wedding.setAgency(agencyService.findOneByName(weddingJsonDto.getAgency()));
+			if (weddingJsonDto.getDate() != null) {
+				try {
+					wedding.setDate(sdf.parse(weddingJsonDto.getDate()));					
+				} catch (ParseException e) {
+					System.out.println("ERROR: Can't parse date " + weddingJsonDto.getDate());
+				}
+			}
 			Set<Invitation> invitations = new HashSet<>();
 			for (InvitationJsonDto invitationJsonDto : weddingJsonDto.getGuests()) {
 				Invitation invitation = Mapper.mapOne(invitationJsonDto, Invitation.class);
+				invitation.setAttending(invitationJsonDto.getRsvp());
+				Person guest = null;
+				guest = personService.findByFullName(invitationJsonDto.getName());
+				if (guest != null) {
+					invitation.setGuest(guest);
+					invitations.add(invitation);					
+				}
 				
-				invitation.setGuest(personService.findByFullName(invitationJsonDto.getName()));
-				invitations.add(invitation);
 			}
 			wedding.setInvitations(invitations);
 			this.save(wedding);

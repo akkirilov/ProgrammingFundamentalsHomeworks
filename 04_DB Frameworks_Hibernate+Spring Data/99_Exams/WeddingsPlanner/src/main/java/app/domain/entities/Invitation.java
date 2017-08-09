@@ -19,15 +19,13 @@ import app.domain.enums.Family;
 
 @Entity
 @Table(name = "invitations")
-public class Invitation implements Serializable {
+public class Invitation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull
+
 	@ManyToOne()
-	@JoinColumn(name = "wedding")
 	private Wedding wedding;
 	
 	@NotNull

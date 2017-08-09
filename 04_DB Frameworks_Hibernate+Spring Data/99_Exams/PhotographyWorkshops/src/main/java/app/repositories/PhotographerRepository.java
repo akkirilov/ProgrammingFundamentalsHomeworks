@@ -13,7 +13,7 @@ import app.domain.entities.Photographer;
 public interface PhotographerRepository extends JpaRepository<Photographer, Long>{
 
 	@Query("SELECT p FROM Photographer AS p WHERE CONCAT(p.firstName, ' ', p.lastName) = :trainerName")
-	Photographer findByFullName(@Param("trainerName") String trainerName);
+	Photographer findFirstByFullName(@Param("trainerName") String trainerName);
 
 	Photographer findByFirstNameAndLastName(String firstName, String lastName);
 

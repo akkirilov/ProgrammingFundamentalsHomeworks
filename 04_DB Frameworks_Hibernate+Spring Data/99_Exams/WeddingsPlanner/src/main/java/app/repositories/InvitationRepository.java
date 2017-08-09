@@ -3,11 +3,11 @@ package app.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import app.domain.entities.Agency;
+import app.domain.entities.Invitation;
 
 @Repository
-public interface AgencyRepository extends JpaRepository<Agency, Long>{
+public interface InvitationRepository extends JpaRepository<Invitation, Long>{
 	
-	Agency findFirstByName(String name);
+	
 	
 }

@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "weddings")
-public class Wedding implements Serializable {
+public class Wedding {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +32,7 @@ public class Wedding implements Serializable {
 	private Person bride;
 	
 	@NotNull
+	@ManyToOne()
 	@JoinColumn(name = "bridegroom")
 	private Person bridegroom;
 	
@@ -43,13 +44,14 @@ public class Wedding implements Serializable {
 	@JoinColumn(name = "agency_id")
 	private Agency agency;
 
-	@ManyToMany
+	@ManyToMany()
 	@JoinTable(name = "weddings_venues", 
 			joinColumns = @JoinColumn(name = "wedding_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "venue_id", referencedColumnName = "id"))
 	private Set<Venue> venues;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "wedding_id")
 	private Set<Invitation> invitations;
 
 	public Wedding() {

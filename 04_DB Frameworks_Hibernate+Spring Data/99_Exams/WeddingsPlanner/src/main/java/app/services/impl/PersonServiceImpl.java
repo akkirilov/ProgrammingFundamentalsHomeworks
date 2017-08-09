@@ -1,5 +1,9 @@
 package app.services.impl;
 
+import static org.mockito.Matchers.contains;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +64,21 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public void createFromPeopleJsonDto(List<PeopleJsonDto> entities) {
-		List<Person> persons = Mapper.mapToList(entities, Person.class);
-		for (Person person : persons) {
-			this.save(person);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		entities = Mapper.mapToList(entities, PeopleJsonDto.class);
+		for (PeopleJsonDto peopleJsonDto : entities) {
+			Person temp = Mapper.mapOne(peopleJsonDto, Person.class);
+			temp.setMiddleName(peopleJsonDto.getMiddleInitial());
+			if (peopleJsonDto.getBirthday() != null) {
+				try {
+					temp.setBirthDate(sdf.parse(peopleJsonDto.getBirthday()));					
+				} catch (ParseException e) {
+					System.out.println("ERROR: Can't parse date " + peopleJsonDto.getBirthday());
+				}
+			}
+			this.save(temp);
 		}
+		
 	}
 
 	@Override

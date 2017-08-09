@@ -29,7 +29,7 @@ public class Person implements Serializable {
 	
 	@NotNull
 	@Length(min = 1, max = 60)
-	@Column(name = "first_name", length = 60)
+	@Column(name = "first_name")
 	private String firstName;
 	
 	@NotNull

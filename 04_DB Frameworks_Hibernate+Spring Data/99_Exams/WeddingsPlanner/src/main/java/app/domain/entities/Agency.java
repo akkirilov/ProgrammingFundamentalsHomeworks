@@ -21,7 +21,7 @@ public class Agency implements Serializable {
 	private String name;
 	
 	@Basic
-	private Integer employeeCount;
+	private Integer employeesCount;
 	
 	@Basic
 	private String town;
@@ -47,11 +47,11 @@ public class Agency implements Serializable {
 	}
 
 	public Integer getCapacity() {
-		return employeeCount;
+		return employeesCount;
 	}
 
-	public void setCapacity(Integer employeeCount) {
-		this.employeeCount = employeeCount;
+	public void setCapacity(Integer employeesCount) {
+		this.employeesCount = employeesCount;
 	}
 
 	public String getTown() {
@@ -60,6 +60,14 @@ public class Agency implements Serializable {
 
 	public void setTown(String town) {
 		this.town = town;
+	}
+
+	public Integer getEmployeesCount() {
+		return employeesCount;
+	}
+
+	public void setEmployeesCount(Integer employeesCount) {
+		this.employeesCount = employeesCount;
 	}
 	
 }

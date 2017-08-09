@@ -50,7 +50,7 @@ public class WorkshopServiceImpl implements WorkshopService {
 		workshopImportXmlDtos = Mapper.mapToList(workshopImportXmlDtos, WorkshopImportXmlDto.class);
 		for (WorkshopImportXmlDto workshopImportXmlDto : workshopImportXmlDtos) {
 			Workshop workshop = Mapper.mapOne(workshopImportXmlDto, Workshop.class);
-			Photographer trainer = photographyRepository.findByFullName(workshopImportXmlDto.getTrainerName());
+			Photographer trainer = photographyRepository.findFirstByFullName(workshopImportXmlDto.getTrainerName());
 			workshop.setTrainer(trainer);
 			for (ParticipantImportXmlDto paricipant : workshopImportXmlDto.getParticipantImportXmlDto()) {
 				Photographer temp = photographyRepository.findByFirstNameAndLastName(paricipant.getFirstName(), paricipant.getLastName());

@@ -19,7 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import app.domain.entities.Person;
 import app.domain.enums.Family;
 
-public class InvitationJsonDto implements Serializable {
+public class InvitationJsonDto{
 	
 	@Expose
 	@SerializedName("Name")
@@ -27,7 +27,7 @@ public class InvitationJsonDto implements Serializable {
 	
 	@Expose
 	@SerializedName("RSVP")
-	private Boolean attending;
+	private Boolean rsvp;
 	
 	@Expose
 	@SerializedName("Family")
@@ -45,12 +45,12 @@ public class InvitationJsonDto implements Serializable {
 		this.name = name;
 	}
 
-	public Boolean getAttending() {
-		return attending;
+	public Boolean getRsvp() {
+		return rsvp;
 	}
 
-	public void setAttending(Boolean attending) {
-		this.attending = attending;
+	public void setRsvp(Boolean rsvp) {
+		this.rsvp = rsvp;
 	}
 
 	public Family getFamily() {

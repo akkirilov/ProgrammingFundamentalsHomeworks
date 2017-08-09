@@ -34,11 +34,11 @@ public class WeddingJsonDto implements Serializable {
 
 	@Expose
 	@SerializedName("Date")
-	private Date date;
+	private String date;
 
 	@Expose
 	@SerializedName("Agency")
-	private String agencyName;
+	private String agency;
 	
 	@Expose
 	@SerializedName("Guests")
@@ -64,20 +64,12 @@ public class WeddingJsonDto implements Serializable {
 		this.bridegroom = bridegroom;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getAgency() {
+		return agency;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getAgencyName() {
-		return agencyName;
-	}
-
-	public void setAgencyName(String agencyName) {
-		this.agencyName = agencyName;
+	public void setAgency(String agency) {
+		this.agency = agency;
 	}
 
 	public Set<InvitationJsonDto> getGuests() {
@@ -87,5 +79,13 @@ public class WeddingJsonDto implements Serializable {
 	public void setGuests(Set<InvitationJsonDto> guests) {
 		this.guests = guests;
 	}
-	
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 }

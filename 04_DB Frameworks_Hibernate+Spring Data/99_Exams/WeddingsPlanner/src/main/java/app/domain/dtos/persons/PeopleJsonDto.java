@@ -13,8 +13,7 @@ public class PeopleJsonDto {
 	private String firstName;
 	
 	@Expose
-	@SerializedName("middleInitial")
-	private String middleName;
+	private String middleInitial;
 
 	@Expose
 	private String lastName;
@@ -23,8 +22,7 @@ public class PeopleJsonDto {
 	private Gender gender;
 
 	@Expose
-	@SerializedName("birthday")
-	private Date birthDate;
+	private String birthday;
 
 	@Expose
 	private String phone;
@@ -44,14 +42,6 @@ public class PeopleJsonDto {
 		this.firstName = firstName;
 	}
 
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
@@ -67,15 +57,7 @@ public class PeopleJsonDto {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -90,6 +72,22 @@ public class PeopleJsonDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getMiddleInitial() {
+		return middleInitial;
+	}
+
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 	
 }

@@ -70,7 +70,7 @@ public class ConsoleRunner implements CommandLineRunner{
 //		
 //		exportAgenciesOrdered();
 //		exportGuestLists();
-		exportVenuesInSofia();
+//		exportVenuesInSofia();
 		
 	}
 	

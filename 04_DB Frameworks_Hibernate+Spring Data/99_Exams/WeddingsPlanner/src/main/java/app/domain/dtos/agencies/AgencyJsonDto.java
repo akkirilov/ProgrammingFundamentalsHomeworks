@@ -3,6 +3,7 @@ package app.domain.dtos.agencies;
 import java.io.Serializable;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class AgencyJsonDto implements Serializable {
 

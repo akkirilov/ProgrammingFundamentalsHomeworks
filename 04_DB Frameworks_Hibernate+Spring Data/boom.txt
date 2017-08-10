@@ -1,0 +1,25 @@
+@Entity
+@Table(name = "cameras")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+
+@Entity
+@DiscriminatorValue("Mirrorless")
+
+
+
+@ManyToMany()
+	@JoinTable(name = "photographers_lenses",
+			joinColumns = @JoinColumn(name = "photographer_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "lens_id", referencedColumnName = "id"))
+	private Set<Lens> lenses;
+	
+	
+	
+	entity.getClass().getAnnotation(DiscriminatorValue.class).value()
+	
+	
+	
+@XmlRootElement(name = "participants")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder={"fullName", "cameraToExport"})

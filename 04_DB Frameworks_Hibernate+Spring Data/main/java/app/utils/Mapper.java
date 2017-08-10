@@ -26,7 +26,31 @@ public class Mapper {
 		}
 		return resultList;
 	}
-
+	
+	public <S, D> List<D> mapToList(Set<S> source, Class<D> destinationClass) {
+		List<D> resultList = new ArrayList<>();
+		for (S s : source) {
+			resultList.add(mapOne(s, destinationClass));
+		}
+		return resultList;
+	}
+	
+	public <S, D> Set<D> mapToSet(Set<S> source, Class<D> destinationClass) {
+		Set<D> resultList = new HashSet<>();
+		for (S s : source) {
+			resultList.add(mapOne(s, destinationClass));
+		}
+		return resultList;
+	}
+	
+	public <S, D> Set<D> mapToSet(List<S> source, Class<D> destinationClass) {
+		Set<D> resultList = new HashSet<>();
+		for (S s : source) {
+			resultList.add(mapOne(s, destinationClass));
+		}
+		return resultList;
+	}
+	
 	//	ModelMapper mp = new ModelMapper();
 	//	PropertyMap<Product, ProductWithSellerDto> propertyMap = new PropertyMap<Product, ProductWithSellerDto>() {
 	//	     protected void configure() {

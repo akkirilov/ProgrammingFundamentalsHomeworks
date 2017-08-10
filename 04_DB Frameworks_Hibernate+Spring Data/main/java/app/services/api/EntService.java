@@ -6,7 +6,9 @@ import app.domain.entities.Ent;
 
 public interface EntService {
 
-	Ent save(Ent entity);
+	void save(Ent entity);
+	
+	void save(List<Ent> entity);
 	
 	List<Ent> findAll();
 	

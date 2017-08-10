@@ -1,7 +1,9 @@
 package app.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import app.domain.entities.*;
 import app.domain.dtos.*;
@@ -21,6 +23,30 @@ public class Mapper {
 	
 	public <S, D> List<D> mapToList(List<S> source, Class<D> destinationClass) {
 		List<D> resultList = new ArrayList<>();
+		for (S s : source) {
+			resultList.add(mapOne(s, destinationClass));
+		}
+		return resultList;
+	}
+	
+	public <S, D> List<D> mapToList(Set<S> source, Class<D> destinationClass) {
+		List<D> resultList = new ArrayList<>();
+		for (S s : source) {
+			resultList.add(mapOne(s, destinationClass));
+		}
+		return resultList;
+	}
+	
+	public <S, D> Set<D> mapToSet(Set<S> source, Class<D> destinationClass) {
+		Set<D> resultList = new HashSet<>();
+		for (S s : source) {
+			resultList.add(mapOne(s, destinationClass));
+		}
+		return resultList;
+	}
+	
+	public <S, D> Set<D> mapToSet(List<S> source, Class<D> destinationClass) {
+		Set<D> resultList = new HashSet<>();
 		for (S s : source) {
 			resultList.add(mapOne(s, destinationClass));
 		}

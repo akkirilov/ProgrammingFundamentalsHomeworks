@@ -16,22 +16,37 @@ public class EntServiceImpl implements EntService {
 	
 	private JsonParser jsonParser;
 	private XmlParser xmlParser;
+	private Mapper mapper;
 	
 	@Autowired
 	public EntServiceImpl(EntRepository entRepository, 
 							JsonParser jsonParser,
-							XmlParser xmlParser) {
+							XmlParser xmlParser,
+						 Mapper mapper) {
 		super();
 		this.entRepository = entRepository;
 		this.jsonParser = jsonParser;
 		this.xmlParser = xmlParser;
+		this.mapper = mapper;
 	}
 
 	@Override
-	public Ent save(Ent entity) {
-		return entRepository.save(entity);
+	public void save(Ent entity) {
+		try {
+			this.save(entity);
+			System.out.println("Successfully imported ");			
+		} catch (Exception e) {
+			System.out.println("Error. Invalid data provided");		
+		}
 	}
-
+	
+	@Override
+	public void save(List<Ent> entities) {
+		for (Ent e : entities) {
+			entRepository.save(e);			
+		}
+	}
+	
 	@Override
 	public List<Ent> findAll() {
 		return entRepository.findAll();

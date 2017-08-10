@@ -1,12 +1,14 @@
 package app.domain.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +27,9 @@ public class Agency implements Serializable {
 	
 	@Basic
 	private String town;
+	
+	@OneToMany(mappedBy = "agency")
+	private Set<Wedding> weddings;
 
 	public Agency() {
 		super();
@@ -68,6 +73,14 @@ public class Agency implements Serializable {
 
 	public void setEmployeesCount(Integer employeesCount) {
 		this.employeesCount = employeesCount;
+	}
+
+	public Set<Wedding> getWeddings() {
+		return weddings;
+	}
+
+	public void setWeddings(Set<Wedding> weddings) {
+		this.weddings = weddings;
 	}
 	
 }

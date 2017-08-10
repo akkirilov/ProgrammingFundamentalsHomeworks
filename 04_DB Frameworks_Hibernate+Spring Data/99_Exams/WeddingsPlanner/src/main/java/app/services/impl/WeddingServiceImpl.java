@@ -1,7 +1,5 @@
 package app.services.impl;
 
-import static org.assertj.core.api.Assertions.in;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ public class WeddingServiceImpl implements WeddingService {
 	
 	private WeddingRepository weddingRepository;
 	private PersonService personService;
-	private InvitationService invitationService;
 	private AgencyService agencyService;
 	
 	private JsonParser jsonParser;
@@ -40,14 +37,12 @@ public class WeddingServiceImpl implements WeddingService {
 	public WeddingServiceImpl(WeddingRepository weddingRepository,
 							PersonService personService,
 							AgencyService agencyService,
-							InvitationService invitationService,
 							JsonParser jsonParser,
 							XmlParser xmlParser) {
 		super();
 		this.weddingRepository = weddingRepository;
 		this.personService = personService;
 		this.agencyService = agencyService;
-		this.invitationService = invitationService;
 		this.jsonParser = jsonParser;
 		this.xmlParser = xmlParser;
 	}

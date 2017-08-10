@@ -17,7 +17,7 @@ public interface PresentService {
 	
 	Present findOneById(Long id);
 	
-	void createFromVenueXmlDto(List<PresentXmlDto> entities);
+	void createFromPresentXmlDto(List<PresentXmlDto> entities);
 	
 	Long count();
 }

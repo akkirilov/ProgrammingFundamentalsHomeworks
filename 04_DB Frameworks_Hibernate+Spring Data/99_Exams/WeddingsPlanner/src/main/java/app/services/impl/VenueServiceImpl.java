@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.domain.dtos.venues.VenueNameCapacityXmlDto;
 import app.domain.dtos.venues.VenueXmlDto;
 import app.domain.entities.Venue;
 import app.domain.entities.Wedding;
@@ -92,13 +93,21 @@ public class VenueServiceImpl implements VenueService {
 			weddingService.save(wedding);
 		}
 				
-		
-		
 	}
 
 	@Override
 	public List<Venue> findAllWithMoreThanThreeWeddings() {
 		return venueRepository.findAllWithMoreThanThreeWeddings();
+	}
+
+	@Override
+	public List<VenueNameCapacityXmlDto> getVenueNameCapacityXmlDtos() {
+		List<Venue> venues = this.findAllWithMoreThanThreeWeddings();
+		List<VenueNameCapacityXmlDto> venueNameCapacityXmlDtos = Mapper.mapToList(venues, VenueNameCapacityXmlDto.class);
+		for (VenueNameCapacityXmlDto v : venueNameCapacityXmlDtos) {
+			v.setWeddingsCount(v.getWeddings().size());
+		}
+		return venueNameCapacityXmlDtos;
 	}
 
 

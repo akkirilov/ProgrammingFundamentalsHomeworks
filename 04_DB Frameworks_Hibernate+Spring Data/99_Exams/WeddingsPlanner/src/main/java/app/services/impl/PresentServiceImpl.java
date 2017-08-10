@@ -14,6 +14,7 @@ import app.domain.entities.Gift;
 import app.domain.entities.Invitation;
 import app.domain.entities.Person;
 import app.domain.entities.Present;
+import app.domain.enums.Size;
 import app.repositories.PresentRepository;
 import app.services.api.InvitationService;
 import app.services.api.PresentService;
@@ -71,21 +72,29 @@ public class PresentServiceImpl implements PresentService {
 		Present toReturn = null;
 		try {
 			toReturn = presentRepository.save(entity);
+			System.out.println("Successfully imported gift from "
+					+ entity.getOwner().getFullName());
 		} catch (Exception e) {
+			System.out.println("Error. Invalid data provided");
 		}
 		return toReturn;
 	}
 
 	@Override
-	public void createFromVenueXmlDto(List<PresentXmlDto> entities) {
+	public void createFromPresentXmlDto(List<PresentXmlDto> entities) {
 		for (PresentXmlDto p : entities) {
 			Invitation invitation = null;
 			Person owner = null;
-			if (p.getInvitationId() != null) {
-				invitation = invitationService.findOneById(p.getInvitationId());
-				if (invitation != null) {
-					owner = invitationService.findOneById(p.getInvitationId()).getGuest();									
-				}
+			if (p.getInvitationId() == null) {
+				continue;
+			}
+			invitation = invitationService.findOneById(p.getInvitationId());
+			if (invitation == null) {
+				continue;
+			}
+			owner = invitation.getGuest();
+			if (p.getSize() == null || p.getSize().toString().length() < 1) {
+				p.setSize(Size.NotSpecified);
 			}
 			if (null != p.getType()
 					&& p.getType().equals("gift")) {
@@ -93,14 +102,18 @@ public class PresentServiceImpl implements PresentService {
 				if (owner != null) {
 					tempGift.setOwner(owner);					
 				}
-				this.save(tempGift);
+				tempGift = (Gift) this.saveAndGet(tempGift);
+				invitation.setPresent(tempGift);
+				invitationService.save(invitation);
 			} else if (null != p.getType()
 					&& p.getType().equals("cash")) {
 				Cash tempCash = Mapper.mapOne(p, Cash.class);
 				if (owner != null) {
 					tempCash.setOwner(owner);					
 				}
-				this.save(tempCash);
+				tempCash = (Cash) this.saveAndGet(tempCash);
+				invitation.setPresent(tempCash);
+				invitationService.save(invitation);
 			}
 		}
 		

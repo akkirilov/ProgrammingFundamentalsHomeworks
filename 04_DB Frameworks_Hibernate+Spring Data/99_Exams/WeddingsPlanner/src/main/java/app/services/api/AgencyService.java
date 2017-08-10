@@ -3,6 +3,7 @@ package app.services.api;
 import java.util.List;
 
 import app.domain.dtos.agencies.AgencyJsonDto;
+import app.domain.dtos.agencies.TownXmlDto;
 import app.domain.entities.Agency;
 
 public interface AgencyService {
@@ -20,5 +21,9 @@ public interface AgencyService {
 	Agency findOneByName(String name);
 	
 	List<Agency> findAllAgnciesOrdered();
+
+	List<Agency> findAllByOrderByTownAsc();
+
+	List<TownXmlDto> getAllTownXmlDtos();
 	
 }

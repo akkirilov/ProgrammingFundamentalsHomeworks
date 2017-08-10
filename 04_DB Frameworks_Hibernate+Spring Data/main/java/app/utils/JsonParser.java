@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 @Component
 public class JsonParser {
@@ -26,19 +25,28 @@ public class JsonParser {
 		String file = fileParser.readFile(path);
         
 		T object = gson.fromJson(file, clazz);
-        return object;		
+        
+		return object;		
 	}
 	
 	public <T> List<T> importJsonList(Class<T> clazz, String path) throws IOException {
-		Type type = new TypeToken<ArrayList<T>>() {}.getType();
-		
 		String file = fileParser.readFile(path);
-		return gson.fromJson(file, type);
+		
+		Object [] arr = (Object[])Array.newInstance(clazz, 1);
+		arr = gson.fromJson(file, arr.getClass());
+		
+	    List<T> list = new ArrayList<T>();
+	    for (int i=0 ; i<arr.length ; i++) {
+	        list.add((T)arr[i]);
+	    }
+	    
+	    return list;
     }
 
     public <T> void exportJson(T object, String path) throws IOException {
         String content = gson.toJson(object);
-        fileParser.writeFile(path, content);
+        
+		fileParser.writeFile(path, content);
     }
 
 }

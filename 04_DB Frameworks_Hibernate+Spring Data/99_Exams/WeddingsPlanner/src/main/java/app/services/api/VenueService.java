@@ -2,6 +2,7 @@ package app.services.api;
 
 import java.util.List;
 
+import app.domain.dtos.venues.VenueNameCapacityXmlDto;
 import app.domain.dtos.venues.VenueXmlDto;
 import app.domain.entities.Venue;
 
@@ -21,4 +22,6 @@ public interface VenueService {
 
 	List<Venue> findAllWithMoreThanThreeWeddings();
 		
+	List<VenueNameCapacityXmlDto> getVenueNameCapacityXmlDtos();
+	
 }

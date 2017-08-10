@@ -1,10 +1,7 @@
 package app.utils;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import app.domain.entities.*;
 import app.domain.dtos.*;
@@ -12,15 +9,16 @@ import app.domain.dtos.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
+@Component
 public class Mapper {
 	
-	private static ModelMapper mapper = new ModelMapper();
+	private ModelMapper mapper = new ModelMapper();
 	
-	public static <S, D> D mapOne(S source, Class<D> destinationClass) {
+	public <S, D> D mapOne(S source, Class<D> destinationClass) {
 		return mapper.map(source, destinationClass);
 	}
 	
-	public static <S, D> List<D> mapToList(List<S> source, Class<D> destinationClass) {
+	public <S, D> List<D> mapToList(List<S> source, Class<D> destinationClass) {
 		List<D> resultList = new ArrayList<>();
 		for (S s : source) {
 			resultList.add(mapOne(s, destinationClass));

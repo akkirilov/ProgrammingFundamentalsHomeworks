@@ -33,7 +33,7 @@ public class EntServiceImpl implements EntService {
 	@Override
 	public void save(Ent entity) {
 		try {
-			this.save(entity);
+			entRepository.save(entity);
 			System.out.println("Successfully imported ");			
 		} catch (Exception e) {
 			System.out.println("Error. Invalid data provided");		
@@ -43,7 +43,7 @@ public class EntServiceImpl implements EntService {
 	@Override
 	public void save(List<Ent> entities) {
 		for (Ent e : entities) {
-			entRepository.save(e);			
+			this.save(e);			
 		}
 	}
 	

@@ -1,14 +1,27 @@
-@Entity
-@Table(name = "cameras")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+			@Entity
+			@Table(name = "cameras")
+			@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+			@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 
 @Entity
 @DiscriminatorValue("Mirrorless")
 
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+			for (PersonDto dto : dtos) {
+				Person temp = mapper.mapOne(dto, Person.class);
+				if (dto.getDateString() == null) {
+					this.save(temp);
+					continue;
+				}
+				try {
+					temp.setBirthDate(sdf.parse(dto.getDateString()));
+				} catch (ParseException e) {
+					System.out.println("Cant parse " + dto.getDateString() + " to java.util.Date");
+				}
+				this.save(temp);
+			}
 
-
-@ManyToMany()
+	@ManyToMany()
 	@JoinTable(name = "photographers_lenses",
 			joinColumns = @JoinColumn(name = "photographer_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "lens_id", referencedColumnName = "id"))
@@ -16,10 +29,54 @@
 	
 	
 	
-	entity.getClass().getAnnotation(DiscriminatorValue.class).value()
+			entity.getClass().getAnnotation(DiscriminatorValue.class).value()
 	
 	
 	
 @XmlRootElement(name = "participants")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder={"fullName", "cameraToExport"})
+
+
+			<dependency>
+				<groupId>org.modelmapper</groupId>
+				<artifactId>modelmapper</artifactId>
+				<version>1.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.8.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>5.4.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.el</artifactId>
+				<version>3.0.1-b08</version>
+			</dependency>
+
+#Data Source Properties
+spring.datasource.driverClassName = com.mysql.jdbc.Driver
+spring.datasource.url = jdbc:mysql://localhost:3306/sdex_photography_2?createDatabaseIfNotExist=true
+spring.datasource.username = root
+spring.datasource.password = mysqlr00t
+
+#JPA Properties
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+spring.jpa.properties.hibernate.format_sql = TRUE
+spring.jpa.properties.hibernate.enable_lazy_load_no_trans = TRUE
+spring.jpa.hibernate.ddl-auto = create
+
+###Logging Levels
+# Disable the default loggers
+#logging.level.org = WARN
+#logging.level.blog = WARN
+
+#Show SQL executed with parameter bindings
+#logging.level.org.hibernate.SQL = DEBUG
+#logging.level.org.hibernate.type.descriptor = TRACE
+

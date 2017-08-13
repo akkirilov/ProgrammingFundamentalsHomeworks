@@ -38,6 +38,41 @@
 @XmlType(propOrder={"fullName", "cameraToExport"})
 
 
+
+		try {
+			List<PersonDto> dtos = jsonParser.importJsonList(PersonDto.class, path);
+			personService.saveFromDto(dtos);
+		} catch (IOException e) {
+			System.out.println("ERROR: Can't import " + path);
+		}
+
+
+		List<AgencyExportJsonDto> dtos = agencyService.findAllAgencyExportJsonDtoOrdered();
+		try {
+			jsonParser.exportJson(dtos, path);
+		} catch (IOException e) {
+			System.out.println("ERROR: Can't export " + path);
+		}
+		
+		
+		
+try {
+	PresentWrapperXmlDto dto = xmlParser.importXml(PresentWrapperXmlDto.class, path);
+	presentService.saveFromPresentXmlDtos(dto.getPresentXmlDtos());
+} catch (JAXBException | IOException e) {
+	System.out.println("ERROR: Can't import " + path);
+}
+
+
+
+try {
+	xmlParser.exportXml(dto, path);
+} catch (JAXBException | IOException e) {
+	System.out.println("ERROR: Can't export " + path);
+}
+
+
+
 			<dependency>
 				<groupId>org.modelmapper</groupId>
 				<artifactId>modelmapper</artifactId>

@@ -1,0 +1,41 @@
+<main>
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal" th:action="@{/add/edit/{id}(id=${add.id})}" method="POST">
+                <fieldset>
+                    <legend>Edit Training</legend>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="add_title">Title</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="add_title" placeholder="Title" name="title" th:value="${add.title}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="add_content">Content</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" rows="6" id="add_content" name="content" th:field="${add.content}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="add_Categories">add_Category *</label>
+                        <div class="col-sm-6 ">
+                            <select class="form-control" id="add_Categories" name="addCategory" required="required">
+                                <option th:each="category : ${addCategorySet}" th:selected="${add.addCategory.addCategoryName == category.addCategoryName}" name="addCategory" th:value="${category.id}" th:text="${category.addCategoryName}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-default" th:href="@{/add/{id}(id = ${add.id})}">Cancel</a>
+                            <input type="submit" class="btn btn-success" value="Edit"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>

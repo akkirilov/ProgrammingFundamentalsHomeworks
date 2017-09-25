@@ -13,7 +13,7 @@ public class lab11_ModifyBit {
 		scanner.close();
 
 		if (value == 0) {
-			number = number ^ (1 << position);
+			number = number & ~(1 << position);
 		} else {
 			number = number | (1 << position);
 		}

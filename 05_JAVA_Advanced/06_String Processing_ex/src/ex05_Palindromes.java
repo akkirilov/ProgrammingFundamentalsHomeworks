@@ -13,10 +13,6 @@ public class ex05_Palindromes {
 
 		bfr.close();
 		
-		for (int i = 0; i < words.length; i++) {
-			System.out.println(words[i]);
-		}
-		
 		TreeSet<String> palindromes = new TreeSet<>();
 		for (int i = 0; i < words.length; i++) {
 			if (isPalindrome(words[i])) {

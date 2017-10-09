@@ -8,58 +8,48 @@ public class ex04_TruckTour {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 
-		ArrayDeque<String> data = new ArrayDeque<>();
-
+		ArrayDeque<Integer> fuel = new ArrayDeque<>();
+		
 		BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in));
 
 		int n = Integer.parseInt(bfr.readLine());
 		for (Long i = 0L; i < n; i++) {
-			data.addLast(bfr.readLine());
+			int[] tokens = Arrays.stream(bfr.readLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+			fuel.addLast(tokens[0] - tokens[1]);
 		}
 
 		bfr.close();
-		
+
 		int index = 0;
 		while (true) {
 			
 			boolean success = true;
+			int currFuel = fuel.removeFirst();
 
-			String currLine = data.removeFirst();
-			String[] tokens = currLine.split("\\s+");
-			int currPetrol = Integer.parseInt(tokens[0]);
-			int nextPump = Integer.parseInt(tokens[1]);
-			
-			int petrolInTank = currPetrol - nextPump;
-			if (petrolInTank >= 0) {
+			if (currFuel >= 0) {
+				int petrolInTank = currFuel;
+				int nextFuel = currFuel;
 				for (int j = 1; j < n; j++) {
-					
-					String nextLine = data.removeFirst();
-					String[] tokens2 = nextLine.split("\\s+");
-					currPetrol = Integer.parseInt(tokens2[0]);
-					nextPump = Integer.parseInt(tokens2[1]);
-					
-					petrolInTank += currPetrol - nextPump;
+					nextFuel = fuel.removeFirst();
+					fuel.addLast(nextFuel);
+					petrolInTank += nextFuel;
 					if (petrolInTank < 0) {
-						
 						success = false;
-						for (int i = j + 1; i < tokens2.length; i++) {
-							data.addLast(data.removeFirst());
+						for (int i = j + 1; i < n; i++) {
+							fuel.addLast(fuel.removeFirst());
 						}
 						break;
 					}
-					if (success) {
-						System.out.println(index);
-						return;
-					}
-					
 				}
-				
-			}			
-
-			data.addLast(currLine);
-
-		
+				if (success) {
+					System.out.println(index);
+					return;
+				}
+			}
+			
+			fuel.addLast(currFuel);
 			index++;
+				
 		}
 
 	}

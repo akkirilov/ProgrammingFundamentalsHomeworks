@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class e2_RoyalNonStop {
+public class e02_RoyalNonStop {
 
 	public static void main(String[] args) throws IOException {
 		

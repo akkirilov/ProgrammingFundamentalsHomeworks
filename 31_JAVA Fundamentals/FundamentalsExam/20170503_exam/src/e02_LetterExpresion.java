@@ -12,9 +12,9 @@ public class e02_LetterExpresion {
 		String input = reader.readLine();
 		reader.close();
 
-		Pattern digitP = Pattern.compile("(?<num>(\\d+\\.\\d+)|\\d+)");
+		Pattern digitP = Pattern.compile("(?<num>(\\d+))");
 		Matcher digitM = digitP.matcher(input);
-		Pattern charsP = Pattern.compile("((?<chars>[\\D]+)(?<num>(\\d+\\.\\d+)|\\d+))");
+		Pattern charsP = Pattern.compile("(?<chars>[\\D]+)(?<num>(\\d+))");
 		Matcher charsM = charsP.matcher(input);
 		Double sum = 0d;
 		if (digitM.find()) {
@@ -22,12 +22,11 @@ public class e02_LetterExpresion {
 		} else {
 			return;
 		}
+		
 		input = input.substring(sum.toString().length(), input.length());
-//		if (!Character.isDigit(input.charAt(0))) {
-//			charsM.find();
-//		}
 
 		while (digitM.find() && charsM.find()) {
+			
 			Double value = Double.parseDouble(digitM.group("num"));
 			Integer count = charsM.group("chars").length();
 			if (count % 2 == 0) {
@@ -35,9 +34,9 @@ public class e02_LetterExpresion {
 			} else {
 				sum -= value;
 			}
-			// input = input.substring(sum.toString().length(), input.length());
-			// System.out.println(input);
+
 		}
+		
 		if (Long.parseLong(sum.toString().split("\\.")[1]) > 0) {
 			System.out.printf("%.7f%n", sum);
 		} else {

@@ -35,13 +35,19 @@ public class Main {
 	    
 	    employees.entrySet().stream()
 	    		.sorted((a, b) -> {
-	    			int res = a.getValue().stream().mapToDouble(mapper)
+	    			Double bavg = b.getValue().stream().mapToDouble(x -> Double.valueOf(x.getSalary())).average().getAsDouble();
+	    			Double aavg = a.getValue().stream().mapToDouble(x -> Double.valueOf(x.getSalary())).average().getAsDouble();
+	    			return bavg.compareTo(aavg);
 	    		})
 	    		.limit(1)
 	    		.forEach(x -> {
-	    			
+	    			System.out.printf("Highest Average Salary: %s%n", x.getKey());
+	    			x.getValue().stream().sorted((a, b) -> {
+	    				return Double.compare(b.getSalary(), a.getSalary());
+	    			}).forEach(e -> {
+	    				System.out.printf("%s %.2f %s %s%n", e.getName(), e.getSalary(), e.getEmail(), e.getAge());
+	    			});
 	    		});
-	    
 
 	}
 

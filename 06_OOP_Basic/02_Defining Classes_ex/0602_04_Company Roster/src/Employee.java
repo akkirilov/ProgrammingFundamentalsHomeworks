@@ -13,7 +13,7 @@ public class Employee {
 		this.salary = salary;
 		this.position = position;
 		this.age = -1;
-		this.email = "N/A";
+		this.email = "n/a";
 	}
 
 	public Employee(String name, int age, double salary, String position) {

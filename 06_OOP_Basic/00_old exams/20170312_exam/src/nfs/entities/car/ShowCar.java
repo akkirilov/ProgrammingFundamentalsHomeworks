@@ -10,24 +10,24 @@ public class ShowCar extends Car {
 		this.stars = 0;
 	}
 	
-	public int getStars() {
+	private int getStars() {
 		return stars;
 	}
 
-	public void addStar() {
-		this.stars++;
+	private void addStars(int stars) {
+		this.stars += stars;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(super.toString()).append(this.stars).append(" *\r\n");
+		sb.append(super.toString()).append(this.getStars()).append(" *\r\n");
 		return sb.toString();
 	}
 
 	@Override
 	public void modify(int index, String addOn) {
 		super.modify(index, addOn);
-		stars += index;
+		addStars(index);
 	}
 }

@@ -13,11 +13,11 @@ public class PerformanceCar extends Car {
 		this.addOns = new ArrayList<>();
 	}
 	
-	public List<String> getAddOns() {
+	private List<String> getAddOns() {
 		return addOns;
 	}
 
-	public void addAddOns(String addOn) {
+	private void addAddOns(String addOn) {
 		this.addOns.add(addOn);
 	}
 
@@ -30,19 +30,19 @@ public class PerformanceCar extends Car {
 	protected void setSuspension(int suspension) {
 		super.setSuspension(suspension - (int) ((suspension * 25) / 100));
 	}
+	
+	@Override
+	public void modify(int index, String addOn) {
+		super.modify(index, addOn);
+		this.addAddOns(addOn);
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString()).append("Add-ons: ")
-		.append(this.addOns.size() == 0 ? "None" : this.addOns.toString().replaceAll("\\[|\\]", "")).append("\r\n");
+		.append(this.addOns.size() == 0 ? "None" : this.getAddOns().toString().replaceAll("\\[|\\]", "")).append("\r\n");
 		return sb.toString();
-	}
-
-	@Override
-	public void modify(int index, String addOn) {
-		super.modify(index, addOn);
-		this.addAddOns(addOn);
 	}
 
 }

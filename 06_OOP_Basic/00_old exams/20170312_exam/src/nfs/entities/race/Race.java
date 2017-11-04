@@ -42,7 +42,7 @@ public abstract class Race {
 		this.winners.add(winner);
 	}
 
-	private int getLength() {
+	protected int getLength() {
 		return this.length;
 	}
 

@@ -44,6 +44,14 @@ public class CarManager {
 			races.put(id, tempRace);
 		}
 	}
+	
+	public void openSpecial(String[] tokens) {
+		
+		Race tempRace;
+		if ((tempRace = RaceFactory.getRace(tokens)) != null) {
+			races.put(Integer.parseInt(tokens[1]), tempRace);
+		}
+	}
 
 	public void participate(int carId, int raceId) {
 		if (!garage.getParkedCars().containsKey(carId) && races.containsKey(raceId)) {

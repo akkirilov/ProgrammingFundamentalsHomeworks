@@ -16,7 +16,11 @@ public class Engine {
 			String[] tokens = input.split("\\s+");
 			switch (tokens[0]) {
 			case "open":
-				cm.open(Integer.parseInt(tokens[1]), tokens[2], Integer.parseInt(tokens[3]), tokens[4], Integer.parseInt(tokens[5]));
+				if (tokens.length > 6) {
+					cm.openSpecial(tokens);
+				} else {
+					cm.open(Integer.parseInt(tokens[1]), tokens[2], Integer.parseInt(tokens[3]), tokens[4], Integer.parseInt(tokens[5]));
+				}
 				break;
 			case "register":
 				cm.register(Integer.parseInt(tokens[1]), tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Integer.parseInt(tokens[6]), 

@@ -48,6 +48,10 @@ public abstract class Car {
 	private void setDurability(int durability) {
 		this.durability = durability;
 	}
+	
+	public void decreaseDurability(int param) {
+		this.durability -= param;
+	}
 
 	public String getBrand() {
 		return brand;
@@ -57,30 +61,30 @@ public abstract class Car {
 		return model;
 	}
 
-	protected int getYearOfProduction() {
+	private int getYearOfProduction() {
 		return yearOfProduction;
 	}
 
-	protected int getHorsepower() {
+	private int getHorsepower() {
 		return horsepower;
 	}
 
-	protected int getAcceleration() {
+	private int getAcceleration() {
 		return acceleration;
 	}
 
-	protected int getSuspension() {
+	private int getSuspension() {
 		return suspension;
 	}
 
-	protected int getDurability() {
+	private int getDurability() {
 		return durability;
 	}
 	
 	public void modify(int index, String addOn) {
 		this.horsepower += index;
 		this.suspension += (int) (index / 2);
-	};
+	}
 	
 	public int getOverallPerformance() {
 		return getEnginePerformance() + getSuspensionPerformance();
@@ -92,6 +96,10 @@ public abstract class Car {
 	
 	public int getSuspensionPerformance() {
 		return suspension + durability;
+	}
+	
+	public int getTimePerformance () {
+		return ((horsepower / 100) * acceleration);
 	}
 	
 	@Override

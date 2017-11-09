@@ -1,4 +1,4 @@
-package mainPackage.sys;
+package mainPackage.utilities;
 
 public class Constants {
 	

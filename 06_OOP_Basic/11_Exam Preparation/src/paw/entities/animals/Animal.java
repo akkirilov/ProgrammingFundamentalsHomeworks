@@ -6,7 +6,7 @@ public abstract class Animal {
 	private int age;
 	private boolean isCleansing;
 	
-	Animal(String name, int age) {
+	protected Animal(String name, int age) {
 		super();
 		setName(name);
 		setAge(age);
@@ -14,7 +14,15 @@ public abstract class Animal {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setCleansing(boolean isCleansing) {
+		this.isCleansing = isCleansing;
 	}
 
 	private void setName(String name) {

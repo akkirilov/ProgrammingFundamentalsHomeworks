@@ -4,13 +4,12 @@ public abstract class Center {
 	
 	private String name;
 	
-	Center(String name) {
-		super();
+	protected Center(String name) {
 		setName(name);
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	private void setName(String name) {

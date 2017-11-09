@@ -16,6 +16,9 @@ public class CleansingCenter extends Center {
 	}
 	
 	public void addAnimals(String name, List<Animal> animals) {
+		if (this.animals.containsKey(name)) {
+			animals.addAll(this.animals.get(name));
+		}
 		this.animals.put(name, animals);
 	}
 	

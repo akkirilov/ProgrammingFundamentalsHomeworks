@@ -1,6 +1,7 @@
 package paw.entities.centers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import paw.entities.animals.Animal;
@@ -43,7 +44,7 @@ public class AdoptionCenter extends Center {
 	}
 
 	public List<Animal> getAnimals() {
-		return animals;
+		return Collections.unmodifiableList(animals);
 	}
 
 	public void addCleanedAnimals(List<Animal> animals) {

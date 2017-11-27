@@ -10,6 +10,7 @@ public class Main {
 
 		String[] tokens = scanner.nextLine().split("\\s+");
 		Treeuple<String, String, String> tuple1 = new Treeuple<>(tokens[0] + " " + tokens[1], tokens[2], tokens[3]);
+
 		
 		tokens = scanner.nextLine().split("\\s+");
 		Treeuple<String, Long, Boolean> tuple2 = new Treeuple<>(tokens[0], Long.parseLong(tokens[1]), !tokens[2].equalsIgnoreCase("drunk") ? false : true);

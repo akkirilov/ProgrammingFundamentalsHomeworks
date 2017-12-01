@@ -4,6 +4,8 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Scanner;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -78,6 +80,53 @@ public class Main {
 //		for (Card card : defaultDeck) {
 //			System.out.println(card.getCardRankAndSuit());
 //		}
+		
+//		Problem 8. Card Game
+		List<Card> gameDeck = Deck.getDefaultCardDeck();
+		Player playerOne = new Player(scanner.nextLine());
+		Player playerTwo = new Player(scanner.nextLine());
+		
+		while (true) {
+			String[] tokens = scanner.nextLine().split("\\s+of\\s+");
+			CardRank cardRank = null;
+			CardSuit cardSuit = null;
+			try {
+				cardRank = CardRank.valueOf(tokens[0]);
+				cardSuit = CardSuit.valueOf(tokens[1]);
+			} catch (Exception e) {
+				System.out.println("No such card exists.");
+				continue;
+			}
+			
+			Card card = new Card(cardRank, cardSuit);
+			if (!gameDeck.contains(card)) {
+				System.out.println("Card is not in the deck.");
+				continue;
+			}
+			
+			int index = gameDeck.indexOf(card);
+			
+			if (playerOne.getDeck().getCardDeck().size() < 5) {
+				playerOne.addCard(gameDeck.remove(index));
+			} else {
+				playerTwo.addCard(gameDeck.remove(index));
+			}
+			
+			if (playerOne.getDeck().getCardDeck().size() == 5 
+					&& playerTwo.getDeck().getCardDeck().size() == 5) {
+				break;
+			}
+		}
+		
+		if (playerOne.getMostPowerfullCard().compareTo(playerTwo.getMostPowerfullCard()) > 0) {
+			System.out.println(String.format("%s wins with %s.", 
+					playerOne.getName(), 
+					playerOne.getMostPowerfullCard().getCardRankAndSuit()));
+		} else {
+			System.out.println(String.format("%s wins with %s.", 
+					playerTwo.getName(), 
+					playerTwo.getMostPowerfullCard().getCardRankAndSuit()));
+		}
 		
 		scanner.close();
 		

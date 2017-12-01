@@ -22,5 +22,13 @@ public class Deck {
 		}
 		return defaultDeck;
 	}
+	
+	public void addCard(Card card) {
+		this.cardDeck.add(card);
+	}
+
+	public List<Card> getCardDeck() {
+		return this.cardDeck;
+	}
 
 }

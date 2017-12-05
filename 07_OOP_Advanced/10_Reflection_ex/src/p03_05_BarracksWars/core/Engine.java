@@ -1,5 +1,7 @@
 package p03_05_BarracksWars.core;
 
+import p03_05_BarracksWars.contracts.CommandInterpreter;
+import p03_05_BarracksWars.contracts.Executable;
 import p03_05_BarracksWars.contracts.Repository;
 import p03_05_BarracksWars.contracts.Runnable;
 import p03_05_BarracksWars.contracts.Unit;
@@ -10,13 +12,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Engine implements Runnable {
+	
+	private static final String COMMAND_PACKAGE_NAME =
+			"p03_05_BarracksWars.core.commands.";
 
 	private Repository repository;
 	private UnitFactory unitFactory;
+	private CommandInterpreter commandInterpreter;
 
-	public Engine(Repository repository, UnitFactory unitFactory) {
+	public Engine(Repository repository, UnitFactory unitFactory, CommandInterpreter commandInterpreter) {
 		this.repository = repository;
 		this.unitFactory = unitFactory;
+		this.commandInterpreter = commandInterpreter;
 	}
 
 	@Override
@@ -43,37 +50,12 @@ public class Engine implements Runnable {
 
 	// TODO: refactor for problem 4
 	private String interpredCommand(String[] data, String commandName) {
-		String result;
-		switch (commandName) {
-			case "add":
-				result = this.addUnitCommand(data);
-				break;
-			case "report":
-				result = this.reportCommand(data);
-				break;
-			case "fight":
-				result = this.fightCommand(data);
-				break;
-			default:
-				throw new RuntimeException("Invalid command!");
+		Executable command = this.commandInterpreter.interpretCommand(data, commandName);
+		if (command == null) {
+			throw new RuntimeException("Invalid command!");
 		}
+		String result = command.execute();
 		return result;
 	}
 
-	private String reportCommand(String[] data) {
-		String output = this.repository.getStatistics();
-		return output;
-	}
-
-	private String addUnitCommand(String[] data) {
-		String unitType = data[1];
-		Unit unitToAdd = this.unitFactory.createUnit(unitType);
-		this.repository.addUnit(unitToAdd);
-		String output = unitType + " added!";
-		return output;
-	}
-	
-	private String fightCommand(String[] data) {
-		return "fight";
-	}
 }

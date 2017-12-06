@@ -11,7 +11,6 @@ public abstract class Command implements Executable {
 	private UnitFactory unitFactory;
 	
 	protected Command(String[] data) {
-		super();
 		this.data = data;
 	}
 

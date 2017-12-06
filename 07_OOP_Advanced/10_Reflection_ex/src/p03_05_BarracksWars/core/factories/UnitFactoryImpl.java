@@ -16,7 +16,6 @@ public class UnitFactoryImpl implements UnitFactory {
 		try {
 			Class unitClass = Class.forName(UNITS_PACKAGE_NAME + unitType);
 			unit = (AbstractUnit) unitClass.newInstance();
-			
 		} catch (Exception e) {
 			throw new NotImplementedException();
 		}

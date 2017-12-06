@@ -9,6 +9,7 @@ import p03_05_BarracksWars.contracts.CommandInterpreter;
 import p03_05_BarracksWars.contracts.Executable;
 import p03_05_BarracksWars.contracts.Repository;
 import p03_05_BarracksWars.contracts.UnitFactory;
+import p03_05_BarracksWars.core.commands.AddCommand;
 import p03_05_BarracksWars.core.commands.Command;
 
 public class CommandInterpreterImpl implements CommandInterpreter {
@@ -28,14 +29,14 @@ public class CommandInterpreterImpl implements CommandInterpreter {
 	@Override
 	public Executable interpretCommand(String[] data, String commandName) {
 		String commandPath = COMMAND_PACKAGE_NAME + commandName.toUpperCase().charAt(0) + commandName.substring(1) + "Command";
-		Command command = null;
 		try {
 			Class<?> commandClass = Class.forName(commandPath);
 			Field[] fields = commandClass.getDeclaredFields();
-			Constructor<Command> commandConstructor = (Constructor<Command>) commandClass.getConstructor(data.getClass());
-			command = (Command) commandConstructor.newInstance(data);
+			Constructor<Command> commandConstructor = (Constructor<Command>) commandClass.getConstructor(String[].class);
+			commandConstructor.setAccessible(true);
+			Command command = (Command) commandConstructor.newInstance((Object)data);
 			for (Field field : fields) {
-				if (field.getAnnotation(Inject.class) != null) {
+				if (field.isAnnotationPresent(Inject.class)) {
 					field.setAccessible(true);
 					if (field.getType().equals(Repository.class)) {
 						field.set(command, this.repository);
@@ -44,11 +45,11 @@ public class CommandInterpreterImpl implements CommandInterpreter {
 					}
 				}
 			}
+			return command;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
 			System.out.println(e.getMessage());
-			return command;
+			return null;
 		}
-		return command;
 	}
 
 }

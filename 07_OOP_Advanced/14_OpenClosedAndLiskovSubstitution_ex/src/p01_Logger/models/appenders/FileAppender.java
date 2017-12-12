@@ -8,39 +8,31 @@ import p01_Logger.interfaces.CustomFile;
 import p01_Logger.interfaces.Layout;
 import p01_Logger.io.Writer;
 
-public class FileAppender implements Appender {
+public class FileAppender extends AppenderBase {
 	
-	private final ReportLevel DEFAULT_REPORT_LEVEL = ReportLevel.INFO;
-	
-	private Layout layout;
-	private ReportLevel reportLevel;
 	private CustomFile file;
 	
 	public FileAppender(Layout layout) {
-		this.layout = layout;
-		this.reportLevel = DEFAULT_REPORT_LEVEL;
+		super(layout);
 	}
 
-	@Override
-	public Layout getLayout() {
-		return this.layout;
-	}
-	
 	public void setFile(CustomFile file) {
 		this.file = file;
 	}
 
 	@Override
 	public void append(String time, ReportLevel reportLevel, String message) {
-		if (this.reportLevel.ordinal() > reportLevel.ordinal()) {
+		if (super.getReportLevel().ordinal() > reportLevel.ordinal()) {
 			return;
 		}
-		file.writeLine(String.format(this.layout.getFormat(), time, reportLevel.name(), message));
+		file.writeLine(String.format(super.getLayout().getFormat(), time, reportLevel.name(), message));
+		super.incrementMessageCount();
 	}
 
 	@Override
-	public void setReportLevel(ReportLevel reportLevel) {
-		this.reportLevel = reportLevel;
+	public String toString() {
+		StringBuilder sb = new StringBuilder(super.toString());
+		sb.append(", File size: ").append(this.file.getSize());
+		return sb.toString();
 	}
-
 }

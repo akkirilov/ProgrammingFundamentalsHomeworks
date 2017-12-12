@@ -4,14 +4,20 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Reader {
 
 	private static final String SPLIT_DELIMITER = "\\|";
+	
+	private BufferedReader bfr;
+	
+	public Reader(BufferedReader bfr) {
+		this.bfr = bfr;
+	}
 
 	public String readLine(){
-		
-		try(BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in));) {
+		try {
 			return bfr.readLine();
 		} catch (Exception e) {
 			return null;
@@ -27,8 +33,16 @@ public class Reader {
 	}
 	
 	public String[] readCommands(){
-		try(BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in));) {
+		try {
 			return bfr.readLine().split(SPLIT_DELIMITER);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public String[] readCommands(String delimiter){
+		try {
+			return bfr.readLine().split(delimiter);
 		} catch (Exception e) {
 			return null;
 		}

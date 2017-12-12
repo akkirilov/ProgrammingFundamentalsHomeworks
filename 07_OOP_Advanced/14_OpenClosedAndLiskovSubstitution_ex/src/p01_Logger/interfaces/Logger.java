@@ -17,5 +17,7 @@ public interface Logger {
 	void logCritical(String time, String message);
 	
 	void logFatal(String time, String message);
+
+	String getLoggerDetails();
 	
 }

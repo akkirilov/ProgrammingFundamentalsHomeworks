@@ -7,22 +7,17 @@ import p01_Logger.io.Writer;
 
 public class LogFile implements CustomFile {
 	
-	private final static String PATH_TO_FILE = System.getProperty("user.dir") + "//" + "file.txt";
-	
 	private StringBuilder sb;
-	private File file;
 	private Writer writer;
 	
 	public LogFile() {
-		this.file = new File(PATH_TO_FILE);
-		sb = new StringBuilder();
+		this.sb = new StringBuilder();
 		this.writer = new Writer();
 	}
 
 	@Override
 	public void writeLine(String line) {
 		sb.append(line).append(System.lineSeparator());
-		writer.WriteLineInFile(this.file, line);
 	}
 
 	@Override

@@ -1,21 +1,19 @@
 package contracts;
 
 import exeptions.DuplicateModelException;
-import models.MotorBoat;
+import exeptions.IncorectBoatTypeException;
 
 import java.util.List;
 
-public interface IRace
-{
+public interface IRace {
     int getDistance();
 
     int getWindSpeed ();
 
     int getOceanCurrentSpeed();
 
-    Boolean getAllowsMotorboats ();
+    void addParticipant(IBoat boat) throws DuplicateModelException, IncorectBoatTypeException;
 
-    void AddParticipant(MotorBoat boat) throws DuplicateModelException;
-
-    List<MotorBoat> GetParticipants();
+    List<IBoat> getParticipants();
+    
 }

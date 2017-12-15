@@ -1,29 +1,25 @@
 package contracts;
 
-import Core.Engine;
-import database.BoatSimulatorDatabase;
 import exeptions.*;
 
 public interface IBoatSimulatorController {
-    IRace getCurrentRace();
 
-    BoatSimulatorDatabase getDatabase();
+    String createBoatEngine(String model, int horsepower, int displacement, String engineType) throws DuplicateModelException;
 
-    String CreateBoatEngine(String model, int horsepower, int displacement, String engineType);
+    String createRowBoat(String model, int weight, int oars) throws DuplicateModelException;
 
-    String CreateRowBoat(String model, int weight, int oars) throws DuplicateModelException;
+    String createSailBoat(String model, int weight, int sailEfficiency) throws DuplicateModelException;
 
-    String CreateSailBoat(String model, int weight, int sailEfficiency) throws DuplicateModelException;
+    String createPowerBoat(String model, int weight, String firstEngineModel, String secondEngineModel) throws NonExistantModelException, DuplicateModelException;
 
-    String CreatePowerBoat(String model, int weight, String firstEngineModel, String secondEngineModel) throws NonExistantModelException, DuplicateModelException;
+    String createYacht(String model, int weight, String engineModel, int cargoWeight) throws NonExistantModelException, DuplicateModelException;
 
-    String CreateYacht(String model, int weight, String engineModel, int cargoWeight) throws NonExistantModelException, DuplicateModelException;
+    String openRace(int distance, int windSpeed, int oceanCurrentSpeed, Boolean allowsMotorboats) throws RaceAlreadyExistsException;
 
-    String OpenRace(int distance, int windSpeed, int oceanCurrentSpeed, Boolean allowsMotorboats) throws RaceAlreadyExistsException;
+    String signUpBoat(String model) throws NonExistantModelException, DuplicateModelException, NoSetRaceException, IncorectBoatTypeException;
 
-    String SignUpBoat(String model) throws NonExistantModelException, DuplicateModelException, NoSetRaceException;
+    String startRace() throws InsufficientContestantsException, NoSetRaceException;
 
-    String StartRace() throws InsufficientContestantsException, NoSetRaceException;
-
-    String GetStatistic();
+    String getStatistic();
+    
 }

@@ -3,11 +3,11 @@ package models.boatEngines;
 import contracts.IEngine;
 import contracts.IModelable;
 
-public class JetEngine extends EngineAbstract implements IEngine, IModelable {
-	
-    private static final int MULTIPLIER = 5;
+public class Sterndrive extends EngineAbstract implements IModelable, IEngine {
+    
+	private static final int MULTIPLIER = 7;
 
-    public JetEngine(String model, int horsepower, int displacement) {
+    public Sterndrive(String model, int horsepower, int displacement) {
     	super(model, horsepower, displacement);
     }
 
@@ -15,5 +15,5 @@ public class JetEngine extends EngineAbstract implements IEngine, IModelable {
     public int getOutput() {
         return (super.getHorsepower() * MULTIPLIER) + super.getDisplacement();
     }
-    
+
 }

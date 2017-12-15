@@ -1,45 +1,44 @@
 package database;
 
-import Utility.Constants;
 import contracts.IModelable;
 import contracts.IRepository;
 import exeptions.DuplicateModelException;
 import exeptions.NonExistantModelException;
+import utilities.Constants;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class Repository<T extends IModelable> implements IRepository {
-    private HashMap<String, T> itemsByModel;
+public class Repository<T extends IModelable> implements IRepository<T> {
+	
+    private Map<String, T> itemsByModel;
 
-    public Repository()
-    {
+    public Repository() {
         this.setItemsByModel(new HashMap<String, T>());
     }
-
-    protected HashMap<String, T> getItemsByModel() {
-        return this.itemsByModel;
-    }
-
-    protected void setItemsByModel(HashMap<String, T> itemsByModel) {
+    
+    private void setItemsByModel(Map<String, T> itemsByModel) {
         this.itemsByModel = itemsByModel;
     }
 
     @Override
-    public void Add(IModelable item) throws DuplicateModelException {
-        if (this.itemsByModel.containsKey(item.getModel()))
-        {
-            throw new DuplicateModelException(Constants.DuplicateModelMessage);
-        }
-
+    public Map<String, T> getItemsByModel() {
+        return this.itemsByModel;
     }
 
     @Override
-    public T GetItem(String model) throws NonExistantModelException {
-        if (!this.itemsByModel.containsKey(model))
-        {
+    public void add(T item) throws DuplicateModelException {
+        if (this.itemsByModel.containsKey(item.getModel())) {
+            throw new DuplicateModelException(Constants.DuplicateModelMessage);
+        }
+        this.itemsByModel.put(item.getModel(), item);
+    }
+
+    @Override
+    public T getItem(String model) throws NonExistantModelException {
+        if (!this.itemsByModel.containsKey(model)) {
             throw new NonExistantModelException(Constants.NonExistantModelMessage);
         }
-
         return this.itemsByModel.get(model);
     }
 

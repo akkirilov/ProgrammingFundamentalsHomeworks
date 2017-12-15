@@ -1,9 +1,9 @@
 package models.boatEngines;
 
-import Utility.Constants;
-import Utility.Validator;
 import contracts.IEngine;
 import contracts.IModelable;
+import utilities.Constants;
+import utilities.Validator;
 
 public abstract class EngineAbstract implements IEngine, IModelable {
 	
@@ -18,17 +18,17 @@ public abstract class EngineAbstract implements IEngine, IModelable {
     }
     
     private void setModel(String model) {
-        Validator.ValidateModelLength(model, Constants.MinBoatEngineModelLength);
+        Validator.validateModelLength(model, Constants.MinBoatEngineModelLength);
         this.model = model;
     }
     
     private void setHorsepower(int horsepower) {
-        Validator.ValidatePropertyValue(horsepower, "Horsepower");
+        Validator.validatePropertyValue(horsepower, "Horsepower");
         this.horsepower = horsepower;
     }
     
     private void setDisplacement(int displacement) {
-        Validator.ValidatePropertyValue(displacement, "Displacement");
+        Validator.validatePropertyValue(displacement, "Displacement");
         this.displacement = displacement;
     }
 

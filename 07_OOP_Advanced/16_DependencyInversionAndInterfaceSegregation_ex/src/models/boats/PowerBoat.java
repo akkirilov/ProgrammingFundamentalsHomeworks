@@ -10,6 +10,7 @@ import java.util.List;
 public final class PowerBoat extends BoatAbstract implements IBoat, IModelable {
    
     private static final double OCEAN_SPEED_DIVIDER = 5d;
+    private static final boolean IS_MOTOR_BOAT = true;
 
     private List<IEngine> engines;
 
@@ -26,5 +27,10 @@ public final class PowerBoat extends BoatAbstract implements IBoat, IModelable {
 		}
         return enginesOutput - super.getWeight() + (race.getOceanCurrentSpeed() / OCEAN_SPEED_DIVIDER);
     }
-    
+
+    @Override
+	public boolean isMotorBoat() {
+		return IS_MOTOR_BOAT;
+	}
+	
 }

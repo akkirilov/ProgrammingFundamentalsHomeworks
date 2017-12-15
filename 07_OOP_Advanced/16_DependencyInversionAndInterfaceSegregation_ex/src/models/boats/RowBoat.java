@@ -1,13 +1,14 @@
 package models.boats;
 
-import Utility.Validator;
 import contracts.IBoat;
 import contracts.IModelable;
 import contracts.IRace;
+import utilities.Validator;
 
 public final class RowBoat extends BoatAbstract implements IBoat, IModelable {
    
     private static final int OARS_MULTILIER = 100;
+    private static final boolean IS_MOTOR_BOAT = false;
     
 	private int oars;
 
@@ -17,7 +18,7 @@ public final class RowBoat extends BoatAbstract implements IBoat, IModelable {
     }
 
     private void setOars(int oars) {
-        Validator.ValidatePropertyValue(oars, "Oars");
+        Validator.validatePropertyValue(oars, "Oars");
         this.oars = oars;
     }
 
@@ -25,5 +26,10 @@ public final class RowBoat extends BoatAbstract implements IBoat, IModelable {
     public double getRaceSpeed(IRace race) {
         return (this.oars * OARS_MULTILIER) - super.getWeight() + race.getOceanCurrentSpeed();
     }
+
+	@Override
+	public boolean isMotorBoat() {
+		return IS_MOTOR_BOAT;
+	}
     
 }

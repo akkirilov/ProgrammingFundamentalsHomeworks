@@ -1,32 +1,37 @@
 package database;
 
-import contracts.IModelable;
+import contracts.IBoat;
+import contracts.IBoatDatabase;
+import contracts.IEngine;
 import contracts.IRepository;
-import models.MotorBoat;
 
-public class BoatSimulatorDatabase {
-    IRepository<MotorBoat> boats;
-    IRepository<IModelable> engines;
+public class BoatSimulatorDatabase implements IBoatDatabase {
+	
+	private IRepository<IBoat> boats;
+	
+	private IRepository<IEngine> engines;
 
-    public BoatSimulatorDatabase()
-    {
-        this.setBoats(new Repository<MotorBoat>());
-        this.setEngines(new Repository<IModelable>());
+    public BoatSimulatorDatabase() {
+        this.setBoats(new Repository<IBoat>());
+        this.setEngines(new Repository<IEngine>());
     }
-
-    public IRepository<MotorBoat> getBoats() {
-        return this.boats;
-    }
-
-    private void setBoats(IRepository<MotorBoat> boats) {
+    
+    private void setBoats(IRepository<IBoat> boats) {
         this.boats = boats;
     }
 
-    public IRepository<IModelable> getEngines() {
+    private void setEngines(IRepository<IEngine> engines) {
+        this.engines = engines;
+    }
+
+    @Override
+    public IRepository<IBoat> getBoats() {
+        return this.boats;
+    }
+
+    @Override
+    public IRepository<IEngine> getEngines() {
         return this.engines;
     }
 
-    private void setEngines(IRepository<IModelable> engines) {
-        this.engines = engines;
-    }
 }

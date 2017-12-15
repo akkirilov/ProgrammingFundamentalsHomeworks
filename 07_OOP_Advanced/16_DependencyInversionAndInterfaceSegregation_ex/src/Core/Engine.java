@@ -1,124 +1,53 @@
 package Core;
 
-import contracts.IBoatSimulatorController;
 import contracts.ICommandHandler;
-import contracts.IRace;
-import database.BoatSimulatorDatabase;
-import exeptions.*;
+import contracts.Printer;
+import contracts.Reader;
+import io.TerminalPrinter;
+import io.TerminalReader;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Engine {
+	
     private CommandHandler commandHandler;
+    private Reader reader;
+    private Printer printer;
+    
 
-    public Engine(CommandHandler commandHandler)
-    {
+    public Engine(CommandHandler commandHandler, Reader reader, Printer printer) {
         this.commandHandler = commandHandler;
+        this.reader = reader;
+        this.printer = printer;
     }
 
-    public Engine()
-    {
+    public Engine() {
         this.commandHandler = new CommandHandler();
+        this.reader = new TerminalReader();
+        this.printer = new TerminalPrinter();
     }
 
     public ICommandHandler getCommandHandler;
 
-    public void Run()
-    {
-        while (true)
-        {
-            Scanner scanner = new Scanner(System.in);
-            String line = scanner.nextLine();
-            String name = "";
-            List<String> parameters = new ArrayList<>();
-
+    public void run() {
+        while (true) {
+            String line = this.reader.readLine();
             if (line.equals("End")) {
                 break;
             }
 
-            List<String> tokens = Arrays.asList(line.split("\\\\"));
-            name = tokens.get(0);
-            parameters = tokens.stream().skip(1).collect(Collectors.toList());
-
-            try
-            {
-                String commandResult = this.commandHandler.ExecuteCommand(name, parameters);
-                System.out.println(commandResult);
+            List<String> parameters = Arrays.stream(line.split("\\\\")).collect(Collectors.toList());
+            String name = parameters.remove(0);
+            try {
+                String commandResult = this.commandHandler.executeCommand(name, parameters);
+                this.printer.printLine(commandResult);
+            } catch (Exception ex) {
+            	this.printer.printLine(ex.getMessage());
             }
-            catch (Exception ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-
-            line = scanner.nextLine();
         }
+        this.reader.close();
     }
 
-    public static void main(String[] args) {
-        IBoatSimulatorController ctrl = new IBoatSimulatorController() {
-            @Override
-            public IRace getCurrentRace() {
-                return null;
-            }
-
-            @Override
-            public BoatSimulatorDatabase getDatabase() {
-                return null;
-            }
-
-            @Override
-            public String CreateBoatEngine(String model, int horsepower, int displacement, String engineType) {
-                return null;
-            }
-
-            @Override
-            public String CreateRowBoat(String model, int weight, int oars) throws DuplicateModelException {
-                return null;
-            }
-
-            @Override
-            public String CreateSailBoat(String model, int weight, int sailEfficiency) throws DuplicateModelException {
-                return null;
-            }
-
-            @Override
-            public String CreatePowerBoat(String model, int weight, String firstEngineModel, String secondEngineModel) throws NonExistantModelException, DuplicateModelException {
-                return null;
-            }
-
-            @Override
-            public String CreateYacht(String model, int weight, String engineModel, int cargoWeight) throws
-                    NonExistantModelException, DuplicateModelException {
-                return null;
-            }
-
-            @Override
-            public String OpenRace(int distance, int windSpeed, int oceanCurrentSpeed, Boolean allowsMotorboats) throws RaceAlreadyExistsException {
-                return null;
-            }
-
-            @Override
-            public String SignUpBoat(String model) throws NonExistantModelException, DuplicateModelException, NoSetRaceException {
-                return null;
-            }
-
-            @Override
-            public String StartRace() throws InsufficientContestantsException, NoSetRaceException {
-                return null;
-            }
-
-            @Override
-            public String GetStatistic() {
-                return null;
-            }
-        };
-
-        CommandHandler commandHandler = new CommandHandler(ctrl);
-        Engine engine = new Engine();
-        engine.Run();
-    }
 }

@@ -1,7 +1,7 @@
-package Utility;
+package utilities;
 
-public class Constants
-{
+public class Constants {
+	
     public static final String IncorrectModelLenghtMessage = "Model's name must be at least %s symbols long.";
 
     public static final String IncorrectPropertyValueMessage = "%s must be a positive integer.";
@@ -25,4 +25,5 @@ public class Constants
     public static final int MinBoatModelLength = 5;
 
     public static final int MinBoatEngineModelLength = 3;
+    
 }

@@ -1,9 +1,9 @@
 package models.boats;
 
-import Utility.Constants;
-import Utility.Validator;
 import contracts.IBoat;
 import contracts.IModelable;
+import utilities.Constants;
+import utilities.Validator;
 
 public abstract class BoatAbstract implements IBoat, IModelable {
 
@@ -16,12 +16,12 @@ public abstract class BoatAbstract implements IBoat, IModelable {
 	}
 	
 	private void setModel(String model) {
-        Validator.ValidateModelLength(model, Constants.MinBoatModelLength);
+        Validator.validateModelLength(model, Constants.MinBoatModelLength);
         this.model = model;
     }
 	
 	private void setWeight(int weight) {
-        Validator.ValidatePropertyValue(weight, "Weight");
+        Validator.validatePropertyValue(weight, "Weight");
         this.weight = weight;
     }
 

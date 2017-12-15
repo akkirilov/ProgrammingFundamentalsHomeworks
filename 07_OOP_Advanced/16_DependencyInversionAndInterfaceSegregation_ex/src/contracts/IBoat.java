@@ -7,5 +7,7 @@ public interface IBoat extends IModelable {
     int getWeight();
     
     double getRaceSpeed(IRace race);
+    
+    boolean isMotorBoat();
 
 }

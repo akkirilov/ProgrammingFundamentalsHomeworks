@@ -1,9 +1,9 @@
-import Core.CommandHandler;
-import Core.Engine;
 import contracts.IBoatSimulatorController;
 import contracts.Printer;
 import contracts.Reader;
 import controllers.BoatSimulatorController;
+import core.CommandHandler;
+import core.Engine;
 import io.TerminalPrinter;
 import io.TerminalReader;
 

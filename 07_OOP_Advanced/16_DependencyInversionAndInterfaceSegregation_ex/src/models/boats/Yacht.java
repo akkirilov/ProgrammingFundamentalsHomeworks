@@ -27,7 +27,8 @@ public final class Yacht extends BoatAbstract implements IBoat, IModelable {
 
     @Override
     public double getRaceSpeed(IRace race) {
-        return engine.getOutput() - (super.getWeight() + this.cargoWeight) + (race.getOceanCurrentSpeed() / OCEAN_SPEED_DIVIDER);
+        return engine.getOutput() - (super.getWeight() + this.cargoWeight) 
+        		+ (race.getOceanCurrentSpeed() / OCEAN_SPEED_DIVIDER);
     }
     
     @Override

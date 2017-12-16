@@ -37,13 +37,11 @@ public abstract class EngineAbstract implements IEngine, IModelable {
 		return this.model;
 	}
 
-	@Override
-	public int getHorsepower() {
+	protected int getHorsepower() {
 		return this.horsepower;
 	}
 
-	@Override
-	public int getDisplacement() {
+	protected int getDisplacement() {
 		return this.displacement;
 	}
 

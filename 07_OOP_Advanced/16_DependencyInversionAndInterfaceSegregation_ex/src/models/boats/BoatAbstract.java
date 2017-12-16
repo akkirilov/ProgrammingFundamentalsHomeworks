@@ -30,8 +30,7 @@ public abstract class BoatAbstract implements IBoat, IModelable {
 		return this.model;
 	}
 
-	@Override
-	public int getWeight() {
+	protected int getWeight() {
 		return this.weight;
 	}
 

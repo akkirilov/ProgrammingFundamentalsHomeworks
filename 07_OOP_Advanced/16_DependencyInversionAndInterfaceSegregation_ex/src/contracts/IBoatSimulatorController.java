@@ -1,5 +1,7 @@
 package contracts;
 
+import java.lang.reflect.InvocationTargetException;
+
 import exeptions.*;
 
 public interface IBoatSimulatorController {

@@ -1,4 +1,4 @@
-package Core;
+package core;
 
 import contracts.IBoatSimulatorController;
 import contracts.ICommandHandler;

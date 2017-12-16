@@ -13,7 +13,6 @@ import models.boats.RowBoat;
 import models.boats.SailBoat;
 import models.boats.Yacht;
 import models.races.Race;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utilities.Constants;
 import utilities.Validator;
 
@@ -46,10 +45,13 @@ public class BoatSimulatorController implements IBoatSimulatorController {
 	@Override
 	public String createBoatEngine(String model, int horsepower, int displacement, String engineType)
 			throws DuplicateModelException {
-		IEngine engine = EngineFactory.create(model, horsepower, displacement, engineType);
-		if (engine == null) {
-			throw new NotImplementedException();
+		IEngine engine = null;
+		try {
+			engine = EngineFactory.create(model, horsepower, displacement, engineType);
+		} catch (IllegalArgumentException e) {
+			return e.getMessage();
 		}
+
 		this.database.getEngines().add(engine);
 		return String.format("Engine model %s with %s HP and displacement %s cm3 created successfully.", model,
 				horsepower, displacement);
@@ -109,73 +111,58 @@ public class BoatSimulatorController implements IBoatSimulatorController {
 	}
 
 	@Override
-    public String startRace() throws InsufficientContestantsException, NoSetRaceException {
-    	Validator.validateRaceIsSet(this.currentRace);
-        List<IBoat> participants = this.currentRace.getParticipants()
-        			.stream()
-        			.sorted((a, b) -> {
-        				int res = Double.compare(this.currentRace.getDistance() / a.getRaceSpeed(this.currentRace), 
-        						this.currentRace.getDistance() / b.getRaceSpeed(this.currentRace));
-//        				if (res == 0) {
-//							for (IBoat s : this.currentRace.getParticipants()) {
-//								if (this.currentRace.getDistance() / a.getRaceSpeed(this.currentRace) == s.getRaceSpeed(this.currentRace)) {
-//									if (a.getModel() == s.getModel()) {
-//										res = 1;
-//									} else {
-//										res = -1;
-//									}
-//								}
-//							}
-//						}
-        				return res;
-        			})
-        			.collect(Collectors.toList());
-        if (participants.size() < 3) {
-            throw new InsufficientContestantsException(Constants.InsufficientContestantsMessage);
-        }
-
-        int counter = 0;
-        StringBuffer sb = new StringBuffer();
-        List<String> places = new ArrayList<>(Arrays.asList("First place", "Second place", "Third place"));
-        for (int i = 0; i < participants.size(); i++) {
-        	if (counter == 3) {
-				break;
-			}
-        	double time = this.currentRace.getDistance() / participants.get(i).getRaceSpeed(this.currentRace);
-        	if (time >= 0.0) {
-        		IBoat boat = participants.remove(i);
-        		i--;
-        		sb.append(String.format("%s: %s Model: %s Time: %.2f sec%n",
-        			places.remove(0),
-        			boat.getClass().getSimpleName().toString(),
-        			boat.getModel(),
-           			time));
-        		counter++;
-			}
-		}
-        for (IBoat boat : participants) {
-        	if (counter == 3) {
-				break;
-			}
-        	sb.append(String.format("%s: %s Model: %s Time: Did not finish!%n",
-        			places.remove(0),
-        			boat.getClass().getSimpleName().toString(),
-        			boat.getModel()));
-        	counter++;
+	public String startRace() throws InsufficientContestantsException, NoSetRaceException {
+		Validator.validateRaceIsSet(this.currentRace);
+		List<IBoat> participants = this.currentRace.getParticipants().stream().sorted((a, b) -> {
+			int res = Double.compare(this.currentRace.getDistance() / a.getRaceSpeed(this.currentRace),
+					this.currentRace.getDistance() / b.getRaceSpeed(this.currentRace));
+			return res;
+		}).collect(Collectors.toList());
+		if (participants.size() < 3) {
+			throw new InsufficientContestantsException(Constants.InsufficientContestantsMessage);
 		}
 
-        this.currentRace = null;
-        
-        return sb.substring(0, sb.length() - 2).toString();
-    }
+		int counter = 0;
+		StringBuffer sb = new StringBuffer();
+		List<String> places = new ArrayList<>(Arrays.asList("First place", "Second place", "Third place"));
+		for (int i = 0; i < participants.size(); i++) {
+			if (counter == 3) {
+				break;
+			}
+			double time = this.currentRace.getDistance() / participants.get(i).getRaceSpeed(this.currentRace);
+			if (time > 0.0) {
+				sb.append(String.format("%s: %s Model: %s Time: %.2f sec%n", places.get(counter),
+						participants.get(i).getClass().getSimpleName().toString(), participants.get(i).getModel(),
+						time));
+				counter++;
+			}
+		}
+		if (counter < 3) {
+			for (int i = participants.size() - 1; i >= 0; i--) {
+				if (counter == 3) {
+					break;
+				}
+				double time = this.currentRace.getDistance() / participants.get(i).getRaceSpeed(this.currentRace);
+				if (time <= 0.0) {
+					sb.append(String.format("%s: %s Model: %s Time: Did not finish!%n", 
+							places.get(counter),
+							participants.get(i).getClass().getSimpleName().toString(), participants.get(i).getModel()));
+					counter++;
+				}
+			}
+		}
+
+		this.currentRace = null;
+
+		return sb.substring(0, sb.length() - 1).toString();
+	}
 
 	@Override
 	public String getStatistic() {
 		StringBuilder sb = new StringBuilder();
-		List<IBoat> participants = (List<IBoat>) this.currentRace.getParticipants()
-    			.stream()
-    			.sorted((a, b) -> a.getClass().getSimpleName().compareTo(b.getClass().getSimpleName()))
-    			.collect(Collectors.toList());
+		List<IBoat> participants = (List<IBoat>) this.currentRace.getParticipants().stream()
+				.sorted((a, b) -> a.getClass().getSimpleName().compareTo(b.getClass().getSimpleName()))
+				.collect(Collectors.toList());
 		Map<String, Integer> statistics = new LinkedHashMap<>();
 		double divider = participants.size();
 		for (IBoat boat : participants) {
@@ -188,7 +175,7 @@ public class BoatSimulatorController implements IBoatSimulatorController {
 		for (Map.Entry<String, Integer> e : statistics.entrySet()) {
 			sb.append(String.format("%s -> %.2f%%%n", e.getKey(), (e.getValue() / divider) * 100));
 		}
-		return sb.substring(0, sb.length() - 2).toString();
+		return sb.substring(0, sb.length() - 1).toString();
 	}
 
 }

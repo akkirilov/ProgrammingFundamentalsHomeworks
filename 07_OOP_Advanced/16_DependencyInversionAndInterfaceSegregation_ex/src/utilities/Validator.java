@@ -4,8 +4,8 @@ import contracts.IRace;
 import exeptions.NoSetRaceException;
 import exeptions.RaceAlreadyExistsException;
 
-public class Validator
-{
+public class Validator {
+	
     public static void validatePropertyValue(int value, String propertyName) {
         if (value <= 0) {
             throw new IllegalArgumentException(String.format(Constants.IncorrectPropertyValueMessage, propertyName));

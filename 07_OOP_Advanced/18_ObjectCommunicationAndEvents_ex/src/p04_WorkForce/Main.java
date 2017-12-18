@@ -38,7 +38,7 @@ public class Main {
 				employees.put(tokens[1], new StandartEmployee(tokens[1]));
 				break;
 			case "Job":
-				list.addJob(new JobImpl(tokens[1], Integer.parseInt(tokens[2]), employees.remove(tokens[3])));
+				list.addJob(new JobImpl(tokens[1], Integer.parseInt(tokens[2]), employees.get(tokens[3])));
 				break;
 			case "Pass":
 				list.passWeek();

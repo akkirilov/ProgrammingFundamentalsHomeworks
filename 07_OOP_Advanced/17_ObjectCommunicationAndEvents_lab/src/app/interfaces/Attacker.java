@@ -1,5 +1,5 @@
 package app.interfaces;
-public interface Attacker {
+public interface Attacker extends Observer {
 	
     void attack();
     

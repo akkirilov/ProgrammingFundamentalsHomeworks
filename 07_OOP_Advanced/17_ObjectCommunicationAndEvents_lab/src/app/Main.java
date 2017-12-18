@@ -11,6 +11,7 @@ import app.interfaces.Attacker;
 import app.interfaces.Command;
 import app.interfaces.Executor;
 import app.interfaces.Handler;
+import app.interfaces.ObservableTarget;
 import app.interfaces.Target;
 import app.loggers.CombatLogger;
 import app.loggers.EventLogger;
@@ -27,7 +28,7 @@ public class Main {
 		
 		combatLogger.setSuccessor(eventLogger);
 		
-		Target target = new Dragon("dragon", 29, 5, combatLogger);
+		ObservableTarget target = new Dragon("dragon", 29, 5, combatLogger);
 		
 		Attacker attacker0 = new Warrior("Pesho", 10, combatLogger);
 		Attacker attacker1 = new Warrior("Gosho", 10, combatLogger);
@@ -39,6 +40,10 @@ public class Main {
 		group.addMember(attacker0);
 		group.addMember(attacker1);
 		group.addMember(attacker2);
+		
+		target.register(attacker0);
+		target.register(attacker1);
+		target.register(attacker2);
 		
 		Command groupTargetCommand = new GroupTargetCommand(group, target);
 		Command groupAttackCommand = new GroupAttackCommand(group);

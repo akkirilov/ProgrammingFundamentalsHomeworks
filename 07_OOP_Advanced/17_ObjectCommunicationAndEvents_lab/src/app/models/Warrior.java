@@ -2,10 +2,11 @@ package app.models;
 
 import app.interfaces.Attacker;
 import app.interfaces.Handler;
+import app.interfaces.Observer;
 import app.interfaces.Target;
 import app.loggers.LogType;
 
-public class Warrior extends AbstractHero implements Attacker {
+public class Warrior extends AbstractHero implements Attacker, Observer {
 
     private static final String ATTACK_MESSAGE = "%s damages %s for %s";
 

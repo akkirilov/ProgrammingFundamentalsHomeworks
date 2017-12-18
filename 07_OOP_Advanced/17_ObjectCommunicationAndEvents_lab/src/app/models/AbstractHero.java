@@ -8,10 +8,10 @@ import app.loggers.LogType;
 
 public abstract class AbstractHero implements Attacker, Observer {
 
-	private static final String TARGET_NULL_MESSAGE = "Target null";
 	private static final String NO_TARGET_MESSAGE = "%s has no target";
 	private static final String TARGET_DEAD_MESSAGE = "%s is dead";
 	private static final String SET_TARGET_MESSAGE = "%s targets %s";
+	private static final String HERO_GAINS_XP = "%s gains %d XP from %s";
 
 	private String id;
 	private int dmg;
@@ -50,6 +50,7 @@ public abstract class AbstractHero implements Attacker, Observer {
 	@Override
 	public void update(int value) {
 		this.xp += value;
+		this.handler.handle(LogType.EVENT, String.format(HERO_GAINS_XP, this, value, target));
 	}
 
 	protected abstract void executeClassSpecificAttack(Target target, int dmg);

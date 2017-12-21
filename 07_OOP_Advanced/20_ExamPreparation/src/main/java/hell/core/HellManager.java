@@ -1,5 +1,6 @@
 package hell.core;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -90,24 +91,27 @@ public class HellManager implements Manager {
 		List<Hero> heroList = this.heroes.values()
 				.stream()
 				.sorted((a, b) -> {
-					int res = Long.compare((b.getStrength() + b.getAgility() + b.getIntelligence()), 
-							(a.getStrength() + a.getAgility() + a.getIntelligence()));
+					int res = BigInteger.valueOf(b.getStrength() + b.getAgility() + b.getIntelligence())
+							.compareTo(BigInteger.valueOf(a.getStrength() + a.getAgility() + a.getIntelligence()));
 					if (res == 0) {
-						res = Long.compare((b.getHitPoints() + b.getDamage()), 
-								(a.getHitPoints() + a.getDamage()));
+						res = BigInteger.valueOf(b.getHitPoints() + b.getDamage())
+								.compareTo(BigInteger.valueOf(a.getHitPoints() + a.getDamage()));
 					}
 					return res;
 				})
 				.collect(Collectors.toList());
+		
 		int counter = 1;
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < heroList.size(); i++) {
 			Hero hero = heroList.get(i);
 			sb.append(String.format(Constants.QUIT_HERO_FORMAT, 
 									counter++, hero.getClass().getSimpleName(),
-									hero.getName(), hero.getHitPoints(),
-									hero.getDamage(), hero.getStrength(), hero.getAgility(),
-									hero.getIntelligence()));
+									hero.getName(), this.getInBigDecimalValue(hero.getHitPoints()),
+									this.getInBigDecimalValue(hero.getDamage()), 
+									this.getInBigDecimalValue(hero.getStrength()), 
+									this.getInBigDecimalValue(hero.getAgility()),
+									this.getInBigDecimalValue(hero.getIntelligence())));
 			if (hero.getItems() != null && hero.getItems().size() > 0) {
 				Collection<Item> items = hero.getItems();
 				Iterator<Item> iterator = items.iterator();
@@ -135,6 +139,13 @@ public class HellManager implements Manager {
 			return n;
 		}
 		return (long)(Integer.MAX_VALUE + ((Math.abs(Integer.MIN_VALUE) - n) + 1L));
+	}
+	
+	private BigInteger getInBigDecimalValue(long n) {
+		if (n >= 0) {
+			return BigInteger.valueOf(n);
+		}
+		return (BigInteger) (BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.valueOf((Math.abs(Long.MIN_VALUE) - n))).add(BigInteger.ONE));
 	}
 
 }

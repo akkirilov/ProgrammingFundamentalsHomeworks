@@ -110,6 +110,7 @@ public class HeroInventory implements Inventory {
         		recipe.getHitPointsBonus(), recipe.getDamageBonus());
 
         this.commonItems.put(newItem.getName(), newItem);
+        this.recipeItems.remove(recipe.getName());
     }
     
     private long getInLongValue(int n) {

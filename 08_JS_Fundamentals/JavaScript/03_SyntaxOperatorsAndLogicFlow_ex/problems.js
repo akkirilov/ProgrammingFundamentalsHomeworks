@@ -50,7 +50,7 @@ function compoundInterest(params) {
 	let compoundingPeriod = params[2];
 	let totalTimespan = params[3];
 	let frequency = 12 / compoundingPeriod;
-	let totalAccumulatedValue = principalSum 
+	let totalAccumulatedValue = principalSum
 	* (Math.pow(1 + (interestRate / (100 * frequency)), (frequency * totalTimespan)));
 	console.log(totalAccumulatedValue.toFixed(2));
 }
@@ -152,6 +152,7 @@ function triangleOfDollars(count) {
 	for (let i = 1; i <= count; i++) {
 		console.log(Array(i + 1).join(spChar));
 	}
+
 }
 
 // 18. Movie Prices
@@ -280,6 +281,23 @@ function multiplicationTable(count) {
 	console.log(res);
 }
 
+// 21. Figure of 4 Squares
+function figuresOfFourSquares(n) {
+	let rows = n;
+	if (rows % 2 === 0) {
+		rows--;
+	}
+	let middleRow = Math.floor(rows / 2);
+	let timesToRepeat = n - 2;
+	for (let row = 0; row < rows; row++) {
+		if (row == 0 || row == middleRow || row == rows - 1) {
+			console.log('+' + '-'.repeat(timesToRepeat) + '+' + '-'.repeat(timesToRepeat) + '+');
+		} else {
+			console.log('|' + ' '.repeat(timesToRepeat) + '|' + ' '.repeat(timesToRepeat) + '|');
+		}
+	}
+}
+
 //helloJavaScript("Pesho");
 //areaAndPerimeter(2.5, 3.14);
 //distanceOverTime([0, 60, 3600]);
@@ -300,4 +318,4 @@ function multiplicationTable(count) {
 //moviePrices(['The Godfather', 'Friday']);
 //quadraticEquation(6, 11, -35);
 //multiplicationTable(5);
-
+//figuresOfFourSquares(4);

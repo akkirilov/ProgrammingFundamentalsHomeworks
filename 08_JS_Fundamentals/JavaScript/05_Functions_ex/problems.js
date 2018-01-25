@@ -75,7 +75,7 @@ function cookingByNumbers(arr) {
 		num = perform(num, arr[i]);
 		console.log(num);
 	}
-	
+
 	function perform(num, operation) {
 		switch (operation) {
 		case 'chop':
@@ -102,7 +102,7 @@ function modifyAverage(num) {
 		avg = countDigitAvarage(num);
 	}
 	console.log(num);
-	
+
 	function countDigitAvarage(num) {
 		let sum = 0;
 		num = String(num);
@@ -110,25 +110,25 @@ function modifyAverage(num) {
 			sum += Number(num[i]);
 		}
 		return sum / num.length;
-    }
+	}
 }
 
 // 06. Validity Checker
 function validityChecker(arr) {
-	let xA = arr[0]; 
+	let xA = arr[0];
 	let yA = arr[1];
 	let xB = arr[2];
 	let yB = arr[3];
-	
+
 	console.log(isValid(xA, yA, 0, 0));
 	console.log(isValid(xB, yB, 0, 0));
 	console.log(isValid(xA, yA, xB, yB));
-	
+
 	function isValid(xA, yA, xB, yB) {
 		let res = Math.sqrt(Math.pow((xA - xB), 2) + Math.pow((yA - yB), 2));
 		let msg = `{${xA}, ${yA}} to {${xB}, ${yB}} is `;
 		if (res === Math.floor(res)) {
-			msg +='valid';
+			msg += 'valid';
 		} else {
 			msg += 'invalid';
 		}
@@ -158,11 +158,11 @@ function treasureLocator(arr) {
 	let cookYa = 8;
 	let cookXb = 9;
 	let cookYb = 7;
-	
-	for (var i = 0; i < arr.length - 1; i+=2) {
+
+	for (var i = 0; i < arr.length - 1; i += 2) {
 		checkPoint(arr[i], arr[i + 1]);
 	}
-	
+
 	function checkPoint(x, y) {
 		if (x >= tuvaluXa && x <= tuvaluXb && y <= tuvaluYa && y >= tuvaluYb) {
 			console.log("Tuvalu");
@@ -181,10 +181,33 @@ function treasureLocator(arr) {
 }
 
 // 08. Trip Length
-function tripLength() {
-	
-}
+function tripLength(arr) {
+	let xA = arr[0];
+	let yA = arr[1];
+	let xB = arr[2];
+	let yB = arr[3];
+	let xC = arr[4];
+	let yC = arr[5];
 
+	let distanceAB = calculateDistance(xA, yA, xB, yB);
+	let distanceBC = calculateDistance(xC, yC, xB, yB);
+	let distanceAC = calculateDistance(xA, yA, xC, yC);
+
+	if ((distanceAB <= distanceAC) && (distanceAC => distanceBC)) {
+		let a = distanceAB + distanceBC;
+		console.log('1->2->3: ' + a);
+	} else if ((distanceAB <= distanceBC) && (distanceAC < distanceBC)) {
+		let b = distanceAC + distanceAB;
+		console.log('2->1->3: ' + b);
+	} else {
+		let c = distanceBC + distanceAC;
+		console.log('1->3->2: ' + c);
+	}
+
+	function calculateDistance(xA, yA, xB, yB) {
+		return Math.sqrt(Math.pow((xA - xB), 2) + Math.pow((yA - yB), 2));
+	}
+}
 
 //insideTheBox([13.1, 50, 31.5, 50, 80, 50, -5, 18, 43]);
 //roadRadar([21, 'residential']);
@@ -192,4 +215,5 @@ function tripLength() {
 //cookingByNumbers([9, 'dice', 'spice', 'chop', 'bake', 'fillet']);
 //modifyAverage('101');
 //validityChecker([3, 0, 0, 4]);
-treasureLocator([4, 2, 1.5, 6.5, 1, 3]);
+//treasureLocator([4, 2, 1.5, 6.5, 1, 3]);
+//tripLength([ -1, -2, 3.5, 0, 0, 2 ]);

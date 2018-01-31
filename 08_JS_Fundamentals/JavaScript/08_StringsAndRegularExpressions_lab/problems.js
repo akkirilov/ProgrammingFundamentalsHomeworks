@@ -29,7 +29,7 @@ function countOccurrences(target, str) {
 function extractText(str) {
 	let res = [];
 	let startIndex = str.indexOf('(');
-	while(startIndex > -1) {
+	while (startIndex > -1) {
 		let endIndex = str.indexOf(')', startIndex);
 		if (endIndex < 0) {
 			break;
@@ -47,8 +47,7 @@ function aggregateTable(arr) {
 	for (let ell of arr) {
 		let tokens = ell.split("|").map(x => x.trim()).filter(x => '' !== String(x));
 		cities.push(tokens[0]);
-		sum += Number(tokens[1]);
-	}
+		sum += Number(tokens[1]); }
 	console.log(cities.join(', '));
 	console.log(sum);
 }
@@ -63,18 +62,16 @@ function restaurantBill(arr) {
 // 07. Usernames
 function usernames(arr) {
 	let users = [];
-	for(let e of arr) {
+	for (let e of arr) {
 		let tokens = e.split(/\@/);
-		users.push(tokens[0] + '.' + tokens[1].split(/\./).map(x => x[0]).join(''));
-	}
+		users.push(tokens[0] + '.' + tokens[1].split(/\./).map(x => x[0]).join('')); }
 	console.log(users.join(', '));
 }
 
 // 08. Censorship
 function censorship(str, arr) {
-	for(let e of arr) {
-		str = str.replace(new RegExp(e, 'g'), '-'.repeat(e.length));
-	}
+	for (let e of arr) {
+		str = str.replace(new RegExp(e, 'g'), '-'.repeat(e.length)); }
 	console.log(str);
 }
 
@@ -87,13 +84,12 @@ function escaping(arr) {
 	escSymbols['"'] = '&quot;';
 
 	let res = '<ul>\n';
-	
+
 	for (let e of arr) {
 		for (let l in escSymbols) {
 			e = e.replace(new RegExp(l, 'g'), escSymbols[l]);
 		}
-		res += '  <li>' + e + '</li>\n';
-	}
+		res += '  <li>' + e + '</li>\n'; }
 	res += '</ul>'
 	console.log(res);
 }
@@ -108,10 +104,10 @@ function matchAllWords(str) {
 function emailValidation(mail) {
 	let pattern = /^[a-zA-Z0-9]+\@[a-z]+\.[a-z]+$/g;
 	if (mail.match(pattern)) {
-    	console.log('Valid');
-    } else {
-    	console.log('Invalid');
-    }
+		console.log('Valid');
+	} else {
+		console.log('Invalid');
+	}
 }
 
 // 12. Expression Split
@@ -119,8 +115,7 @@ function expressionSplit(code) {
 	let pattern = /\s+|\.|;|,|\(|\)/g;
 	let res = code.split(pattern).filter(x => String(x) != '');
 	for (let e of res) {
-		console.log(e);
-	}
+		console.log(e); }
 }
 
 // 13. Match the Dates
@@ -129,11 +124,45 @@ function matchTheDates(str) {
 	let match;
 	let pattern = /\b([0-9]{1,2})-([A-Z][a-z]{2})-([0-9]{4})\b/g;
 	for (let s of str) {
-		while(match = pattern.exec(s)) {
+		while (match = pattern.exec(s)) {
 			res.push(`${match[0]} (Day: ${match[1]}, Month: ${match[2]}, Year: ${match[3]})`);
+		} }
+	console.log(res.join("\n"));
+}
+
+// 14. Employee Data
+function employeeData(arr) {
+	let pattern = /^([A-Z][a-zA-Z]*) - ([1-9][0-9]*) - ([a-zA-Z0-9- ]+)$/;
+	let match;
+	for (let e of arr) {
+		match = pattern.exec(e)
+		if (match) {
+			let res = `Name: ${match[1]}\n` +
+				`Position: ${match[3]}\n` +
+				`Salary: ${match[2]}`;
+			console.log(res); 
 		}
 	}
-	console.log(res.join("\n"));
+}
+
+// 15. Form Filler
+function formFiller(userName, mail, phone, forms) {
+	let userNamePattern = /<\![a-zA-Z]+\!>/g;
+	let mailNamePattern = /<@[a-zA-Z]+@>/g;
+	let phoneNamePattern = /<\+[a-zA-Z]+\+>/g;
+	for (let f of forms) {
+		f = f.replace(userNamePattern, userName);
+		f = f.replace(mailNamePattern, mail);
+		f = f.replace(phoneNamePattern, phone);
+		console.log(f);
+	}
+}
+
+// 16. Match Multiplication
+function matchMultiplication(str) {
+	let pattern = /(-?\d+)\s*\*\s*(-?\d+(\.\d+)?)/g;
+	str = str.replace(pattern, (match, num1, num2) => Number(num1) * Number(num2));
+	console.log(str);
 }
 
 //printLetters('Hello, World!');
@@ -160,4 +189,12 @@ function matchTheDates(str) {
 //emailValidation('val56id@e.mas3il.bg')
 //expressionSplit('let sum = 4 * 4,b = "wow";');
 //matchTheDates(['I am born on 30-Dec-1994.', 'This is not date: 512-Jan-1996.', 'My father is born on the 29-Jul-1955.']);
+//employeeData(['Isacc - 1000 - CEO', 'Ivan - 500 - Employee', 'Peter - 500 - Employee']);
+//formFiller('Pesho', 'pesho@softuni.bg', '90-60-90', ['Hello, <!username!>!',
+//		'Welcome to your Personal profile.',
+//		'Here you can modify your profile freely.',
+//		'Your current username is: <!fdsfs!>. Would you like to change that? (Y/N)',
+//		'Your current email is: <@DasEmail@>. Would you like to change that? (Y/N)',
+//		'Your current phone number is: <+number+>. Would you like to change that? (Y/N)' ]);
+//matchMultiplication('My bill: 2*2.50 (beer); 2* 1.20 (kepab); -2  * 0.5 (deposit).');
 

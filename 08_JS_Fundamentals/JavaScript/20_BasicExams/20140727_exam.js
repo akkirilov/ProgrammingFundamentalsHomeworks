@@ -1,7 +1,7 @@
 // 01. Build a Table
 // buildTable([999999, 1000000]);
 function buildTable(arr) {
-	let [start, end] = [arr[0], arr[1]];
+	let [start, end] = [ arr[0], arr[1] ];
 	let res = '<table>\n' +
 		'<tr><th>Num</th><th>Square</th><th>Fib</th></tr>\n';
 	for (let i = start; i <= end; i++) {
@@ -85,4 +85,51 @@ function extractHyperlinks(arr) {
 		}
 		console.log(hrefValue);
 	}
+}
+
+// 04. Concerts
+concerts([ 'ZZ Top | London | 2-Aug-2014 | Wembley Stadium',
+	'Iron Maiden | London | 28-Jul-2014 | Wembley Stadium',
+	'Metallica | Sofia | 11-Aug-2014 | Lokomotiv Stadium',
+	'Helloween | Sofia | 1-Nov-2014 | Vassil Levski Stadium',
+	'Iron Maiden | Sofia | 20-June-2015 | Vassil Levski Stadium',
+	'Helloween | Sofia | 30-July-2015 | Vassil Levski Stadium',
+	'Iron Maiden | Sofia | 26-Sep-2014 | Lokomotiv Stadium',
+	'Helloween | London | 28-Jul-2014 | Wembley Stadium',
+	'Twisted Sister | London | 30-Sep-2014 | Wembley Stadium',
+	'Metallica | London | 03-Oct-2014 | Olympic Stadium',
+	'Iron Maiden | Sofia | 11-Apr-2016 | Lokomotiv Stadium',
+	'Iron Maiden | Buenos Aires | 03-Mar-2014 | River Plate Stadium' ]);
+function concerts(arr) {
+	let concerts = {};
+	for (let e of arr) {
+		let [band, town, date, venue] = e.split(/\s*\|\s*/).filter(x => x !== '');
+		let temp = {};
+		if (concerts[town]) {
+			temp = concerts[town];
+			if (temp[venue]) {
+				if (temp[venue].indexOf(band) < 0) {
+					temp[venue].push(band);
+				}
+			} else {
+				temp[venue] = [band];
+			}
+			concerts[town] = temp;
+		} else {
+			temp[venue] = [band];
+			concerts[town] = temp;
+		} 
+	}
+	let sortedConcerts = {};
+	let townKeys = Object.keys(concerts).sort((a, b) => a.localeCompare(b));
+	for (let ck of townKeys) {
+		sortedConcerts[ck] = {};
+		let venueKeys = Object.keys(concerts[ck]).sort((a, b) => a.localeCompare(b));
+		for (let vk of venueKeys) {
+			if (concerts[ck][vk]) {
+				sortedConcerts[ck][vk] = concerts[ck][vk].sort((a, b) => a.localeCompare(b)); 
+			}
+		} 
+	}
+	console.log(JSON.stringify(sortedConcerts).replace(',"undefined":{"undefined":[null]}', ''));
 }

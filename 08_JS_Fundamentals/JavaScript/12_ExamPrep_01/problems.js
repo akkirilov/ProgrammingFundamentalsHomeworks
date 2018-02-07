@@ -45,13 +45,12 @@ function theHungryProgrammer(meals, commands) {
 			break;
 		default:
 			break;
-		}
-	}
+		} }
 	if (meals.length > 0) {
 		console.log('Meals left: ' + meals.join(', '));
-    } else {
-    	console.log('The food is gone');
-    }
+	} else {
+		console.log('The food is gone');
+	}
 	console.log('Meals eaten: ' + count);
 }
 
@@ -76,7 +75,7 @@ function expedition(map, secondaryMap, coordinates, starCoordinates) {
 		let sRow = 0;
 		for (; row < c[0] + sRowEnd; row++, sRow++) {
 			if (row == map.length) {
-		    	break;
+				break;
 			}
 			let col = c[1];
 			let sCol = 0;
@@ -92,8 +91,7 @@ function expedition(map, secondaryMap, coordinates, starCoordinates) {
 					}
 				}
 			}
-		}
-	}
+		} }
 	let end;
 	let row = starCoordinates[0];
 	let col = starCoordinates[1];
@@ -142,4 +140,116 @@ function expedition(map, secondaryMap, coordinates, starCoordinates) {
 			break;
 		}
 	}
+}
+
+// 03. Lost
+//lost('4ds',
+//'eaSt 19,432567noRt north east 53,123456north 43,3213454dsNot all those who wander are lost.4dsnorth 47,874532');
+function lost(messageSeparator, message) {
+	let messagePattern = new RegExp(messageSeparator + '(.+)' + messageSeparator, 'gi');
+	let match = messagePattern.exec(message);
+	let msg = match[1];
+	let msgParts = message.split(match[0]);
+	let north = '';
+	let east = '';
+	let northPattern = /(north)([^,]+),([^,(north)|(east)]+)/gi;
+	let eastPattern = /([^,]+),([^,(north)|(east)]+)/gi;
+	let pattern = /(north|east)\D*(\d{2})[^\,]*\D*(,{1})\D*(\d{6})/gi;
+	for (let e of msgParts) {
+		while (match = pattern.exec(e)) {
+			if (match[1].toLowerCase() == 'north') {
+				north = match[2] + '.' + match[4] + ' N';
+			} else if (match[1].toLowerCase() == 'east') {
+				east = match[2] + '.' + match[4] + ' E';
+			}
+		} }
+	console.log(north);
+	console.log(east);
+	console.log('Message: ' + msg);
+}
+
+// 04. Rest House
+//restHouse([ { number: '101A', type: 'double-bedded' },
+//{ number: '104', type: 'triple' },
+//{ number: '101B', type: 'double-bedded' },
+//{ number: '102', type: 'triple' } ],
+//[ { first: { name: 'Sushi & Chicken', gender: 'female', age: 15 }, 
+//  second: { name: 'Salisa Debelisa', gender: 'female', age: 25 } },
+//{ first: { name: 'Daenerys Targaryen', gender: 'female', age: 20 }, 
+//  second: { name: 'Jeko Snejev', gender: 'male', age: 18 } },
+//{ first: { name: 'Pesho Goshov', gender: 'male', age: 20 }, 
+//  second: { name: 'Gosho Peshov', gender: 'male', age: 18 } },    
+//{ first: { name: 'Conor McGregor', gender: 'male', age: 29 }, 
+//  second: { name: 'Floyd Mayweather', gender: 'male', age: 40 } } ]);
+function restHouse(rooms, guests) {
+	let fillDouble = false;
+	let counter = 0;
+	let total = 0;
+	for (let gc of guests) {
+		total += 2;
+		if (gc.first.gender !== gc.second.gender && !fillDouble) {
+			fillDouble = true;
+			for (let r of rooms) {
+				if (r.type === 'double-bedded') {
+					if (!r['guests']) {
+						r['guests'] = [ gc.first, gc.second ];
+						fillDouble = false;
+						counter += 2;
+						break;
+					}
+				} 
+			}
+		} else {
+			for (let r of rooms) {
+				if (r.type === 'triple') {
+					if (r['guests'] && r['guests'].length < 3 && r['gender'] == gc.first.gender) {
+						r['guests'].push(gc.first);
+						counter++;
+						break;
+					} else if (!r['guests']) {
+						r['guests'] = [ gc.first ];
+						r['gender'] = gc.first.gender;
+						counter++;
+						break;
+					}
+				} 
+			}
+			for (let r of rooms) {
+				if (r.type === 'triple') {
+					if (r['guests'] && r['guests'].length < 3 && r['gender'] == gc.second.gender) {
+						r['guests'].push(gc.second);
+						counter++;
+						break;
+					} else if (!r['guests']) {
+						r['guests'] = [ gc.second ];
+						r['gender'] = gc.second.gender;
+						counter++;
+						break;
+					}
+				} 
+			}
+		} 
+	}
+	let roomsKeys = Object.keys(rooms.sort((a, b) => a.number.localeCompare(b.number)));
+	for (let k of roomsKeys) {
+		let guests = 0;
+		let emptyBeds = 0;
+		console.log('Room number: ' + rooms[k]['number']);
+		if (rooms[k]['guests']) {
+			rooms[k]['guests'].sort((a, b) => a.name > b.name).forEach(x => {
+				console.log('--Guest Name: ' + x['name']);
+				console.log('--Guest Age: ' + x['age']);
+			});
+			guests = rooms[k]['guests'].length;
+			if (rooms[k]['type'] === 'triple' && guests < 3) {
+				emptyBeds = 3 - guests;
+			} else if (rooms[k]['type'] === 'double-bedded' && guests === 0) {
+				emptyBeds = 2;
+			}
+			console.log('Empty beds in the room: ' + emptyBeds);
+		} else {
+			console.log('Empty beds in the room: ' + (rooms[k]['type'] === 'triple' ? 3 : 2));
+		}
+	}
+	console.log('Guests moved to the tea house: ' + (total - counter));
 }

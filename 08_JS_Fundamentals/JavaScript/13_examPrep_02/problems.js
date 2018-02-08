@@ -138,13 +138,12 @@ function XMLMessenger(msg) {
 }
 
 // 04. Galactic Elections
-elections([ { system: 'Tau',     candidate: 'Flying Shrimp', votes: 150 },
-	  { system: 'Tau',     candidate: 'Space Cow',     votes: 100 },
-	  { system: 'Theta',   candidate: 'Space Cow',     votes: 10 },
-	  { system: 'Sigma',   candidate: 'Space Cow',     votes: 200 },
-	  { system: 'Sigma',   candidate: 'Flying Shrimp', votes: 75 },
-	  { system: 'Omicron', candidate: 'Flying Shrimp', votes: 50 },
-	  { system: 'Omicron', candidate: 'Octocat',       votes: 75 } ]);
+//elections([ { system: 'Theta', candidate: 'Flying Shrimp', votes: 10 },
+//	  { system: 'Sigma', candidate: 'Space Cow',     votes: 200 },
+//	  { system: 'Sigma', candidate: 'Flying Shrimp', votes: 120 },
+//	  { system: 'Tau',   candidate: 'Space Cow',     votes: 15 },
+//	  { system: 'Sigma', candidate: 'Space Cow',     votes: 60 },
+//	  { system: 'Tau',   candidate: 'Flying Shrimp', votes: 150 } ]);
 function elections(arr) {
 	let systems = {};
 	for (s in arr) {
@@ -162,8 +161,9 @@ function elections(arr) {
 			systems[system][candidate] = votes;
 		}
 	}
+	let winner;
 	for (let s in systems) {
-		let winner = Object.keys(systems[s]).sort((a, b) => systems[s][b] - systems[s][a])[0];
+		winner = Object.keys(systems[s]).sort((a, b) => systems[s][b] - systems[s][a])[0];
 		let sum = systems[s][winner];
 		for (let v in systems[s]) {
 			if (v != winner) {
@@ -173,13 +173,45 @@ function elections(arr) {
 		systems[s]['winner'] = winner;
 		systems[s]['winnerVotes'] = sum;
 	}
-
+	let totalVotes = 0;
+	let runner;
+	let hasWinner = false;
+	let hasRunner = false;
+	let winners = {};
 	let sortedSystems = {};
 	let systemsKeys = Object.keys(systems).sort((a, b) => systems[b]['winnerVotes'] - systems[a]['winnerVotes']);
 	for (let s of systemsKeys) {
+		if (!hasWinner && !hasRunner) {
+			winner = systems[s]['winner'];
+			hasWinner = true;
+		} else if (hasWinner && !hasRunner) {
+			runner = systems[s]['winner'];
+			hasRunner = true;
+		}
 		sortedSystems[s] = systems[s];
+		if (winners.hasOwnProperty(systems[s]['winner'])) {
+			winners[systems[s]['winner']]['wins']++; 
+			winners[systems[s]['winner']]['votes'] += systems[s]['winnerVotes']; 
+		} else {
+			winners[systems[s]['winner']] = { wins: 1, votes: systems[s]['winnerVotes'], system: s };
+		}
+		totalVotes += systems[s]['winnerVotes'];
 	}
-	console.log(sortedSystems);
-
+	if (Object.keys(winners).length == 1) {
+		console.log(winner + ' wins with ' + winners[winner]['votes'] + ' votes');
+		console.log(winner + ' wins unopposed!');
+	} else if ((totalVotes / 2) > winners[winner]['votes']) {
+		let winnerPercent = Math.floor(((winners[winner]['votes'] / totalVotes) * 100));
+		let runnerPercent = Math.floor(((winners[runner]['votes'] / totalVotes) * 100));
+		console.log('Runoff between ' + winner + ' with ' + winnerPercent + '% and '
+				+ runner + ' with ' + runnerPercent + '%');
+	} else {
+		console.log(winner + ' wins with ' + winners[winner]['votes'] + ' votes');
+		console.log('Runner up: ' + runner);
+		for (let e in sortedSystems) {
+			if (sortedSystems[e]['winner'] == runner) {
+				console.log(e + ': ' + sortedSystems[e]['winnerVotes'])
+			}
+		}
+	}
 }
-

@@ -1,14 +1,4 @@
 {
-  "plugins": {
-    "guess-types": {
-      
-    }
-  },
-  "libs": [
-    "ecma6",
-    "ecma5",
-    "browser"
-  ],
   "ecmaVersion": 6,
   "parserOptions": {
     "syntaxErrors": 2,
@@ -17,5 +7,14 @@
     "importExportOutsideOfTopBlock": 2,
     "hashBang": 0,
     "pebbleSyntax": 2
-  }
+  },
+  "plugins": {
+    "guess-types": {
+      
+    }
+  },
+  "libs": [
+    "ecma5",
+    "browser"
+  ]
 }

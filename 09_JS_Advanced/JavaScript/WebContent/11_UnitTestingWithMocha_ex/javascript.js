@@ -103,8 +103,9 @@ function mathEnforcer() {
 	};
 }
 
-// 05. Shared Object
 let $ = require('jquery');
+
+// 05. Shared Object
 function sharedObject() {
 	return {
 	    name: null,
@@ -142,8 +143,13 @@ function sharedObject() {
 	}
 }
 
+// 06. ArmageDOM
+function nuke(selector1, selector2) {
+    if (selector1 === selector2) return;
+    $(selector1).filter(selector2).remove();
+}
 
-module.exports = { isOddOrEven, lookupChar, mathEnforcer, sharedObject };
+module.exports = { isOddOrEven, lookupChar, mathEnforcer, sharedObject, nuke };
 
 
 

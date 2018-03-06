@@ -5,14 +5,9 @@ let file = require('../WebContent/11_UnitTestingWithMocha_ex/javascript.js');
 let isOddOrEven = file.isOddOrEven;
 let lookupChar = file.lookupChar;
 let mathEnforcer = file.mathEnforcer();
-let sharedObject;
 let targetHTML;
-
-	document.body.innerHTML = '<div id="wrapper">'
-		+'<input type="text" id="name" value="newName">'
-		+'<input type="text" id="income" value="1"></div>';
-	targetHTML = $('#wrapper');
-	sharedObject = file.sharedObject();
+let sharedObject = file.sharedObject();
+let nuke = file.nuke;
 
 describe('isOddOrEven', function() {
 	it('isOddOrEven("aaa") => odd', function() {
@@ -167,62 +162,57 @@ describe('mathEnforcer', function() {
 })
 
 describe('sharedObject', function() {
+	document.body.innerHTML = '<div id="wrapper">'
+		+'<input type="text" id="name">'
+		+'<input type="text" id="income"></div>';
+	
 	describe('start values', function() {
 		it('sharedObject.name => null', function() {
-			expect(sharedObject.name).to.be.equal(null);
+			expect(sharedObject.name).to.be.null;
 		})
 		it('sharedObject.income => null', function() {
-			expect(sharedObject.income).to.be.equal(null);
+			expect(sharedObject.income).to.be.null;
 		})
 	})
 	describe('changeName', function() {
-		it('sharedObject.changeName("newName") => newName', function() {
-			sharedObject.changeName("newName");
-			expect(sharedObject.name).to.be.equal('newName');
-		})
-		it('sharedObject.changeName("") => newName', function() {
-			sharedObject.changeName("newName");
+		it('sharedObject.changeName("") => null', function() {
 			sharedObject.changeName("");
-			expect(sharedObject.name).to.be.equal('newName');
+			expect(sharedObject.name).to.be.null;
 		})
-		it('name.val() => newName', function() {
-			sharedObject.changeName("newName");
-			expect($('#name').val()).to.be.equal('newName');
+		it('name.val() =>  ""', function() {
+			expect($('#name').val()).to.be.equal('');
+		})
+		it('sharedObject.changeName("name") => name', function() {
+			sharedObject.changeName("name");
+			expect(sharedObject.name).to.be.equal('name');
+		})
+		it('name.val() => name', function() {
+			sharedObject.changeName("name");
+			expect($('#name').val()).to.be.equal('name');
 		})
 	})
 	describe('changeIncome', function() {
+		it('sharedObject.changeIncome(0) => null', function() {
+			sharedObject.changeIncome(0);
+			expect(sharedObject.income).to.be.null;
+		})
+		it('sharedObject.changeIncome("str") => null', function() {
+			sharedObject.changeIncome("str");
+			expect(sharedObject.income).to.be.null;
+		})
+		it('sharedObject.changeIncome(1.5) => null', function() {
+			sharedObject.changeIncome(1.5);
+			expect(sharedObject.income).to.be.null;
+		})
+		it('sharedObject.changeIncome(-1) => null', function() {
+			sharedObject.changeIncome(-1);
+			expect(sharedObject.income).to.be.null;
+		})
+		it('income.val() => ""', function() {
+			expect($('#income').val()).to.be.equal('');
+		})
 		it('sharedObject.changeIncome(1) => 1', function() {
 			sharedObject.changeIncome(1);
-			expect(sharedObject.income).to.be.equal(1);
-		})
-		it('sharedObject.changeIncome(0) => 1', function() {
-			sharedObject.changeIncome(1);
-			sharedObject.changeIncome(0);
-			expect(sharedObject.income).to.be.equal(1);
-		})
-		it('sharedObject.changeIncome("str") => 1', function() {
-			sharedObject.changeIncome(1);
-			sharedObject.changeIncome("str");
-			expect(sharedObject.income).to.be.equal(1);
-		})
-		it('sharedObject.changeIncome([]) => 1', function() {
-			sharedObject.changeIncome(1);
-			sharedObject.changeIncome([]);
-			expect(sharedObject.income).to.be.equal(1);
-		})
-		it('sharedObject.changeIncome(0) => 1', function() {
-			sharedObject.changeIncome(1);
-			sharedObject.changeIncome(0);
-			expect(sharedObject.income).to.be.equal(1);
-		})
-		it('sharedObject.changeIncome(1.5) => 1', function() {
-			sharedObject.changeIncome(1);
-			sharedObject.changeIncome(1.5);
-			expect(sharedObject.income).to.be.equal(1);
-		})
-		it('sharedObject.changeIncome(-1) => 1', function() {
-			sharedObject.changeIncome(1);
-			sharedObject.changeIncome(-1);
 			expect(sharedObject.income).to.be.equal(1);
 		})
 		it('income.val() => 1', function() {
@@ -231,15 +221,105 @@ describe('sharedObject', function() {
 		})
 	})
 	describe('updateName', function() {
-		it('sharedObject.updateName() => val()', function() {
+		it('sharedObject.updateName() => val("name")', function() {
+			$('#name').val('name');
 			sharedObject.updateName();
-			expect(sharedObject.name).to.be.equal($('#name').val());
+			expect(sharedObject.name).to.be.equal('name');
+		})
+		it('sharedObject.updateName() => val("")', function() {
+			$('#name').val('name');
+			sharedObject.updateName();
+			$('#name').val('');
+			sharedObject.updateName();
+			expect(sharedObject.name).to.be.equal('name');
 		})
 	})
 	describe('updateIncome', function() {
-		it('sharedObject.updateIncome() => val()', function() {
+		it('sharedObject.updateIncome() => val("str")', function() {
+			$('#income').val(2);
 			sharedObject.updateIncome();
-			expect(sharedObject.income + '').to.be.equal($('#income').val());
+			$('#income').val("str");
+			sharedObject.updateIncome();
+			expect(sharedObject.income + '').to.be.equal('2');
 		})
+		it('sharedObject.updateIncome() => val(0)', function() {
+			$('#income').val(2);
+			sharedObject.updateIncome();
+			$('#income').val(0);
+			sharedObject.updateIncome();
+			expect(sharedObject.income + '').to.be.equal('2');
+		})
+		it('sharedObject.updateIncome() => val(-2)', function() {
+			$('#income').val(2);
+			sharedObject.updateIncome();
+			$('#income').val(-2);
+			sharedObject.updateIncome();
+			expect(sharedObject.income + '').to.be.equal('2');
+		})
+		it('sharedObject.updateIncome() => val(2.5)', function() {
+			$('#income').val(2);
+			sharedObject.updateIncome();
+			$('#income').val(2.5);
+			sharedObject.updateIncome();
+			expect(sharedObject.income + '').to.be.equal('2');
+		})
+		it('sharedObject.updateIncome() => val(2)', function() {
+			$('#income').val(2);
+			sharedObject.updateIncome();
+			expect(sharedObject.income + '').to.be.equal('2');
+		})
+	})
+})
+
+describe('ArmageDOM tests', function() {
+	beforeEach(function() {
+		document.body.innerHTML = 
+		'<div id="target">'
+		    +'<div class="nested target">'
+	        	+'<p>This is some text+</p>'
+	        +'</div>'
+	        +'<div class="target">'
+	        	+'<p>Empty div+</p>'
+	        +'</div>'
+	        +'<div class="inside">'
+	        	+'<span class="nested">Some more text+</span>'
+	        	+'<span class="target">Some more text+</span>'
+	        +'</div>'
+	    +'</div>';
+		targetHTML = $('#target');
+	});
+	it('nuke(".inside", ".unreal") not changed', function() {
+		let selector1 = $('.inside');
+		let selector2 = $('.unreal');
+		let oldHtml = targetHTML.html();
+		nuke(selector1, selector2);
+		expect(targetHTML.html()).to.be.equal(oldHtml);
+	})
+	it('nuke(".unreal", ".inside") not changed', function() {
+		let selector1 = $('.unreal');
+		let selector2 = $('.inside');
+		let oldHtml = targetHTML.html();
+		nuke(selector1, selector2);
+		expect(targetHTML.html()).to.be.equal(oldHtml);
+	})
+	it('nuke(".target", ".target") not changed', function() {
+		let selector1 = $('.target');
+		let oldHtml = targetHTML.html();
+		nuke(selector1, selector1);
+		expect(targetHTML.html()).to.be.equal(oldHtml);
+	})
+	it('nuke(".nested", ".inside") not changed', function() {
+		let selector1 = $('.nested');
+		let selector2 = $('.inside');
+		let oldHtml = targetHTML.html();
+		nuke(selector1, selector2);
+		expect(targetHTML.html()).to.be.equal(oldHtml);
+	})
+	it('nuke(".nested", ".target") changed', function() {
+		let selector1 = $('.nested');
+		let selector2 = $('.target');
+		let oldHtml = targetHTML.html();
+		nuke(selector1, selector2);
+		expect(targetHTML.html()).to.not.equal(oldHtml);
 	})
 })

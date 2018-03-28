@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>p04_Students</title>
+<style>
+#nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+#nav li {
+    float: left;
+}
+
+#nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#nav li a:hover {
+    background-color: #111;
+}
+
+#createDiv {
+	display: none;
+}
+
+#resDiv {
+	display: none;
+}
+
+#results {
+	background-color: #FFFFFF;
+	display: none;
+	flex-direction: column;
+	text-align: center;
+}
+
+#results tr {
+	background-color: #AAAAAA;
+	padding: 5vh;
+	font-size: 1.5vw;
+}
+
+#results tr:nth-child(odd) {
+	background-color: #808080;
+}
+
+#results tr:first-child {
+	background-color: #000000;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 2vw;
+}
+
+#results tr th {
+	padding: 1vw;
+}
+
+#results tr td {
+	padding: 1vw;
+	transition: font-size 0.2s;
+}
+
+#results tr:not (:first-child ):hover {
+	background-color: #F0F8FF;
+	color: #000000;
+	font-size: 2.25vw;
+}
+</style>
+
+<script src="../libs/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="./javascript.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="nav">
+		<ul>
+			<li><a id="showRes" href="#">RESULTS</a></li>
+			<li><a id="cre" href="#">CREATE</a></li>
+		</ul>
+	</div>
+	<div id="resDiv">
+		<table id="results">
+			<tr>
+				<th>ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Faculty Number</th>
+				<th>Grade</th>
+			</tr>
+		</table>
+	</div>
+	<div id="createDiv">
+		<label>First Name</label>
+	    <input id="firstName" type="text" />
+	    <label>Last Name</label>
+	    <input id="lastName" type="text" />
+	    <label>Faculty Number</label>
+	    <input id="facultyNumber" type="text" />
+	    <label>Grade</label>
+	    <input id="grade" type="text" />
+	    <button id="createBtn">CREATE</button>
+	</div>
+</body>
+</html>

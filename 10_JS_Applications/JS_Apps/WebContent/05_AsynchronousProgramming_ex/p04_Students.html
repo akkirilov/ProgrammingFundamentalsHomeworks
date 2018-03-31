@@ -29,7 +29,14 @@
 }
 
 #createDiv {
+	width: 350px;
 	display: none;
+}
+
+#createDiv input {
+	display: block;
+	float: right;
+	position: relative;
 }
 
 #resDiv {
@@ -38,22 +45,21 @@
 
 #results {
 	background-color: #FFFFFF;
-	display: none;
 	flex-direction: column;
 	text-align: center;
 }
 
-#results tr {
+#results thead tr {
 	background-color: #AAAAAA;
 	padding: 5vh;
 	font-size: 1.5vw;
 }
 
-#results tr:nth-child(odd) {
+#results tbody tr:nth-child(odd) {
 	background-color: #808080;
 }
 
-#results tr:first-child {
+#results thead tr:first-child {
 	background-color: #000000;
 	color: #FFFFFF;
 	font-weight: bold;
@@ -64,12 +70,12 @@
 	padding: 1vw;
 }
 
-#results tr td {
+#results tbody tr td {
 	padding: 1vw;
 	transition: font-size 0.2s;
 }
 
-#results tr:not (:first-child ):hover {
+#results tbody tr:hover {
 	background-color: #F0F8FF;
 	color: #000000;
 	font-size: 2.25vw;
@@ -83,11 +89,14 @@
 	<div id="nav">
 		<ul>
 			<li><a id="showRes" href="#">RESULTS</a></li>
-			<li><a id="cre" href="#">CREATE</a></li>
+			<li><a id="showCreate" href="#">CREATE</a></li>
 		</ul>
 	</div>
+	<div id="main">
 	<div id="resDiv">
+		<button id="refreshStudentBtn">REFRESH</button>
 		<table id="results">
+			<thead>
 			<tr>
 				<th>ID</th>
 				<th>First Name</th>
@@ -95,18 +104,45 @@
 				<th>Faculty Number</th>
 				<th>Grade</th>
 			</tr>
+			</thead>
+			<tbody id="resultsBody">
+			
+			</tbody>
 		</table>
 	</div>
 	<div id="createDiv">
-		<label>First Name</label>
+		<fieldset>
+		<div>
+		<label>ID</label>
+		<input id="idstudent" type="text" />
+	    </div>
+	    <br />
+	    <div>
+	    <label>First Name</label>
 	    <input id="firstName" type="text" />
+	    </div>
+	    <br />
+	    <div>
 	    <label>Last Name</label>
 	    <input id="lastName" type="text" />
+	    </div>
+	    <br />
+	    <div>
 	    <label>Faculty Number</label>
 	    <input id="facultyNumber" type="text" />
+	    </div>
+	    <br />
+	    <div>
 	    <label>Grade</label>
 	    <input id="grade" type="text" />
+	    </div>
+	    <br />
 	    <button id="createBtn">CREATE</button>
+	    </fieldset>
 	</div>
+	</div>
+<script>
+	initStudents();
+</script>
 </body>
 </html>

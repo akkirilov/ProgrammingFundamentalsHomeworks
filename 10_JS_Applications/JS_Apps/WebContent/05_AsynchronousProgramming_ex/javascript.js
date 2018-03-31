@@ -166,5 +166,81 @@ function fisherGame() {
 // Kinvey app
 
 // 04. Students
-
+function initStudents() {
+	const URL = 'https://baas.kinvey.com/appdata/kid_ByUU-dzqz/students';
+	const AUTH = btoa('guest' + ':' + 'guest');
+	
+	let content = $('#main');
+	let createDiv = $('#createDiv');
+	let resultDiv = $('#resDiv');
+	let tableBody = $('#resultsBody');
+	
+	refreshStudents();
+	
+	$('#showRes').on('click', showResults);
+	function showResults() {
+		clearContent();
+		resultDiv.css('display', 'block');
+	}
+	
+	$('#refreshStudentBtn').on('click', refreshStudents);
+	function refreshStudents() {
+		tableBody.empty();
+		$.ajax({
+			method: "GET",
+			url: URL,
+			headers: { "Authorization": "Basic " + AUTH }
+		}).then(function(res) {
+			res.sort((a, b) => a.id - b.id);
+			for (let r of res) {
+				attachRow(r);
+			}
+		});
+	}
+	
+	$('#showCreate').on('click', showCreate);
+	function showCreate() {
+		clearContent();
+		createDiv.css('display', 'block');
+	}
+	
+	$('#createBtn').on('click', create);
+	function create() {
+		let id = $('#idstudent');
+		let firstName = $('#firstName');
+		let lastName = $('#lastName');
+		let facultyNumber = $('#facultyNumber');
+		let grade = $('#grade');
+		let postData = {
+				id: Number(id.val()),
+				firstName: firstName.val(), 
+				lastName: lastName.val(), 
+				facultyNumber: facultyNumber.val(), 
+				grade: Number(grade.val())
+			};
+		$.ajax({
+			method: "POST",
+			url: URL,
+			data: JSON.stringify(postData),
+			headers: { "Authorization": "Basic " + AUTH, "Content-type": "application/json" }
+		}).then(function(res) {
+			id.val('');
+			firstName.val('');
+			lastName.val('');
+			facultyNumber.val('');
+			grade.val('');
+			attachRow(res);
+			showResults();
+		});
+	}
+	
+	function attachRow(data) {
+		tableBody.append($(`<tr><td>${data.id}</td><td>${data.firstName}</td><td>${data.lastName}</td><td>${data.facultyNumber}</td><td>${data.grade}</td></tr>`));
+	}
+	
+	function clearContent() {
+		content.children().css('display', 'none');
+	}
+	
+}
 

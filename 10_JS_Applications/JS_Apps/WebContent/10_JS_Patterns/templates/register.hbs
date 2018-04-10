@@ -1,0 +1,24 @@
+{{> nav}}
+{{> header}}
+<section id="register">
+    <div class="container centered">
+        <div class="box">
+            <h1>Register</h1>
+            <div class="content">
+                <form id="register-form" method="POST" action="#/register">
+                    <label for="newUsername">Username</label>
+                    <input name="username" id="newUsername" type="text">
+                    <label for="newPassword">Password</label>
+                    <input name="password" id="newPassword" type="password">
+                    <label for="newPassRep">Repeat Password</label>
+                    <input name="passwordConfirm" id="newPassRep" type="password">
+                    <input type="submit" value="Register">
+                </form>
+                <div class="centered">
+                    <a href="#/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{> footer}}

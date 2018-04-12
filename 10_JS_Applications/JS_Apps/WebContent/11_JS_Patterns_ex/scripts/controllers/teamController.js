@@ -36,7 +36,6 @@ let teamController = (function() {
 		let endPoint = `teams?query={"_id":"${id}"}`;
 		requester.get('appdata', endPoint, 'Kinvey')
 		.then(function(teamDetails) {
-			console.log(teamDetails);
 			ctx.name = teamDetails[0].name;
 			ctx.comment = teamDetails[0].comment;
 			ctx.teamId = id;
@@ -44,8 +43,9 @@ let teamController = (function() {
 			endPoint = `?query={"teamId":"${id}"}`;
 			requester.get('user', endPoint, 'Kinvey')
 			.then(function(members) {
+				let userId = userController.getUserId();
 				ctx.members = members;
-				ctx.isOnTeam = members.filter(e => e._id === teamDetails[0]._acl.creator).length > 0;
+				ctx.isOnTeam = members.filter(e => e._id === userId).length > 0;
 				ctx.loadPartials({
 					header: 'templates/common/header.hbs',
 					teamControls: 'templates/catalog/teamControls.hbs',
@@ -101,6 +101,20 @@ let teamController = (function() {
 		});
 	}
 	
+	function getJoinTeam(ctx) {
+		if (!(userController.isLoggedIn())) {
+			ctx.redirect('#/login');
+			return;
+		}
+		let id = ctx.params.id.substr(1);
+		userController.registerInTeam(id)
+		.then(function(res) {
+			sessionStorage.setItem('teamId', id);
+			ctx.redirect('#/catalog/:' + id);
+		});
+		
+	}
+	
 	function getEditTeam(ctx) {
 		if (!(userController.isLoggedIn())) {
 			ctx.redirect('#/login');
@@ -151,6 +165,12 @@ let teamController = (function() {
 			return;
 		}
 		
+		let id = 'undefined';
+		userController.registerInTeam(id)
+		.then(function(res) {
+			sessionStorage.setItem('teamId', id);
+			ctx.redirect('#/home');
+		});
 	}
 	
 	return {
@@ -158,6 +178,8 @@ let teamController = (function() {
 		getTeamDetails,
 		getCreateTeam,
 		postCreateTeam,
+		getJoinTeam,
+		getLeaveTeam,
 		getEditTeam,
 		postEditTeam
 	}

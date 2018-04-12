@@ -1,6 +1,7 @@
 let homeController = (function() {
 	
 	function getHome(ctx) {
+		ctx.teamId = userController.getTeamId();
 		ctx.loggedIn = userController.isLoggedIn();
 		ctx.hasTeam = !(userController.hasNoTeam());
 		ctx.username = userController.getUsername();

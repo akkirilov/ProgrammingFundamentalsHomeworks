@@ -22,8 +22,12 @@ $(() => {
     	
     	this.get('#/catalog', teamController.getTeamCatalog);
     	this.get('#/catalog/:id', teamController.getTeamDetails);
+    	
     	this.get('#/edit/:id', teamController.getEditTeam);
     	this.post('#/edit/:id', teamController.postEditTeam);
+    	
+    	this.get('#/join/:id', teamController.getJoinTeam);
+    	this.get('#/leave', teamController.getLeaveTeam);
     	
     	this.get('#/create', teamController.getCreateTeam);
     	this.post('#/create', teamController.postCreateTeam);

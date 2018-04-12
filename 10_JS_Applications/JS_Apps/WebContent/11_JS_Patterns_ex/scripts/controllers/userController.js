@@ -134,6 +134,7 @@ let userController = (function() {
 		registerInTeam,
 		getUsername,
 		getUserId,
+		getTeamId,
 		getLogin,
 		postLogin,
 		getRegister,

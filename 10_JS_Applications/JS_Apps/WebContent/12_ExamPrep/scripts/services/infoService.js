@@ -1,8 +1,8 @@
+	    $('#errorBox').on('click', function() {
+	    	$(this).fadeOut();
+	    });
 let infoService = (function() {
 	
-	$('#errorBox').on('click', () => {
-		$(this).fadeOut();
-	});
 	
 	function handleAjaxError(response) {
 	    let errorMsg = JSON.stringify(response);

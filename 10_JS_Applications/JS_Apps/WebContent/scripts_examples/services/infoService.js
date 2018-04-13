@@ -28,6 +28,9 @@ let infoService = (function() {
 	    let errorBox = $('#errorBox');
 	    errorBox.text("Error: " + errorMsg);
 	    errorBox.show();
+	    setTimeout(function() {
+	        $('#errorBox').fadeOut();
+	    }, 3000);
 	}
 	
 	return {

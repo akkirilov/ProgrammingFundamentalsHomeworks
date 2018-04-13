@@ -1,0 +1,14 @@
+{{> header}}
+<div class="content">
+{{> nav}}
+<section id="viewCatalog">
+{{#if hasPosts}}
+{{> postList}}
+{{else}}
+	    <div>
+			<p>No posts in database</p>
+	    </div>
+{{/if}}
+</section>
+</div>
+{{> footer}}

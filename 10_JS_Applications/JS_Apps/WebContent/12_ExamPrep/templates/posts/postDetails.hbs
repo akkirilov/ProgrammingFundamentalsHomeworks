@@ -1,0 +1,59 @@
+{{> header}}
+<div class="content">
+{{> nav}}
+	<section id="viewComments">
+            <div class="post">
+                <div class="col thumbnail">
+                    <a href="{{url}}">
+                        <img src="{{imageUrl}}">
+                    </a>
+                </div>
+                <div class="post-content">
+                    <div class="title">
+                        <a href="{{url}}">
+                            {{title}}
+                        </a>
+                    </div>
+                    <div class="details">
+                    	{{#if hasDescription}}
+                        <p>{{description}}</p>
+                        {{else}}
+                        <p>No description</p>
+                        {{/if}}
+						{{> submitedInfo}}
+						{{#if isAuthor}}
+                        <div class="controls">
+                            <ul>
+                                {{> postAuthorsControlls}}
+                            </ul>
+                        </div>
+						{{/if}}
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="post post-content">
+                <form id="commentForm" action="#/addComment/{{_id}}", method="POST">
+                    <label>Comment</label>
+                    <textarea name="content" type="text"></textarea>
+                    <input type="submit" value="Add Comment" id="btnPostComment">
+                </form>
+            </div>
+            {{#if hasComments}}
+            {{#each comments}}
+	            <article class="post post-content">
+	                <p>{{content}}</p>
+	                <div class="info">
+	                    submitted {{submitInfo}} ago by {{author}} | {{#if isCommentAuthor}}<a href="#/deleteComment/{{_id}}" class="deleteLink">delete</a>{{/if}}
+	                </div>
+	            </article>
+            {{/each}}
+            {{else}}
+            	<p>No comments yet.</p>
+            {{/if}}
+            
+        </section>
+	
+</div>
+{{> footer}}
+

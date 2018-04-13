@@ -1,0 +1,29 @@
+<div class="posts">
+
+{{#each posts}}
+
+	<article class="post">
+	    <div class="col rank">
+	        <span>{{ind}}</span>
+	    </div>
+	    <div class="col thumbnail">
+	        <a href="{{url}}">
+	            <img src="{{imageUrl}}">
+	        </a>
+	    </div>
+	    <div class="post-content">
+	        <div class="title">
+	            <a href="{{url}}">
+	                {{title}}
+	            </a>
+	        </div>
+	        <div class="details">
+				{{> submitedInfo}}
+				{{> postControlls}}
+	        </div>
+	    </div>
+	</article>
+
+{{/each}}
+
+</div>

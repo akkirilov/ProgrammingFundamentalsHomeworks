@@ -1,0 +1,15 @@
+{{#if isLoggedIn}}
+	{{> allPosts}}
+{{else}}
+	{{> header}}
+	<div class="content">
+	<section id="viewWelcome">
+		<div class="signup">
+			{{> loginForm}}
+			{{> registerForm}}
+		</div>
+	</section>
+	</div>
+	{{> footer}}
+	{{> about}}
+{{/if}}

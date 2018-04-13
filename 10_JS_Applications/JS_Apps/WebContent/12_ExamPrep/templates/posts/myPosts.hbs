@@ -1,0 +1,17 @@
+{{> header}}
+<div class="content">
+{{> nav}}
+<section id="viewMyPosts">
+<div class="post post-content">
+	<h1>Your Posts</h1>
+</div>
+{{#if hasPosts}}
+{{> postList}}
+{{else}}
+	<div>
+		<p>No posts in database</p>
+	</div>
+{{/if}}
+</section>
+</div>
+{{> footer}}

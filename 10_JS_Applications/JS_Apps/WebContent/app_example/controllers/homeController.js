@@ -1,25 +1,26 @@
 let homeController = (function() {
 	
 	function getHome(ctx) {
-		ctx.teamId = userController.getTeamId();
-		ctx.loggedIn = userController.isLoggedIn();
-		ctx.hasTeam = !(userController.hasNoTeam());
-		ctx.username = userController.getUsername();
+		ctx.loggedIn = userService.isLoggedIn();
+		ctx.username = userService.getUsername();
+		
 		ctx.loadPartials({
 			header: 'templates/common/header.hbs',
-			footer: 'templates/common/footer.hbs',
+			footer: 'templates/common/footer.hbs'
+				
 		}).then(function() {
 			this.partial('templates/home/home.hbs');
 		});
 	}
 	
 	function getAbout(ctx) {
-		ctx.loggedIn = userController.isLoggedIn();
-		ctx.hasTeam = userController.hasUserTeam();
-		ctx.username = userController.getUsername();
+		ctx.loggedIn = userService.isLoggedIn();
+		ctx.username = userService.getUsername();
+		
 		ctx.loadPartials({
 			header: 'templates/common/header.hbs',
-			footer: 'templates/common/footer.hbs',
+			footer: 'templates/common/footer.hbs'
+				
 		}).then(function() {
 			this.partial('templates/about/about.hbs');
 		});
@@ -29,4 +30,5 @@ let homeController = (function() {
 		getHome,
 		getAbout
 	}
+	
 })();

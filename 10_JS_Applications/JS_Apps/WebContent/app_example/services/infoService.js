@@ -1,9 +1,5 @@
 let infoService = (function() {
 	
-	$('#errorBox').on('click', () => {
-		$(this).fadeOut();
-	});
-	
 	function handleAjaxError(response) {
 	    let errorMsg = JSON.stringify(response);
 	    if (response.readyState === 0) {
@@ -39,6 +35,6 @@ let infoService = (function() {
 		showError
 	}
 	
-})()
+})();
 
 

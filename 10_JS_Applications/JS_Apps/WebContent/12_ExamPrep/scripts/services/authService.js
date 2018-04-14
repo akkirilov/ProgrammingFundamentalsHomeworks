@@ -1,4 +1,7 @@
 let authService = (() => {
+	
+	const MODULE = 'user';
+	
     function saveSession(userInfo) {
         let userAuth = userInfo._kmd.authtoken;
         sessionStorage.setItem('authtoken', userAuth);
@@ -8,33 +11,28 @@ let authService = (() => {
         sessionStorage.setItem('username', username);
     }
 
-    // user/login
     function login(username, password) {
         let userData = {
             username,
             password
         };
-
-        return requestService.post('user', 'login', 'basic', userData);
+        return requestService.post(MODULE, 'login', 'basic', userData);
     }
 
-    // user/register
     function register(username, password, repeatPassword) {
         let userData = {
             username,
             password
         };
-
-        return requestService.post('user', '', 'basic', userData);
+        return requestService.post(MODULE, '', 'basic', userData);
     }
 
-    // user/logout
     function logout() {
         let logoutData = {
             "authtoken": "sessionStorage.getItem('authtoken')"
         };
 
-        return requestService.post('user', '_logout', 'kinvey', logoutData);
+        return requestService.post(MODULE, '_logout', 'kinvey', logoutData);
     }
 
     return {

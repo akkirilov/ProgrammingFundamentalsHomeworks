@@ -1,20 +1,4 @@
 let userController = (function() {
-	
-	function isLoggedIn() {
-		return sessionStorage.getItem('username') !== null;
-	}
-	
-	function getUsername() {
-		return sessionStorage.getItem('username');
-	}
-	
-	function getUserId() {
-		return sessionStorage.getItem('userId');
-	}
-	
-	function getAuthToken() {
-		return sessionStorage.getItem('authtoken');
-	}
 
 	function getLogin(ctx) {
 		if (isLoggedIn()) {
@@ -112,10 +96,6 @@ let userController = (function() {
 	}
 	
 	return {
-		isLoggedIn,
-		getAuthToken,
-		getUsername,
-		getUserId,
 		getLogin,
 		postLogin,
 		getRegister,

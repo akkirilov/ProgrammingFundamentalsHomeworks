@@ -1,4 +1,5 @@
-let authService = (() => {
+let userService = (() => {
+	
     function saveSession(userInfo) {
         let userAuth = userInfo._kmd.authtoken;
         sessionStorage.setItem('authtoken', userAuth);
@@ -7,8 +8,33 @@ let authService = (() => {
         let username = userInfo.username;
         sessionStorage.setItem('username', username);
     }
+    
+	
+	function isLoggedIn() {
+		return sessionStorage.getItem('username') !== null;
+	}
+	
+	function getUsername() {
+		if (!isLoggedIn()) {
+			return undefined;
+		}
+		return sessionStorage.getItem('username');
+	}
+	
+	function getUserId() {
+		if (!isLoggedIn()) {
+			return undefined;
+		}
+		return sessionStorage.getItem('userId');
+	}
+	
+	function getAuthToken() {
+		if (!isLoggedIn()) {
+			return undefined;
+		}
+		return sessionStorage.getItem('authtoken');
+	}
 
-    // user/login
     function login(username, password) {
         let userData = {
             username,
@@ -18,7 +44,6 @@ let authService = (() => {
         return requestService.post('user', 'login', 'basic', userData);
     }
 
-    // user/register
     function register(username, password, repeatPassword) {
         let userData = {
             username,
@@ -28,7 +53,6 @@ let authService = (() => {
         return requestService.post('user', '', 'basic', userData);
     }
 
-    // user/logout
     function logout() {
         let logoutData = {
             authtoken: sessionStorage.getItem('authtoken')
@@ -38,6 +62,10 @@ let authService = (() => {
     }
 
     return {
+		isLoggedIn,
+		getAuthToken,
+		getUsername,
+		getUserId,
         login,
         register,
         logout,

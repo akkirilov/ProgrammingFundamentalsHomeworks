@@ -1,0 +1,68 @@
+{{> header}}
+
+	        <section id="create-receipt-view">
+            <h1>Create Receipt</h1>
+            <div class="table">
+                <div class="table-head">
+                    <div class="col wide">Product Name</div>
+                    <div class="col wide">Quantity</div>
+                    <div class="col wide">Price per Unit</div>
+                    <div class="col">Sub-total</div>
+                    <div class="col">Action</div>
+                </div>
+                {{#each products}}
+                <div class="row">
+                    <div class="col wide">{{type}}</div>
+                    <div class="col wide">{{qty}}</div>
+                    <div class="col wide">{{price}}</div>
+                    <div class="col subtotal">{{total}}</div>
+                    <div class="col right">
+                        <a href="#/removeProduct/{{_id}}">&#10006;</a>
+                    </div>
+                    <input type="hidden" name="receiptId" value="{{receiptId}}"/>
+                </div>
+                {{/each}}
+                
+                <div class="row">
+                    <form id="create-entry-form" method="POST", action="#/addProduct/{{_id}}">
+                        <div class="col wide">
+                            <input name="type" placeholder="Product name" />
+                        </div>
+                        <div class="col wide">
+                            <input name="qty" placeholder="Quantity">
+                        </div>
+                        <div class="col wide">
+                            <input name="price" placeholder="Price per Unit" />
+                        </div>
+                        <div id="subTotal"class="col subtotal">0.00</div>
+                        <div class="col">
+                            <input id="addItemBtn" type="submit" value="Add" />
+                        </div>
+                        <input type="hidden" name="receiptId" value="{{_id}}"/>
+                    </form>
+                </div>
+                
+                <div class="table-foot">
+                    <form id="create-receipt-form" method="POST", action="#/checkout/{{_id}}">
+                        <div class="col wide">
+                        </div>
+                        <div class="col wide">
+                        </div>
+                        <div class="col wide right">Total:</div>
+                        {{#if hasProducts}}
+                        <div id="receiptTotal" class="col">{{receiptTotal}}</div>
+                        {{else}}
+                        <div id="receiptTotal" class="col">0.00</div>
+                        {{/if}}
+                        <div class="col">
+                            <input id="checkoutBtn" type="submit" value="Checkout" />
+                        </div>
+
+                        <input type="hidden" name="productCount" value="{{productCount}}"/>
+                        <input type="hidden" name="total" value="{{receiptTotal}}"/>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+{{> footer}}

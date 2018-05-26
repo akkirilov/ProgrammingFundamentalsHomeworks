@@ -1,0 +1,11 @@
+{
+  "name": "00_stopshop",
+  "version": "1.0.0",
+  "description": "NodeJS lab app for SoftUni ExpressJS course.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Atanas Kirilov",
+  "license": "MIT"
+}

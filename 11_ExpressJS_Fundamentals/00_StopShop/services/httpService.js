@@ -2,7 +2,19 @@ const fs = require('fs');
 const url = require('url');
 const path = require('path');
 
-function writeHeader(res, code, type) {
+const mimeTypes = {
+	"js": "application/javascript",
+	"json": "application/json",
+	"css": "text/css",
+	"png": "image/png",
+	"jpeg": "image/jpeg",
+	"ico": "image/x-icon",
+	"txt": "text/plain",
+	"html": "text/html"
+};
+
+function writeHeader(res, code, extension) {
+	let type = mimeTypes[extension];
 	if (!type) {
 		type = "text/html";
 	}
@@ -16,19 +28,22 @@ function notFound(res) {
 	res.end();
 }
 
-function createResponse(res, fileSource, type) {
-	let filePath = path.normalize(path.join(__dirname, ("../" + fileSource)));
-	fs.readFile(filePath, function(error, data) {
-		if (error) {
-			notFound(res);
-		} else {
-			writeHeader(res, 200, type);
-			res.write(data);
-			res.end();
-		}
+function createResponse(res, pathUrl) {
+	let extention = pathUrl.split('.').pop();
+	let filePath = path.normalize(path.join(__dirname, ("../" + pathUrl)));
+	let code = 200;
+	let readStream = fs.createReadStream(filePath);
+	readStream.on('error', function(err) {
+		filePath = path.normalize(path.join(__dirname, ('../views/error/error.html')));
+		extention = "html";
+		code = 404;
+		let errReadStream = fs.createReadStream(filePath);
+		writeHeader(res, code, extention);
+		errReadStream.pipe(res);
 	});
+	writeHeader(res, code, extention);
+	readStream.pipe(res);
 }
-
 
 module.exports = {
 		createResponse

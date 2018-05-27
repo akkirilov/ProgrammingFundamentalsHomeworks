@@ -18,4 +18,6 @@ function frontHandler(req, res) {
 	}
 }
 
-module.exports = {frontHandler};
+module.exports = {
+		frontHandler
+};

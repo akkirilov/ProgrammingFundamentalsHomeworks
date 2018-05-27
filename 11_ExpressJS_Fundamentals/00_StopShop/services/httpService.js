@@ -23,12 +23,7 @@ function writeHeader(res, code, extension) {
 	});
 }
 
-function notFound(res) {
-	writeHeader(res, 404, "text/plain");
-	res.end();
-}
-
-function createResponse(res, pathUrl) {
+function writeResponse(res, pathUrl) {
 	let extention = pathUrl.split('.').pop();
 	let filePath = path.normalize(path.join(__dirname, ("../" + pathUrl)));
 	let code = 200;
@@ -45,6 +40,20 @@ function createResponse(res, pathUrl) {
 	readStream.pipe(res);
 }
 
+function createResponse(res, pathUrl) {
+	let extention = pathUrl.split('.').pop();
+	let filePath = path.normalize(path.join(__dirname, ("../" + pathUrl)));
+	let code = 200;
+	try {
+		let content = fs.readFileSync(filePath, 'utf-8');
+		writeHeader(res, code, extention);
+		return content;
+	} catch (e) {
+		writeResponse(res, '/views/error/error.html');
+	}
+}
+
 module.exports = {
-		createResponse
+		createResponse,
+		writeResponse
 };

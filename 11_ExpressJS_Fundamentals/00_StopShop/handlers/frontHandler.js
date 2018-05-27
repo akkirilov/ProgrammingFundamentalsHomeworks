@@ -3,10 +3,12 @@ const httpService = require('../services/httpService');
 const homeHandler = require('./homeHandler');
 const staticHandler = require('./staticHandler');
 const errorHandler = require('./errorHandler');
+const prooductHandler = require('./productHandler');
 
 const handlers = [
 	homeHandler,
 	staticHandler,
+	prooductHandler,
 	errorHandler
 ];
 

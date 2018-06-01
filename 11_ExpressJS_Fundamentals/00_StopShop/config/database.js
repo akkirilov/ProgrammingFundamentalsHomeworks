@@ -16,5 +16,8 @@ productsDB.findByName = function(name) {
 		}
 	}
 };
+productsDB.findAllByName = function(n) {
+	return products.filter(x => x.name.toLowerCase().includes(n.toLowerCase()));
+};
 
 module.exports = productsDB;

@@ -13,6 +13,7 @@ const handlers = [
 ];
 
 function frontHandler(req, res) {
+	console.log(req.url);
 	for (let h of handlers) {
 		if (h(req, res, httpService) != true) {
 			break;

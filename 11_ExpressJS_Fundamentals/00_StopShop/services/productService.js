@@ -1,8 +1,26 @@
 const qs = require('querystring');
 const fs = require('fs');
-const products = require('../config/database');
+const Product = require('../models/Product');
+const Category = require('../models/Category');
 const multiparty = require('multiparty');
 const shortid = require('shortid');
+
+function getAddProduct(content, res) {
+	if (content) {
+		Category.find({}).then(function(data) {
+			let newContent = '<select class="input-field" name="category">';
+			for (let c of data) {
+				newContent += `<option value="${c._id}">${c.name}</option>`;
+//				console.log(c.name);
+			}
+			newContent += '</select>';
+			res.write(content.replace('{{replace}}', newContent));
+			res.end();
+		});
+	} else {
+		res.end();
+	}
+}
 
 function addProduct(req, res) {
 	let product = {};
@@ -35,28 +53,24 @@ function addProduct(req, res) {
 		}
 	});
 	form.on('close', function() {
-		products.addProduct(product);
-		res.writeHead(302, {
-			'Location': 'http://' + req.headers.host + '/'
+		Product.create(product).then(function(p) {
+			Category.findById(p.category).then(function(c) {
+				c.products.push(p._id);
+				c.save();
+			})
+			res.writeHead(302, {
+				'Location': 'http://' + req.headers.host + '/'
+			});
+			res.end();
+		}).catch(function(err) {
+			console.log(err);
+			res.end();
 		});
-		res.end();
 	});
 	form.parse(req);
-//	let reqBody = '';
-//	req.on('data', function(data) {
-//		reqBody += data;
-//	});
-//	req.on('end', function() {
-//		let code = 200;
-//		let post = qs.parse(reqBody);
-//		let entity = products.addProduct(post);
-//		if (!entity) {
-//			
-//		}
-//		
-//	});
 }
 
 module.exports = {
-	addProduct	
+	addProduct,
+	getAddProduct
 };

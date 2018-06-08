@@ -4,11 +4,13 @@ const homeHandler = require('./homeHandler');
 const staticHandler = require('./staticHandler');
 const errorHandler = require('./errorHandler');
 const prooductHandler = require('./productHandler');
+const categoryHandler = require('./categoryHandler');
 
 const handlers = [
 	homeHandler,
 	staticHandler,
 	prooductHandler,
+	categoryHandler,
 	errorHandler
 ];
 

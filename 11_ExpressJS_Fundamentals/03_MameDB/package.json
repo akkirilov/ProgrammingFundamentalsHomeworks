@@ -1,0 +1,16 @@
+{
+  "name": "03_mamedb",
+  "version": "1.0.0",
+  "description": "Mame DB demo with node.js, mongodb and mongoose",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AKK",
+  "license": "MIT",
+  "dependencies": {
+    "formidable": "1.2.1",
+    "mongoose": "5.1.4",
+    "shortid": "2.2.8"
+  }
+}

@@ -1,21 +1,31 @@
-const categoryService = require('../services/categoryService');
+const Category = require('../models/Category');
 
-function resolve(req, res, httpService) {
-	if (req.url === "/category/add") {
-		if (req.method === "GET") {
-			let content = httpService.writeResponse(res, '/views/categories/add.html');
-			if (content) {
-				res.write(content);
-				res.end();
-			}
-		} else if (req.method === "POST") {
-			categoryService.addCategory(req, res);
-		} else {
-			return true;
-		}
-	} else {
-		return true;
-	}
+function getAddCategory(req, res){
+	res.render('categories/addCategory');
 }
 
-module.exports = resolve;
+function postAddCategory(req, res){
+	let category = {
+			name: req.body.name
+	};
+	Category.find({name: category.name}).then(function(data) {
+		if (data.length > 0) {
+			res.render('categories/addCategory', { error: 'Category with the same name alredy exists!' });
+		} else {
+			Category.create(category).then(function() {
+				res.redirect('/');
+			}).catch(function(err) {
+				console.log(err);
+				res.render('error/error');
+			});
+		}
+	}).catch(function(err) {
+		console.log(err);
+		res.render('error/error');
+	});
+}
+
+module.exports = {
+		getAddCategory,
+		postAddCategory
+};

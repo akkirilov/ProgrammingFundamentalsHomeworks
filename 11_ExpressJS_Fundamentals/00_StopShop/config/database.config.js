@@ -4,7 +4,6 @@ mongoose.Promise = global.Promise;
 module.exports = function(config) {
 	mongoose.connect(config.connectionString);
 	let db = mongoose.connection;
-	
 	db.once('open', function(err) {
 		if (err) {
 			console.log(err);
@@ -12,6 +11,4 @@ module.exports = function(config) {
 		}
 		console.log('DataBase ready ...');
 	});
-	
-	require('../models/Product');
 }

@@ -1,55 +1,18 @@
-const qs = require('querystring');
 const Product = require('../models/Product');
 
-function resolve(req, res, httpService) {
-	if (req.url === "/" || req.url === "/index.html") {
-		if (req.method === "GET") {
-			Product.find({})
-			.then(function(data) {
-				let content = httpService.createResponse(res, '/views/home/index.html');
-				if (content) {
-					let newContent = '';
-					for (let p of data) {
-						newContent += `
-							<div class="product-card">
-							<img class="product-img" src="${p.image}">
-							<h2>${p.name}</h2>
-							<p>${p.description}</p>
-							</div>`;
-					}
-					res.write(content.replace('{{content}}', newContent));
-					res.end();
-				}
-			})
-			
-		} else {
-			return true;
+function getHome(req, res) {
+	Product.find({})
+	.then(function(products) {
+		if (req.query.query) {
+			products = products.filter(x => x.name.toLowerCase().includes(req.query.query.toLowerCase()));
 		}
-	} else if (req.url.startsWith("/?query=") || req.url === "/index.html?query=") {
-		let content = httpService.createResponse(res, '/views/home/index.html');
-		if (content) {
-			let name = req.url.replace("\/?query=", "");
-			let newContent = '';
-			let products = db.findAllByName(name);
-			for (let p of products) {
-				newContent += `
-					<div class="product-card">
-					<img class="product-img" src="${p.image}">
-					<h2>${p.name}</h2>
-					<p>${p.description}</p>
-					</div>`;
-			}
-			res.writeHead(200, {
-				"Content-Type": "text/html"
-			});
-			res.write(content.replace('{{content}}', newContent));
-			res.end();
-		} else {
-			return true;
-		}
-	} else {
-		return true;
-	}
+		res.render('home/home', { products });
+	}).catch(function(err) {
+		console.log(err);
+		res.render('error/error');
+	});
 }
 
-module.exports = resolve;
+module.exports = {
+		getHome
+};

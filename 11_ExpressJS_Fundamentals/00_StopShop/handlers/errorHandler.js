@@ -1,6 +1,7 @@
-
-function resolve(req, res, httpService) {
-	httpService.writeResponse(res, '/views/error/error.html');
+function get404(req, res) {
+	res.render('error/error');
 }
 
-module.exports = resolve;
+module.exports = {
+		get404
+};

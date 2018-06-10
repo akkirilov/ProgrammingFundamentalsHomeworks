@@ -1,0 +1,14 @@
+<header>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home Page</a></li>
+        <li><a href="/products/add">Add Product</a></li>
+        <li><a href="/categories/add">Add Category</a></li>
+      </ul>
+    </nav>
+</header>
+{{# if error}}
+	<div class="error-msg">{{error}}</div>
+{{else if success}}
+	<div class="success-msg">{{success}}</div>
+{{/ if}}

@@ -1,7 +1,7 @@
 const Product = require('../models/Product');
 
 function getHome(req, res) {
-	Product.find({})
+	Product.find({}).populate('category')
 	.then(function(products) {
 		if (req.query.query) {
 			products = products.filter(x => x.name.toLowerCase().includes(req.query.query.toLowerCase()));

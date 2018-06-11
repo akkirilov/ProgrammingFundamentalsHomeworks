@@ -55,6 +55,18 @@ footer {
   margin: 0 auto;
 }
 
+.center {
+	text-align: center;
+  	margin: auto;
+}
+
+.img-thumb {
+	max-height: 120px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .form-group label {
   font-size: 1.2em;
   width: 30%;
@@ -132,7 +144,7 @@ textarea.input-field {
 .product-card {
   box-sizing: border-box;
   padding: 10px;
-  width: 33%;
+  width: 18%;
   display: inline-block;
 }
 

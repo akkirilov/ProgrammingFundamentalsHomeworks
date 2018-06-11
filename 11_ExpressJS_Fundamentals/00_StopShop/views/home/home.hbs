@@ -15,7 +15,12 @@
     	<div class="product-card">
 			<img class="product-img" src="{{image}}">
 			<h2>{{name}}</h2>
+			<p>Price: {{price}} BGN</p>
 			<p>{{description}}</p>
+			<a class="btn btn-small btn-success" href="/products/buy/{{_id}}">Buy</a>
+			<a class="btn btn-small btn-warning" href="/products/edit/{{_id}}">Edit</a>
+			<a class="btn btn-small btn-danger" href="/products/delete/{{_id}}">Delete</a>
+			<a class="btn btn-small btn-primary" href="/category/{{category._id}}">More {{category.name}}</a>
 		</div>
 		{{/ each}}
     </div>

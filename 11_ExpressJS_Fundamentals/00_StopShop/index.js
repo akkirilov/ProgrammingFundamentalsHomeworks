@@ -34,6 +34,12 @@ app.get('/', homeHandler.getHome);
 
 app.get('/products/add', prooductHandler.getAddProduct);
 app.post('/products/add', prooductHandler.postAddProduct);
+app.get('/products/buy/:id', prooductHandler.getBuyProduct);
+app.post('/products/buy/:id', prooductHandler.postBuyProduct);
+app.get('/products/edit/:id', prooductHandler.getEditProduct);
+app.post('/products/edit/:id', prooductHandler.postEditProduct);
+app.get('/products/delete/:id', prooductHandler.getDeleteProduct);
+app.post('/products/delete/:id', prooductHandler.postDeleteProduct);
 
 app.get('/categories/add', categoryHandler.getAddCategory);
 app.post('/categories/add', categoryHandler.postAddCategory);

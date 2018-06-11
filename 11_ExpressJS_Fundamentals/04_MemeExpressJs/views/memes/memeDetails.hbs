@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> header}}
+{{> searchBar}}
+{{> infoBar}}
+{{> pageTitle}}
+<div class="container">
+    	<div class="content">
+    	<a href="{{meme.memeSrc}}" download >
+  		<img src="{{meme.memeSrc}}" alt="{{title}}"/>
+  		</a>
+  		<h3> {{meme.title}}</h3>
+  		<p>Description: {{meme.description}}</p>
+  		<p>Genre: {{meme.genre.name}}<p>
+  	</div>
+</div>
+{{> footer}}
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> header}}
+{{> searchBar}}
+{{> infoBar}}
+{{> pageTitle}}
+<div class="container">
+    {{#each memes}}
+    	<div class="meme">
+    		<a class="" href="/memes/details/{{_id}}">
+    			<img class="memePoster block" src="{{memeSrc}}"/>
+    		</a>
+    		<h4 class="block" >{{title}}</h4>
+    	</div>
+    {{/each}}
+</div>
+{{> footer}}
+</body>
+</html>

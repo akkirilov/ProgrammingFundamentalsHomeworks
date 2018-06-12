@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{> head}}
+
+<body>
+    {{#if message}}
+    <div class="message">{{message}}</div>
+    {{/if}}
+    <a href="/private">Private Page</a>
+    {{#if isLogedIn}}
+    <a href="/auth/logout">Logout</a>
+    {{else}}
+    <a href="/auth/login">Login</a>
+    <a href="/auth/register">Register</a>
+    {{/if}}
+    <h1>Welcome to passport demo!</h1>
+    <h3>Welcome, {{username}}</h3>
+</body>
+
+</html>

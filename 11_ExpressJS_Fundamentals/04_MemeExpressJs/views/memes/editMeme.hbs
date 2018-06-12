@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> header}}
+{{> searchBar}}
+{{> infoBar}}
+{{> pageTitle}}
+<div class="container">
+    
+    <form action="/memes/edit/{{meme._id}}" enctype=multipart/form-data method="POST">
+            <input type="text" id="title" name="title" value="{{meme.title}}">
+
+            <select name='genre' id="genreSelect">
+                {{#each genres}}
+                {{#if selected}}
+               		<option value="{{_id}}" selected="selected">{{name}}</option>
+               	{{else}}
+               	<option value="{{_id}}">{{name}}</option>
+               	{{/if}}
+            	{{/each}}
+            </select>
+
+
+            <input type="file" id="memeSrc" name="memeSrc" value="{{meme.memeSrc}}">
+			
+			<div class="block">
+ 			<label for="privacy">Private </label>
+            <input type="checkbox" name="privacy" id="privacy" {{#if meme.privacy}}checked{{/if}}/>
+			</div>
+            <textarea id="description" name="description" rows="10" cols="10">{{meme.description}}</textarea>
+
+            <input class="block" type="submit" value="Submit">
+    </form>
+    
+</div>
+{{> footer}}
+</body>
+</html>

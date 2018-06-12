@@ -1,5 +1,6 @@
 const Genre = require('../models/Genre');
 const defaultError = require('./errorHandler').getDefaultError;
+const formidable = require('formidable');
 
 function getAddGenre(req, res) {
 	res.render('genres/addGenre', { pageTitle: 'Add genre'});
@@ -15,12 +16,36 @@ function postAddGenre(req, res) {
 			return;
 		}
 		Genre.create(genre).then(function(g) {
-			res.redirect('/');
+			res.redirect('/genres/viewAll');
 		}).catch(defaultError);
+	}).catch(defaultError);
+}
+
+function getViewAllGenres(req, res) {
+	Genre.find().then(function(genres) {
+
+		res.render('genres/viewAll', {genres, pageTitle: 'Genres'});
+	}).catch(defaultError);
+}
+
+function getEditGenre(req, res) {
+	Genre.findById(req.params.id).then(function(genre) {
+		res.render('genres/editGenre', {genre, pageTitle: 'Edit genre'});
+	}).catch(defaultError);
+}
+
+function postEditGenre(req, res) {
+	Genre.findById(req.params.id).then(function(genre) {
+		genre.name = req.body.name;		
+		genre.save();
+		res.redirect('/genres/viewAll');
 	}).catch(defaultError);
 }
 
 module.exports = {
 		getAddGenre,
-		postAddGenre
+		postAddGenre,
+		getViewAllGenres,
+		getEditGenre,
+		postEditGenre
 };

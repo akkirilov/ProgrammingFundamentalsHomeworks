@@ -179,14 +179,16 @@ input[type=submit] {
 }
 
 .small-width {
-	width: 256px;
+	width: 300px;
 }
 
+.small-height {
+	height: 150px;
+}
 
 input[type=submit]:hover {
     background-color: #45a049;
 }
-
 
 .container {
     border-radius: 5px;
@@ -243,7 +245,8 @@ input[type=submit]:hover {
 .meme{
     border: solid 1px greenyellow;
     display:inline-block;
-    max-width: 30%;
+    width: 250px;
+    height: 250px;
     padding: 1%;
     margin: 1%;
     border-radius: 4px;
@@ -262,6 +265,10 @@ input[type=submit]:hover {
 
 /*details view */
 
+.padding-10 {
+	padding: 10px;
+}
+
 .content {
     width: 100%;
     border-radius: 4px;
@@ -275,6 +282,15 @@ img {
 	height: 150px;
     margin-right: 15px;
     float: left;
+}
+
+.img-center {
+	height: 150px;
+    margin-right: 15px;
+    max-width: 100%;
+    float: none;
+    display: block;
+    margin: 0 auto;
 }
 
 .content img {

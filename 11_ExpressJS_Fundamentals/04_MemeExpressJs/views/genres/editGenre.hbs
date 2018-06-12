@@ -7,9 +7,9 @@
 {{> infoBar}}
 {{> pageTitle}}
 <div class="container">
-            <form action="/genres/add" method="POST">
+            <form action="/genres/edit/{{genre._id}}" method="POST">
             	<label for="name">Name </label>
-            	<input type="text" id="name" name="name" placeholder="The name of the genre">
+            	<input type="text" id="name" name="name" value="{{genre.name}}">
             	<input class="block" type="submit" value="Submit">
         	</form>
 </div>

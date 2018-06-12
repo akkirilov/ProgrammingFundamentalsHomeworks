@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> header}}
+{{> searchBar}}
+{{> infoBar}}
+{{> pageTitle}}
+<div class="container">
+    
+    <form class="center-form" action="/memes/delete/{{meme._id}}" enctype=multipart/form-data method="POST">
+    	<div class="center block">
+            <img class="img-center" src="{{meme.memeSrc}}"/>
+        </div>   
+        <div class="center block">
+            <input type="text" id="title" name="title" value="{{meme.title}}" disabled="disabled">
+            <textarea id="description" name="description" rows="10" cols="10" disabled="disabled">{{meme.description}}</textarea>
+			<div class="center block">
+            <input class="block center" type="submit" value="Submit">
+            </div> 
+        </div> 
+    </form>
+    
+</div>
+{{> footer}}
+</body>
+</html>

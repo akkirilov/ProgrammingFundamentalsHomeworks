@@ -12,8 +12,13 @@
   		<img src="{{meme.memeSrc}}" alt="{{title}}"/>
   		</a>
   		<h3> {{meme.title}}</h3>
-  		<p>Description: {{meme.description}}</p>
   		<p>Genre: {{meme.genre.name}}<p>
+  		<p>{{meme.description}}</p>
+  		<hr>
+  		<p>
+    		<a class="" href="/memes/edit/{{meme._id}}"><button>Edit</button></a>
+    		<a class="" href="/memes/delete/{{meme._id}}"><button>Delete</button></a>
+    	</p>
   	</div>
 </div>
 {{> footer}}

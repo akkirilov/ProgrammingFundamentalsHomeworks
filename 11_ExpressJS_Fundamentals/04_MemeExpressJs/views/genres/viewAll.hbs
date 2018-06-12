@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> header}}
+{{> searchBar}}
+{{> infoBar}}
+{{> pageTitle}}
+<div class="container">
+    {{#each genres}}
+    	<div class="block">
+    		<p>
+    			<h3>{{name}}</h3><a class="block" href="/memes/viewByGenre/{{_id}}"></a>
+    		</p>
+    		<p>
+    			<a class="" href="/genres/edit/{{_id}}"><button>Edit</button></a>
+    			<a class="" href="/memes/viewByGenre/{{_id}}"><button>Genre memes</button></a>
+    		</p>
+    		<hr>
+    	</div>
+    {{/each}}
+</div>
+{{> footer}}
+</body>
+</html>

@@ -35,9 +35,19 @@ app.get('/memes/add', memeHandler.getAddMeme);
 app.post('/memes/add', memeHandler.postAddMeme);
 app.get('/memes/search', memeHandler.getMemeSearch);
 app.get('/memes/details/:id', memeHandler.getMemeDetails);
+app.get('/memes/viewByGenre/:genreId', memeHandler.getViewByGenre);
+app.get('/memes/edit/:id', memeHandler.getEditMeme);
+app.post('/memes/edit/:id', memeHandler.postEditMeme);
+app.get('/memes/delete/:id', memeHandler.getDeleteMeme);
+app.post('/memes/delete/:id', memeHandler.postDeleteMeme);
 
 app.get('/genres/add', genreHandler.getAddGenre);
 app.post('/genres/add', genreHandler.postAddGenre);
+app.get('/genres/viewAll', genreHandler.getViewAllGenres);
+app.get('/genres/edit/:id', genreHandler.getEditGenre);
+app.post('/genres/edit/:id', genreHandler.postEditGenre);
+
+
 
 app.get('/*', errorHandler.get404);
 

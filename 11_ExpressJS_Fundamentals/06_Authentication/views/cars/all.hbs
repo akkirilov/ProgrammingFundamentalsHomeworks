@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{{> head}}
+</body class="preload">
+    {{> header}}
+    {{> infoBar}}
+    <section id="main-container">
+        <main>
+          
+<h1>Cars</h1>
+<div class="cars-container">
+        {{# each cars}}
+        <div class="car-container">
+            <section>
+            <img src="{{imageUrl}}" alt='car-image' />
+            {{#if isAdmin}}
+                <a href="/cars/edit/{{_id}}">
+                     [Edit]   
+                </a>
+                <a href="/cars/delete/{{_id}}">
+                     [Delete]   
+                </a>
+            {{/if}} 
+            </section>
+            <section class="info">
+                <strong>{{make}} {{model}}</strong>, color: {{color}}
+                <p> 
+                <span class="rented">Total rented: 
+                    <strong>{{rented}}</strong>
+                </span>
+                </p>
+                <p><a href="/cars/rent/{{_id}}">Rent</a></p>
+            </section>
+        </div>
+        {{/ each}}
+</div>
+          
+        </main>
+    </section>
+    {{> footer}}
+</body>
+</html>

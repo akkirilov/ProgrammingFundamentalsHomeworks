@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+{{> head}}
+</body class="preload">
+    {{> header}}
+    {{> infoBar}}
+    <section id="main-container">
+        <main>
+          
+<h1>Edit a car</h1>
+<form method="post" action="/cars/edit/{{car._id}}">
+    <input name="make" placeholder="enter make" value="{{car.make}}" />
+    <input name="model" placeholder="enter model" value="{{car.model}}" />
+    <input name="imageUrl" placeholder="enter image url" value="{{car.imageUrl}}" />
+    <input name="color", placeholder="enter color (optional)" value="{{car.color}}" />
+    <input id="submit" type="submit" value="EDIT" />
+</form>
+          
+        </main>
+    </section>
+    {{> footer}}
+</body>
+</html>

@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
-let productSchema = mongoose.Schema({
+const productSchema = mongoose.Schema({
 	name : { type: mongoose.Schema.Types.String, required: true },
 	description: { type: mongoose.Schema.Types.String },
 	price: { type: mongoose.Schema.Types.Number, default: 0, min: 0, max: Number.MAX_SAFE_INTEGER },
 	image: { type: mongoose.Schema.Types.String },
-	category: { type: mongoose.Schema.ObjectId, ref: 'Category' },
+	creator: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+	buyer: { type: mongoose.Schema.ObjectId, ref: 'User' },
+	category: { type: mongoose.Schema.ObjectId, ref: 'Category', required: true },
 	isBought: { type: mongoose.Schema.Types.Boolean, default: false }
 });
 

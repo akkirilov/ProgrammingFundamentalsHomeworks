@@ -181,7 +181,10 @@ textarea.input-field {
   margin-top: 0px;
   text-align: center;
 }
-
+.msg {
+  margin-top: 0px;
+  text-align: right;
+}
 .error-msg {
   color: red;
 }

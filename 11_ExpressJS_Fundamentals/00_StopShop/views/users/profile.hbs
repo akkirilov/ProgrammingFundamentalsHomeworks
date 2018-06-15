@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+{{>header}}
+    {{> infoBar}}
+<main>
+    <h1 class="head-title">My profile</h1>
+    <h3 class="head-title">{{user.username}}</h3>
+    <div>
+    <h4 class="head-title">Personal data</h4>
+    <p>First name: {{user.firstName}}</p>
+    <p>Last name: {{user.lastName}}</p>
+    <p>Age: {{user.age}}</p>
+    <p>Gender: {{user.gender}}</p>
+    </div>
+    <br>
+    <h4 class="head-title">Created Products</h4>
+    <div class="cards">
+    	{{# each user.createdProducts}}
+    	<div class="product-card">
+			<img class="product-img" src="{{image}}">
+			<h2>{{name}}</h2>
+			<p>Price: {{price}} BGN</p>
+			<p>{{description}}</p>
+			{{#if isBought}}
+			{{else}}
+			<a class="btn btn-small btn-warning" href="/products/edit/{{_id}}">Edit</a>
+			<a class="btn btn-small btn-danger" href="/products/delete/{{_id}}">Delete</a>
+			{{/if}}
+		</div>
+		{{else}}
+		<p>Nothing create yet!</p>
+		{{/ each}}
+    </div>
+    <br>
+    <h4 class="head-title">Bought Products</h4>
+    <div class="cards">
+    	{{# each user.boughtProducts}}
+    	<div class="product-card">
+			<img class="product-img" src="{{image}}">
+			<h2>{{name}}</h2>
+			<p>Price: {{price}} BGN</p>
+			<p>{{description}}</p>
+		</div>
+		{{else}}
+		<p>Nothing bought yet!</p>
+		{{/ each}}
+    </div>
+    <br>
+    <h4 class="head-title">Created categories</h4>
+	<div class="">
+    	{{# each user.createdCategories}}
+    	<p>{{name}}</p>
+    	{{else}}
+		<p>Nothing create yet!</p>
+		{{/ each}}
+    </div>
+</main>
+
+{{> footer}}
+</body>
+</html>

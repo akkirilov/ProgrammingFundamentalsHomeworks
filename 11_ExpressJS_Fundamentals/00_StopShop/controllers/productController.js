@@ -10,6 +10,32 @@ const pathPrefix = path.normalize(path.join(__dirname, "../"));
 const staticDir = 'static';
 const imageDir = '/images/products/';
 
+function getAll(req, res) {
+	if (!req.user) {
+		req.session.message = 'You are not legged in!';
+		return res.redirect('/users/login');
+	}
+	const message = req.session.message;
+	req.session.message = '';
+	let isLoggedIn = true;
+	let isAdmin = req.session.user.isAdmin;
+	if (!isAdmin) {
+		req.session.message = "You don't have permission!";
+		return res.redirect('/');
+	}
+	Product.find().populate('category')
+	.then(function(products) {
+		for (let p of products) {
+			p.isCreatorOrAdmin = (p.creator.toString() === req.user.toString() || isAdmin);
+			p.awolledToBuy = (p.creator.toString() !== req.user.toString());
+		}
+		return res.render('products/all', { products, message, isLoggedIn, isAdmin });
+	}).catch(function(err) {
+		console.log(err);
+		return res.render('error/error');
+	});
+}
+
 function getFindByCategory(req, res) {
 	const categoryId = req.params.id;
 	let isLoggedIn = false;
@@ -217,6 +243,10 @@ function postEditProduct(req, res) {
 			req.session.message = "You don't have permission!";
 			return res.redirect('/');
 		}
+		if (p.isBought) {
+			req.session.message = "This product is already bought!";
+			return res.redirect('/');
+		}
 		let form = new formidable.IncomingForm();
 	    form.parse(req, function (err, fields, files) {
 	    	let filename;
@@ -294,13 +324,9 @@ function postDeleteProduct(req, res) {
 	}
 	let productId = req.params.id;
 	let isAdmin = req.session.user.isAdmin;
-	Product.findBy(productId).then(function(product) {
+	Product.findById(productId).then(function(product) {
 		if (!isAdmin && product.creator.toString() !== req.user.toString()) {
 			req.session.message = "You don't have permission!";
-			return res.redirect('/');
-		}
-		if (product.isBought) {
-			req.session.message = "Product is already bought!";
 			return res.redirect('/');
 		}
 		Product.findByIdAndRemove(productId).then(function(p) {
@@ -308,15 +334,19 @@ function postDeleteProduct(req, res) {
 				c.products = c.products.filter(x => x._id.toString() != productId);
 				c.save();
 				User.findById(p.creator).then(function(user) {
-					user.createdProducts = user.createdProducts.filter(x => x._id.toString() != p._id);
+					user.createdProducts = user.createdProducts.filter(x => x._id.toString() != p._id.toString());
 					user.save();
 					if (!p.image.endsWith('/default.jpeg')) {
 						fs.unlink(pathPrefix + staticDir + p.image, function() {
 							console.log("Delete image " + p.image);
 						});
 					}
-					req.session.message = `You successfully delete ${p.name}!`;
-					res.redirect('/');
+					User.findById(p.buyer).then(function(buyer) {
+						buyer.boughtProducts = buyer.boughtProducts.filter(x => x._id.toString() != p._id.toString());
+						buyer.save();
+						req.session.message = `You successfully delete ${p.name}!`;
+						res.redirect('/');
+					});
 				}).catch(function(err) {
 					console.log(err);
 					return res.render('error/error');
@@ -335,6 +365,8 @@ function postDeleteProduct(req, res) {
 		return res.redirect('/');
 	});
 }
+
+router.get('/all', getAll);
 router.get('/findByCategory/:id', getFindByCategory);
 router.get('/add', getAddProduct);
 router.post('/add', postAddProduct);

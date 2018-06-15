@@ -10,6 +10,4 @@ function get404(req, res) {
 	res.render('error/error', { message, isLoggedIn, isAdmin });
 }
 
-module.exports = {
-		get404
-};
+module.exports = get404;

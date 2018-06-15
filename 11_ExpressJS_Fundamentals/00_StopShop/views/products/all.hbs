@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+{{>header}}
+    {{> infoBar}}
+<main>
+    <h1 class="head-title">All products!</h1>
+    <div class="cards">
+    	{{# each products}}
+    	<div class="product-card">
+			<img class="product-img" src="{{image}}">
+			<h2>{{name}}</h2>
+			<p>Price: {{price}} BGN</p>
+			<p>{{description}}</p>
+    		<p>Creator: {{buyer.creator}}</p>
+    		{{#if isBought}}
+    		<p>Buyer: {{buyer.username}}</p>
+    		{{/if}}
+    		{{#if awolledToBuy}}
+			<a class="btn btn-small btn-success" href="/products/buy/{{_id}}" disabled="disabled">Buy</a>
+			{{/if}}
+			{{#if isCreatorOrAdmin}}
+			<a class="btn btn-small btn-danger" href="/products/delete/{{_id}}">Delete</a>
+			{{/if}}
+			<a class="btn btn-small btn-primary" href="/products/findByCategory/{{category._id}}">More {{category.name}}</a>
+		</div>
+		{{/ each}}
+    </div>
+</main>
+
+{{> footer}}
+</body>
+</html>

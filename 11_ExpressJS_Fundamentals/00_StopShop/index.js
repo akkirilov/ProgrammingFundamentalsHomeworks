@@ -11,8 +11,9 @@ const userController = require('./controllers/userController');
 const errorHandler = require('./controllers/errorHandler');
 
 app.get('/', homeController);
+app.get('/index.html', homeController);
 app.use('/products', productController);
 app.use('/categories', categoryController);
 app.use('/users', userController);
 
-app.get('/*', errorHandler.get404);
+app.get('/*', errorConroller);

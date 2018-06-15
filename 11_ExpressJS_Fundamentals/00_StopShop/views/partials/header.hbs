@@ -6,6 +6,9 @@
         <li><a href="/products/add">Add Product</a></li>
         <li><a href="/categories/add">Add Category</a></li>
         <li><a href="/users/profile">My Profile</a></li>
+        {{#if isAdmin}}
+         <li><a href="/products/all">All Product</a></li>
+        {{/if}}
         <li><a href="/users/logout">Logout</a></li>
         {{else}}
         <li><a href="/users/login">Login</a></li>

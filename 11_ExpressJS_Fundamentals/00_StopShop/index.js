@@ -8,7 +8,7 @@ const homeController = require('./controllers/homeController');
 const productController = require('./controllers/productController');
 const categoryController = require('./controllers/categoryController');
 const userController = require('./controllers/userController');
-const errorHandler = require('./controllers/errorHandler');
+const errorController = require('./controllers/errorController');
 
 app.get('/', homeController);
 app.get('/index.html', homeController);
@@ -16,4 +16,4 @@ app.use('/products', productController);
 app.use('/categories', categoryController);
 app.use('/users', userController);
 
-app.get('/*', errorConroller);
+app.get('/*', errorController);

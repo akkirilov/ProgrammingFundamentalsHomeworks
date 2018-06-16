@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{{> head}}
+<body>
+{{> header}}
+{{> infoBar}}
+        <main>
+			<form class="form center-form" method="post" action="/users/login">
+			<h2 class="center">Login</h2>
+			    <div class="form-group">
+        		<label for="name">Name</label>
+        		<input class="input-field" id="name" name="username" placeholder="enter username"/>
+      			</div>
+      			<div class="form-group">
+        		<label for="password">Password</label>
+        		<input class="input-field" type="password" id="password" name="password" placeholder="enter password"/>
+      			</div>
+      			<input class="btn form-btn" type="submit" class="btn" value="LOGIN">
+				<br>
+	          	<a href="/users/register">Register</a>
+			</form>
+        </main>
+{{> footer}}
+</body>
+</html>

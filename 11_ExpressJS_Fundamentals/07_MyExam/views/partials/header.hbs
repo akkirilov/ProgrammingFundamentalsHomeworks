@@ -1,0 +1,17 @@
+<header>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home Page</a></li>
+        {{#if isLoggedIn}}
+        	
+       		{{#if isAdmin}}
+       		
+        	{{/if}}
+        <li><a href="/users/logout">Logout</a></li>
+        {{else}}
+        <li><a href="/users/login">Login</a></li>
+        <li><a href="/users/register">Register</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+</header>

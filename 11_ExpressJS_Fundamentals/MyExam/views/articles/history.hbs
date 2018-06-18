@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+<div>
+{{> infoBar}}
+{{> aside}}
+<div id="container">
+{{>header}}
+
+            <main>
+                <h1>Welcome to SoftUni Wiki!</h1>
+                <section>
+                    <h2>{{article.title}}</h2>
+                    <div class="spacer">
+                        <h3>Edit hostory</h3>
+                        <ul>
+                        {{#each article.versions}}
+                            <li>
+                                <a href="/articles/version/{{_id}}">{{editDate}}‎</a> by
+                                <span class="author">{{author.email}}</span>
+                            </li>
+    					{{/each}}
+                        </ul>
+                    </div>
+                </section>
+            </main>
+
+{{> footer}}
+</div>
+</div>
+</body>
+</html>

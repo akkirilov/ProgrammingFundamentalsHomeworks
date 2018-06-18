@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+<div>
+{{> infoBar}}
+{{> aside}}
+<div id="container">
+{{>header}}
+
+<main>
+                <h1>Welcome to SoftUni Wiki!</h1>
+                <section id="featured">
+                    <h2>Latest article</h2>
+                    <article>
+                        <h3>{{latestArticle.title}}</h3>
+                        <p>
+                            {{latestArticle.shortContent}}
+                        </p>
+                        <div class="controls">
+                            <a href="/articles/{{latestArticle._id}}">Read more</a>
+                        </div>
+                    </article>
+                </section>
+                <section id="recent">
+                    <h2>Recently added articles</h2>
+                    <ul>
+                    {{#each articles}}
+                    	<li>
+                            <a href="/articles/{{_id}}">{{title}}</a>
+                        </li>
+                    {{/each}}
+                    </ul>
+                </section>
+            </main>
+
+{{> footer}}
+</div>
+</div>
+</body>
+</html>

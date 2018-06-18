@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+<div>
+{{> infoBar}}
+{{> aside}}
+<div id="container">
+{{>header}}
+
+<main>
+                <h1>Welcome to SoftUni Wiki!</h1>
+                <section>
+                    <h2>Register</h2>
+                    <div class="spacer">
+                        <form method="POST">
+                            <label for="email">Email:</label>
+                            <input id="email" name="email" type="text">
+                            <label for="password">Password:</label>
+                            <input id="password" name="password" type="password">
+                            <label for="passwordRepeat">Repeat password:</label>
+                            <input id="passwordRepeat" name="passwordRepeat" type="password">
+                            <input type="submit" value="Register">
+                        </form>
+                    </div>
+                </section>
+            </main>
+
+{{> footer}}
+</div>
+</div>
+</body>
+</html>

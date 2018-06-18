@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+<div>
+{{> infoBar}}
+{{> aside}}
+<div id="container">
+{{>header}}
+
+<main>
+                <h1>Welcome to SoftUni Wiki!</h1>
+                <div class="spacer">
+                    <h2>{{article.title}}
+                    {{#if article.isLocked}}
+                    	 <div class="controls">
+                    {{#if isAdmin}}
+                            <a href="/articles/edit/{{article._id}}">[edit]</a>
+                            <a href="/articles/history/{{article._id}}">[history]</a>
+                            <a href="/articles/unlock/{{article._id}}">[unlock]</a>
+                        {{else if isLoggedIn}}
+                            <a href="/articles/history/{{article._id}}">[history]</a>
+                    {{/if}}
+                        </div>
+                    {{else}}
+                        <div class="controls">
+                    {{#if isLoggedIn}}
+                       <a href="/articles/edit/{{article._id}}">[edit]</a>
+                       <a href="/articles/history/{{article._id}}">[history]</a>
+                    {{#if isAdmin}}
+                            <a href="/articles/lock/{{article._id}}">[lock]</a>
+                    {{/if}}
+                    {{/if}}
+                    
+                     {{/if}}
+                        </div>
+                    </h2>
+                    <article>
+                    <p>
+                        {{{article.content}}}
+                    </p>
+                    </article>
+                </div>
+            </main>
+
+{{> footer}}
+</div>
+</div>
+</body>
+</html>

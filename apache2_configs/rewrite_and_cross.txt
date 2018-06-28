@@ -1,15 +1,18 @@
 # sudo a2enmod rewrite
+# Enable Rewrite engine
 RewriteEngine on
 DirectoryIndex index.php
 Options +FollowSymlinks -Indexes
 
 # sudo a2enmod headers
-Header set Access-Control-Allow-Origin "http://localhost:3000"
+# Enable Cross-origin resource sharing (CORS) 
+#Header set Access-Control-Allow-Origin "http://localhost:3000"
 #Header set Access-Control-Allow-Origin "*"
 
+# Enable content at public folder in root folder
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !^.*/static/.*$
+RewriteCond %{REQUEST_FILENAME} !^.*/public/.*$
 RewriteRule ^(.*?)$ index.php [QSA,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f

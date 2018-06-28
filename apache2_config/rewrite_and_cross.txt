@@ -1,0 +1,16 @@
+# sudo a2enmod rewrite
+RewriteEngine on
+DirectoryIndex index.php
+Options +FollowSymlinks -Indexes
+
+# sudo a2enmod headers
+Header set Access-Control-Allow-Origin "http://localhost:3000"
+#Header set Access-Control-Allow-Origin "*"
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !^.*/static/.*$
+RewriteRule ^(.*?)$ index.php [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*?)$ index.php [QSA,L]

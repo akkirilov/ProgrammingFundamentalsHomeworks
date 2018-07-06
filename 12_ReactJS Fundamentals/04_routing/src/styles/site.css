@@ -1,0 +1,120 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.div {
+    border: 1px solid black;
+}
+
+body {
+    background: #dddddd;
+}
+
+#container {
+    margin: 10px;
+}
+
+.content {
+    background: #ffffff;
+    overflow: auto;
+}
+
+footer {
+    text-align: center;
+    margin: 10px;
+}
+
+.welcome {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.welcome>* {
+    vertical-align: top;
+    overflow: auto;
+}
+
+.about {
+    background: #ddf9c0;
+    padding: 20px;
+    margin: 10px;
+    height: 340px;
+}
+
+.signup {
+    float: right;
+    width: 200px;
+}
+
+#loginForm {
+    display: block;
+    background: #ddf9c0;
+    margin: 10px;
+    padding: 10px;
+    height: 150px;
+    position: relative;
+}
+
+#loginForm>* {
+    width: 150px;
+    box-sizing: border-box;
+}
+
+#registerForm {
+    display: block;
+    background: #ddf9c0;
+    margin: 10px;
+    padding: 10px;
+    height: 180px;
+    position: relative;
+}
+
+#registerForm>* {
+    width: 150px;
+    box-sizing: border-box;
+}
+
+#btnLogin, #btnRegister {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+}
+
+#notifications {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    margin: 1em;
+}
+
+.notification {
+    font-size: 1.5em;
+    color: #ffffff;
+    display: none;
+    text-align: right;
+}
+
+.notification>span {
+    display: inline-block;
+    padding:  0.5em 2em 0.5em 2em;
+    border-radius: 10px;
+}
+
+#loadingBox>span {
+    background: #7CB3E9;
+}
+#infoBox>span {
+    background: #393;
+}
+#errorBox>span {
+    background: #F50;
+}

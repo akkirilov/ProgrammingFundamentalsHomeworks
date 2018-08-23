@@ -1,0 +1,63 @@
+<div *ngIf="errorMsg" (click)="clearError()" class="alert alert-danger">
+      	{{errorMsg}}
+</div>
+<h1>Registration Form</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input formControlName="username" type="text" class="form-control" id="username" 
+      required>
+      <div [hidden]="registerForm.controls.username.valid || registerForm.controls.username.pristine" class="alert alert-danger">
+      	Username must start with a capital letter and must contain only letters and digits.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input formControlName="password" type="password" class="form-control" id="password" 
+      required>
+      <div [hidden]="registerForm.controls.password.valid || registerForm.controls.password.pristine" class="alert alert-danger">
+      	Password must contain only letters and digits and must be between 4 and 16 symbols.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" 
+      required>
+	  <div [hidden]="registerForm.controls.confirmPassword.pristine || registerForm.controls.confirmPassword.valid" class="alert alert-danger">
+      	Both passwords must match.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input formControlName="firstName" type="text" class="form-control" id="firstName"
+      required>
+      <div [hidden]="registerForm.controls.firstName.valid || registerForm.controls.firstName.pristine" class="alert alert-danger">
+      	First name must contain only letters and start with a capital letter.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input formControlName="lastName" type="text" class="form-control" id="lastName" 
+      required>
+      <div [hidden]="registerForm.controls.lastName.valid || registerForm.controls.lastName.pristine" class="alert alert-danger">
+      	Last name must contain only letters and start with a capital letter.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input formControlName="email"  type="text" class="form-control" id="email"
+      required>
+      <div [hidden]="registerForm.controls.email.valid || registerForm.controls.email.pristine" class="alert alert-danger">
+      	Invalid email.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input formControlName="age"  type="number" class="form-control" id="age">
+            <div [hidden]="registerForm.controls.age.valid || registerForm.controls.age.pristine" class="alert alert-danger">
+      	Age is not required, but if you entered, it must be number, greater than zero.
+      </div>
+    </div>
+
+    <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success">Register</button>
+  </form>

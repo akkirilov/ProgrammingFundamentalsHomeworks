@@ -24,10 +24,11 @@ export class NavigationComponent implements OnInit {
               .subscribe(data => {
                   console.log(data);
                   sessionStorage.clear();
+                  this.router.navigate(['/login']);
               },
               error => {
                   console.log(error);
-              })
+              });
       }
   }
 
